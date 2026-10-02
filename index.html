@@ -23,7 +23,7 @@
   --script:"Courier Prime", "Courier New", Courier, monospace;
   --ui:"Martian Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;  /* à remplacer par t26-carbon */
   --size:15px;
-  --proj-bg:#0000EE;   /* fonds galerie et awards, réglables séparément dans le menu d'essais */
+  --proj-bg:#0000EE;   /* fond galerie (bleu) ; awards en nuit */
   --proj-fg:#FFFFFF;
   --aw-bg:#010824;
   --aw-fg:#FFFFFF;
@@ -124,35 +124,27 @@ a{color:var(--blue)}
 .cap.left-bottom{right:calc(100% + 22px);bottom:0;align-items:flex-end;text-align:right}
 @media (max-width:760px){
   .proj{margin-left:var(--lm,0%);width:min(var(--wm,88%), calc(60vh * var(--ar)));margin-top:16vh}
-  .cap{max-width:100%}
-  .cap.right-top,.cap.right-mid,.cap.right-bottom{left:0;right:auto;top:calc(100% + 12px);bottom:auto;transform:none;align-items:flex-start;text-align:left}
-  .cap.left-bottom{right:0;left:auto;top:calc(100% + 12px);bottom:auto}
+  .proj{margin-top:12vh}
+  .cap,.cap.above-left,.cap.above-right,.cap.below-left,.cap.below-right,.cap.right-top,.cap.right-mid,.cap.right-bottom,.cap.left-bottom{position:static;transform:none;width:auto;max-width:100%;margin-top:12px;align-items:flex-start;text-align:left}
+  .cap .fn{white-space:normal;word-break:break-word}
+  .cap .aw{white-space:normal}
 }
 
-/* menu d'essais (prototype seulement), visible sur la galerie */
-.essais{position:fixed;z-index:20;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:2px;padding:4px;background:var(--paper);border:1px solid var(--rule);border-radius:999px;box-shadow:0 4px 18px rgba(1,8,36,.18);font-size:10.5px;max-width:calc(100% - 24px);overflow-x:auto;white-space:nowrap}
-.essais.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
-.essais span{padding:0 6px 0 10px;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
-.essais i{width:1px;height:16px;background:var(--rule);margin:0 4px}
-.essais button{border:0;background:transparent;font:inherit;color:var(--ink);padding:6px 10px;border-radius:999px;cursor:pointer}
-.essais button:hover{background:var(--desk)}
-.essais button[aria-pressed="true"]{background:var(--blue);color:#fff}
 
 /* ---------- awards : sur le bleu, comme l'ancien site ; chaque ligne se tape en arrivant à l'écran ---------- */
 .awards{position:relative;z-index:6;background:var(--aw-bg);color:var(--aw-fg);transition:background .3s,color .3s;padding-block:0 18vh;padding-inline:16px}
 .ahead{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;gap:16px;padding-block:20px 16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;background:var(--aw-bg);transition:background .3s}
 .alist{list-style:none;margin:14vh auto 0;padding:0;width:min(100%, 80vw);display:flex;flex-direction:column;gap:20px;font-size:12px;line-height:1.5;letter-spacing:.03em;font-variant-numeric:tabular-nums}
-.alist li{display:flex;align-items:baseline;gap:5px;min-height:1.4em}
-.alist .l,.alist .r{white-space:pre;position:relative}
+.alist li{display:flex;align-items:flex-end;gap:6px;min-height:1.4em}
+.alist .l,.alist .r{position:relative}
+.alist .l{white-space:pre-wrap;min-width:0}
+.alist .r{white-space:pre;flex:none}
 .alist .y,.alist .sep{color:var(--aw-accent)}
-.alist .lead{flex:1;min-width:24px;align-self:center;height:1px;transform:translateY(1px);background:repeating-linear-gradient(90deg,var(--aw-accent) 0 3px,transparent 3px 5px);clip-path:inset(0 100% 0 0)}
+.alist .lead{flex:1 1 24px;min-width:24px;align-self:flex-end;height:1px;margin-bottom:.48em;background:repeating-linear-gradient(90deg,var(--aw-accent) 0 3px,transparent 3px 5px);clip-path:inset(0 100% 0 0)}
 .alist li.lead-on .lead{clip-path:inset(0 0 0 0);transition:clip-path .32s steps(14)}
 .alist .k{position:absolute;left:calc(100% + 2px);top:.15em;width:.55em;height:1.05em;background:currentColor;animation:blink 1.05s steps(1) infinite}
 @media (max-width:600px){
-  .alist{width:100%}
-  .alist li{flex-wrap:wrap;gap:4px 6px}
-  .alist .l{white-space:normal;flex-basis:100%}
-  .alist .lead{min-width:40px}
+  .alist{width:100%;font-size:11px;gap:16px}
 }
 
 /* ---------- nous : retour au bureau pointillé ; deux lignes partent de nos têtes et se rejoignent en 2009 ---------- */
@@ -172,7 +164,7 @@ a{color:var(--blue)}
 .ents{position:relative;list-style:none;margin:0;padding:6vh 0 0}
 .ent{position:relative;margin-bottom:clamp(44px,7vh,80px);--x:50%}
 .ent .nd{position:absolute;left:var(--x);top:.15em;transform:translateX(-50%);font-size:13px;line-height:1;color:var(--blue);background:var(--desk);padding:2px 1px;z-index:1}
-.ent .tx{width:min(320px, 100%)}
+.ent .tx{width:min(320px, 100%);position:relative;background:var(--desk);box-shadow:0 0 0 14px var(--desk)}
 .ent.R .tx{margin-left:calc(var(--x) + 22px)}
 .ent.L .tx{margin-left:calc(var(--x) - 22px - min(320px, 100%));text-align:right}
 .ent .yr{display:block;position:relative;font-size:11px;line-height:1.5;letter-spacing:.08em;text-transform:uppercase;min-height:1.5em;white-space:normal}
@@ -236,19 +228,6 @@ a{color:var(--blue)}
   <div class="ghead"><span>Nos projets</span><span class="num" id="gnum">01 / 08</span></div>
   <div class="gal" id="gal"></div>
 </section>
-<nav class="essais" id="essais" aria-label="Essais de couleurs">
-  <span>Projets</span>
-  <button type="button" id="pj-bleu" data-k="proj" data-v="bleu">Bleu</button>
-  <button type="button" id="pj-blanc" data-k="proj" data-v="blanc">Blanc</button>
-  <button type="button" id="pj-gris" data-k="proj" data-v="gris">Gris</button>
-  <button type="button" id="pj-nuit" data-k="proj" data-v="nuit">Nuit</button>
-  <i></i>
-  <span>Awards</span>
-  <button type="button" id="aw-bleu" data-k="aw" data-v="bleu">Bleu</button>
-  <button type="button" id="aw-blanc" data-k="aw" data-v="blanc">Blanc</button>
-  <button type="button" id="aw-gris" data-k="aw" data-v="gris">Gris</button>
-  <button type="button" id="aw-nuit" data-k="aw" data-v="nuit">Nuit</button>
-</nav>
 <section class="awards" id="awards" aria-label="Nos awards">
   <div class="ahead"><span>Nos awards</span></div>
   <ol class="alist" id="alist"></ol>
@@ -486,7 +465,6 @@ document.fonts.ready.then(() => {
   // [fond, texte, accent]
   const BGS = {bleu:["#0000EE","#FFFFFF","#9DA8FF"], blanc:["#FFFFFF","#010824","#0000EE"], gris:["#ECEDF3","#010824","#0000EE"], nuit:["#010824","#FFFFFF","#3D3DFF"]};
   const SEC = {bg:"#0000EE", fg:"#FFFFFF"};
-  try { const o = JSON.parse(localStorage.getItem("tf-couleurs") || "{}"); if (o.proj) opts.proj = o.proj; if (o.aw) opts.aw = o.aw; } catch(e){}
   opts.reveal = "ascii"; opts.name = "type";
 
   const hash = (i, j, s) => { let h = (i * 374761393 + j * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
@@ -496,7 +474,7 @@ document.fonts.ready.then(() => {
     a.className = "proj"; a.href = "https://thomasetflorian.com/portfolios/" + p.href + "/"; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p.fn.replace(/\.mp4$/, "").replace(/_/g, " "));
     a.style.cssText = `--l:${p.l}%;--w:${p.w}%;--mt:${p.mt}vh;--ratio:${p.r};--ar:${p.r.split('/')[0]/p.r.split('/')[1]};--lm:${p.lm}%;--wm:${p.wm}%`;
-    a.innerHTML = `<div class="frame"><canvas></canvas><span class="ph">Visuel ${p.r.replace("/",":")}</span><div class="cap ${p.cap}"><span class="fn"></span>${(p.aw||[]).length ? `<ul class="aw">${p.aw.map(t => `<li><span class="ast" aria-hidden="true">***</span> ${t} <span class="ast" aria-hidden="true">***</span></li>`).join("")}</ul>` : ""}<span class="go">Voir le projet →</span></div></div>`;
+    a.innerHTML = `<div class="frame"><canvas></canvas><span class="ph">Visuel ${p.r.replace("/",":")}</span></div><div class="cap ${p.cap}"><span class="fn"></span>${(p.aw||[]).length ? `<ul class="aw">${p.aw.map(t => `<li><span class="ast" aria-hidden="true">***</span> ${t} <span class="ast" aria-hidden="true">***</span></li>`).join("")}</ul>` : ""}<span class="go">Voir le projet →</span></div>`;
     gal.appendChild(a);
     const it = {p, idx, el:a, cv:a.querySelector("canvas"), ph:a.querySelector(".ph"), fn:a.querySelector(".fn"), rev:-1, typed:0, typing:false, named:false};
     it.ctx = it.cv.getContext("2d");
@@ -583,28 +561,16 @@ document.fonts.ready.then(() => {
     items.forEach(it => { it.named = false; it.typing = false; it.fn.textContent = ""; it.el.classList.remove("named"); });
   }
   function apply(){
-    document.querySelectorAll("#essais button").forEach(b => b.setAttribute("aria-pressed", String(opts[b.dataset.k] === b.dataset.v)));
-    try { localStorage.setItem("tf-couleurs", JSON.stringify({proj:opts.proj, aw:opts.aw})); } catch(e){}
     const [pbg, pfg] = BGS[opts.proj] || BGS.bleu, [abg, afg, aac] = BGS[opts.aw] || BGS.nuit;
     SEC.bg = pbg; SEC.fg = pfg;
     const st = document.documentElement.style;
     st.setProperty("--proj-bg", pbg); st.setProperty("--proj-fg", pfg); st.setProperty("--aw-bg", abg); st.setProperty("--aw-fg", afg); st.setProperty("--aw-accent", aac);
     items.forEach(it => { it.rev = -1; });
   }
-  document.querySelectorAll("#essais button").forEach(b => b.addEventListener("click", () => {
-    opts[b.dataset.k] = b.dataset.v; if (b.dataset.k === "name") resetNames(); apply();
-    if (!running) frame();
-  }));
-
-  const essais = document.getElementById("essais");
   new IntersectionObserver(es => es.forEach(e => {
     running = e.isIntersecting;
     if (running) requestAnimationFrame(frame);
   }), {threshold:0}).observe(document.getElementById("projets"));
-  // le menu reste visible sur la galerie et sur les awards
-  const seen = new Set();
-  const mio = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)); essais.classList.toggle("on", seen.size > 0); }, {threshold:0});
-  mio.observe(document.getElementById("projets")); mio.observe(document.getElementById("awards"));
 
   let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { items.forEach(setup); frame(); }, 120); });
   document.fonts.ready.then(() => { items.forEach(setup); apply(); frame(); });
