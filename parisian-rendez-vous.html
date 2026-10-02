@@ -230,6 +230,11 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <h1 id="ideaT" aria-label="Vous vous souvenez des trottinettes en libre service ?"></h1>
     <p><span>Il y en avait partout dans Paris. On s’est dit qu’il y avait forcément un truc à faire avec pour le lancement du Drugstore Parisien. Vu les résultats, il y avait effectivement un truc à faire. On en vient presque à les regretter, ces bonnes vieilles trottinettes.</span></p>
   </section>
+
+  <figure class="m v1">
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/gvrgHtK3zx0?rel=0&modestbranding=1&playsinline=1" title="The Parisian Rendez-vous, média 1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <figcaption class="cap right" data-t="VIDEO_CASE_Parisian_Rendez-vous.mp4"></figcaption>
+  </figure>
 </main>
 
 <section class="gal" aria-label="Images du projet" style="--gr:auto">
@@ -361,7 +366,7 @@ const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
 const TITLE = "Vous vous souvenez des trottinettes en libre service ?";
-const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });
+const chars = []; [...TITLE].forEach(c => { if (c === "\n"){ h1.appendChild(document.createElement("br")); return; } const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); chars.push(sp); });
 const bar = document.createElement("span"); bar.className = "bar"; h1.appendChild(bar);
 function placeBar(i){
   const ref = chars[Math.max(0, i - 1)].getBoundingClientRect(), hr = h1.getBoundingClientRect();

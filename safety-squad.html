@@ -366,7 +366,7 @@ const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
 const TITLE = "Nuk veut prendre soin de tous les bébés.";
-const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });
+const chars = []; [...TITLE].forEach(c => { if (c === "\n"){ h1.appendChild(document.createElement("br")); return; } const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); chars.push(sp); });
 const bar = document.createElement("span"); bar.className = "bar"; h1.appendChild(bar);
 function placeBar(i){
   const ref = chars[Math.max(0, i - 1)].getBoundingClientRect(), hr = h1.getBoundingClientRect();

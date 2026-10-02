@@ -234,6 +234,11 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/09/Cuisinella-Gif-Topinambour2.mp4" aria-label="Cuisinel-là, média 1"></video></div>
     <figcaption class="cap right" data-t="Cuisinella_Topinambour.gif"></figcaption>
   </figure>
+
+  <figure class="m v2">
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/lhlVSG6ijYY?rel=0&modestbranding=1&playsinline=1" title="Cuisinel-là, média 2" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <figcaption class="cap left" data-t="VIDEO_Cuisinella.mp4"></figcaption>
+  </figure>
 </main>
 
 <section class="gal" aria-label="Images du projet" style="--gr:16/9">
@@ -349,8 +354,8 @@ const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
-const TITLE = "Toute une campagne qui part de là. Ou plutôt d’un La.";
-const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });
+const TITLE = "Toute une campagne qui part de là.\nOu plutôt d’un La.";
+const chars = []; [...TITLE].forEach(c => { if (c === "\n"){ h1.appendChild(document.createElement("br")); return; } const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); chars.push(sp); });
 const bar = document.createElement("span"); bar.className = "bar"; h1.appendChild(bar);
 function placeBar(i){
   const ref = chars[Math.max(0, i - 1)].getBoundingClientRect(), hr = h1.getBoundingClientRect();

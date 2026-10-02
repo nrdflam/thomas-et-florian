@@ -56,17 +56,19 @@ P = [
                ("2022", "CRESTA AWARDS_BRONZE X4", ""), ("2022", "INNOVATION BY DESIGN_FINALIST", ""), ("2022", "CLIO_SHORTLIST", ""),
                ("2022", "ONE SHOW_SHORTLIST X3", "")]),
   dict(slug="cuisinella", fn="CUISINEL-LÀ_Cuisinella.mp4", name="Cuisinel-là", client="Cuisinella",
-       h1="Toute une campagne qui part de là. Ou plutôt d’un La.",
+       h1="Toute une campagne qui part de là.\nOu plutôt d’un La.",
        p="",
        hero=("video", u("2024/11/Cuisinella-Gif-Poulet.mp4"), None, {"nat", "loop"}),
-       media=[("video", u("2024/09/Cuisinella-Gif-Topinambour2.mp4"), "Cuisinella_Topinambour.gif", {"nat", "loop"})],
+       media=[("video", u("2024/09/Cuisinella-Gif-Topinambour2.mp4"), "Cuisinella_Topinambour.gif", {"nat", "loop"}),
+              ("yt", "lhlVSG6ijYY", "VIDEO_Cuisinella.mp4", set())],
        gal=[u(f"2024/11/221216_CUISINELLA-20sec-WEB.mp4.01_00_{t}.jpg") for t in ("04_06.Still002", "05_23.Still003", "09_05.Still004", "11_08.Still005", "12_24.Still006", "15_11.Still007")], gr="16/9",
        credits=[ECD_AP, AD, CW, ("Réalisateur", "Big Red Button")], awards=[]),
   dict(slug="parisian-rendez-vous", fn="THE_PARISIAN_RENDEZ-VOUS.mp4", name="The Parisian Rendez-vous", client="Le Drugstore Parisien",
        h1="Vous vous souvenez des trottinettes en libre service ?",
        p="Il y en avait partout dans Paris. On s’est dit qu’il y avait forcément un truc à faire avec pour le lancement du Drugstore Parisien. Vu les résultats, il y avait effectivement un truc à faire. On en vient presque à les regretter, ces bonnes vieilles trottinettes.",
        hero=("video", u("2024/10/ANIM-LOGO.mp4"), None, {"nat", "clean", "loop"}),
-       media=[], gal=[u("2024/10/1.jpg"), u("2024/10/2-1.jpg"), u("2024/10/3-1.jpg")], gr="auto",
+       media=[("yt", "gvrgHtK3zx0", "VIDEO_CASE_Parisian_Rendez-vous.mp4", set())],
+       gal=[u("2024/10/1.jpg"), u("2024/10/2-1.jpg"), u("2024/10/3-1.jpg")], gr="auto",
        credits=[("Executive Creative Director", "Thomas Derouault"), ("Creative Directors", "Paul-Émile Raymond & Adrien Mancel"), AD, CW,
                 ("Motion Designer", "Thomas Mouilley"), ("Editing", "Agathe Soula – The Good Tape"), ("Head of Production", "Raphaël Fruchard")],
        awards=[("2020", "CLUB DES DA_SILVER", "Activation"), ("2020", "CLUB DES DA_SILVER", "Use of digital"), ("2020", "CLUB DES DA_BRONZE", "Ambient"),
@@ -128,7 +130,7 @@ def build(i, d):
         assert s.count(a) >= 1, (d["slug"], a[:80])
         s = s.replace(a, b, cnt)
     title = f'{d["name"]} · Thomas & Florian'
-    desc = f'{d["name"]} pour {d["client"]} : {d["h1"]}'
+    desc = f'{d["name"]} pour {d["client"]} : {d["h1"]}'.replace("\n", " ")
     rep("<title>Immunity Potion · Thomas & Florian</title>", f"<title>{esc(title)}</title>")
     rep('<meta name="description" content="Immunity Potion pour Actimel : protéger les joueurs aussi bien en jeu que dans la vraie vie.">',
         f'<meta name="description" content="{esc(desc)}">')
@@ -175,7 +177,7 @@ def build(i, d):
     para = f'\n    <p><span>{esc(fr(d["p"]))}</span></p>' if d["p"] else ""
     main += f'''  <section class="intro" id="intro">
     <div class="kick">{kick}</div>
-    <h1 id="ideaT" aria-label="{esc(fr(d["h1"]))}"></h1>{para}
+    <h1 id="ideaT" aria-label="{esc(fr(d["h1"]).replace(chr(10), " "))}"></h1>{para}
   </section>
 '''
     k = 0; ms = d["media"]; vi = 0
@@ -188,6 +190,8 @@ def build(i, d):
             k += 2; continue
         main += "\n" + media_html(m, VARIANTS[vi % 4], f'{d["name"]}, média {k + 1}'); k += 1; vi += 1
     s = s[:a] + main + s[b:]
+    rep('const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });',
+        'const chars = []; [...TITLE].forEach(c => { if (c === "\\n"){ h1.appendChild(document.createElement("br")); return; } const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); chars.push(sp); });')
     rep('const TITLE = "Protéger les joueurs aussi bien en jeu que dans la vraie vie.";', f"const TITLE = {json.dumps(fr(d['h1']), ensure_ascii=False)};")
 
     # ---- galerie
