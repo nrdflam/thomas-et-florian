@@ -40,6 +40,8 @@ main,section,nav,footer{position:relative;z-index:1}
 .top .back:hover{text-decoration:underline;text-underline-offset:3px}
 .top .file{display:flex;align-items:center;gap:10px;min-width:0}
 .top .ico{flex:none;width:14px;height:16px;color:var(--blue);image-rendering:pixelated}
+.top .tg{justify-self:end;font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);background:none;border:0;padding:4px 0;cursor:pointer;white-space:pre}
+.top .tg:hover{text-decoration:underline;text-underline-offset:3px}
 .top .fn{white-space:pre;overflow:hidden;text-overflow:ellipsis;min-width:0;font-weight:500}
 
 /* colonne : légers décalages, comme sur la home */
@@ -70,12 +72,13 @@ main{padding:4vh 0 16vh}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* galerie sur le bleu : les six images côte à côte, tailles différentes ; SHOT_XX discret qui flotte avec la souris */
-.gal{position:relative;color:#fff;padding:10vh 0}
+.gal{position:relative;color:#fff;background:var(--blue);padding:var(--pt,20vh) 0 0}
 .gal .pin{position:sticky;top:var(--pt,20vh);display:flex;align-items:center;overflow:hidden;background:var(--blue);padding:7vh 0}
 .row{display:flex;align-items:center;gap:clamp(16px,2.2vw,36px);padding:0 16px;will-change:transform}
 .row figure{flex:none;width:calc(min(560px, 72vw) * var(--z,1));display:flex;flex-direction:column;gap:8px}
 .row figure.up{flex-direction:column-reverse}
-.row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.row .fl{position:relative;will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.row .fl canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
 .row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.55;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 
@@ -114,12 +117,12 @@ main{padding:4vh 0 16vh}
 <header class="top">
   <a class="back" href="index.html#projets">← Retour</a>
   <div class="file"><svg class="ico" viewBox="0 0 14 16" width="14" height="16" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="15" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="15" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="5" y="12" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="7" y="0" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="15" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="10" y="1" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="13" y="6" width="1" height="1"/><rect x="13" y="7" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/></svg><span class="fn" id="fname">IMMUNITY_POTION_Actimel.mp4</span></div>
-  <span></span>
+  <button class="tg" id="asciiTg" type="button" aria-pressed="false">ASCII_REVEAL [ ]</button>
 </header>
 
 <main>
   <figure class="m logo">
-    <div class="box"><video muted loop playsinline autoplay preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov" aria-label="Le logo Immunity Potion"></video><canvas id="logocv" aria-hidden="true"></canvas></div>
+    <div class="box"><video muted loop playsinline autoplay preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov" aria-label="Le logo Immunity Potion"></video></div>
   </figure>
 
   <section class="intro" id="intro">
@@ -184,13 +187,12 @@ async function type(el, txt, speed = 22){
 }
 
 
-/* boucle logo : cache ASCII qui se dissout tout seul à l'ouverture de la page */
-(() => {
-  const cv = document.getElementById("logocv"); if (!cv) return;
-  if (reducedM){ cv.remove(); return; }
-  const ctx = cv.getContext("2d"), G = "/\\|_-+=*:.#";
-  const hash = (i, j, s) => { let h = (i * 374761393 + j * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
-  let W, H, cols, rows, cw, ch, th;
+/* cache ASCII qui se dissout : toujours sur la boucle logo ; sur tous les médias si le toggle est activé */
+const G_ASCII = "/\\|_-+=*:.#";
+const hash = (i, j, s) => { let h = (i * 374761393 + j * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
+function asciiCover(box, bg, fg){
+  const cv = document.createElement("canvas"); cv.setAttribute("aria-hidden", "true"); box.appendChild(cv);
+  const ctx = cv.getContext("2d"); let W, H, cols, rows, cw, ch, th, done = false;
   function setup(){
     const dpr = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
     cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -202,21 +204,44 @@ async function type(el, txt, speed = 22){
     ctx.font = `500 ${(ch*.8).toFixed(1)}px "Martian Mono", ui-monospace, monospace`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     for (let y=0;y<rows;y++) for (let x=0;x<cols;x++){
       const t = th[y*cols+x]; if (r > t) continue;
-      ctx.globalAlpha = 1; ctx.fillStyle = "#ECEDF3"; ctx.fillRect(x*cw, y*ch, cw+.6, ch+.6);
+      ctx.globalAlpha = 1; ctx.fillStyle = bg; ctx.fillRect(x*cw, y*ch, cw+.6, ch+.6);
       const front = r > 0 && t - r < .06;
-      ctx.fillStyle = "#0B1446"; ctx.globalAlpha = front ? 1 : .45;
-      ctx.fillText(front ? "#" : G[Math.floor(hash(x,y,12)*G.length)], x*cw+cw/2, y*ch+ch/2+.5);
+      ctx.fillStyle = fg; ctx.globalAlpha = front ? 1 : .45;
+      ctx.fillText(front ? "#" : G_ASCII[Math.floor(hash(x,y,12)*G_ASCII.length)], x*cw+cw/2, y*ch+ch/2+.5);
     }
     ctx.globalAlpha = 1;
   }
-  // démarre tout de suite (sans attendre la police), un peu avant la frappe du titre
-  (() => {
-    setup(); paint(0);
-    const t0 = performance.now() + 150, D = 1500;
-    const step = t => { const k = Math.max(0, Math.min(1, (t - t0) / D)), e = k*k*(3-2*k); paint(e); if (k < 1) requestAnimationFrame(step); else cv.remove(); };
-    requestAnimationFrame(step);
-  })();
-})();
+  setup(); paint(0);
+  return {
+    cv,
+    play(delay = 0, D = 1500){
+      if (done) return; done = true;
+      const t0 = performance.now() + delay;
+      const step = t => { if (!cv.isConnected) return; const k = Math.max(0, Math.min(1, (t - t0) / D)), e = k*k*(3-2*k); paint(e); if (k < 1) requestAnimationFrame(step); else cv.remove(); };
+      requestAnimationFrame(step);
+    },
+    kill(){ done = true; cv.remove(); }
+  };
+}
+// boucle logo : démarre tout de suite, un peu avant la frappe du titre
+if (!reducedM) asciiCover(document.querySelector(".logo .box"), "#ECEDF3", "#0B1446").play(150);
+
+// toggle : reveal sur toute la page (vidéos + galerie), à l'arrivée à l'écran
+const tg = document.getElementById("asciiTg");
+let covers = [];
+function setAscii(on){
+  tg.setAttribute("aria-pressed", on); tg.textContent = on ? "ASCII_REVEAL [x]" : "ASCII_REVEAL [ ]";
+  try { localStorage.setItem("tf-ascii", on ? "1" : "0"); } catch(e){}
+  covers.forEach(c => { c.io.disconnect(); c.kill(); }); covers = [];
+  if (!on || reducedM) return;
+  document.querySelectorAll(".case .box, .bottle .box, .row .fl").forEach((box, i) => {
+    const onBlue = !!box.closest(".gal");
+    const c = asciiCover(box, onBlue ? "#0000EE" : "#ECEDF3", onBlue ? "#FFFFFF" : "#0B1446");
+    c.io = new IntersectionObserver(es => { if (es[0].isIntersecting){ c.io.disconnect(); c.play(80, onBlue ? 1100 : 1500); } }, {threshold:.25});
+    c.io.observe(box); covers.push(c);
+  });
+}
+tg.addEventListener("click", () => setAscii(tg.getAttribute("aria-pressed") !== "true"));
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
@@ -269,9 +294,10 @@ const pin = gal.querySelector(".pin");
 [1, .92, 1.08, .95, 1.06, .9].forEach((z, i) => row.children[i].style.setProperty("--z", z));
 function sizeGal(){
   const ph = pin.offsetHeight;
-  pin.style.setProperty("--pt", Math.max(60, (innerHeight - ph) / 2) + "px");     // bande centrée pendant le défilement
+  gal.style.setProperty("--pt", Math.max(60, (innerHeight - ph) / 2) + "px");     // bande centrée pendant le défilement
   travel = Math.max(0, row.scrollWidth - innerWidth);
-  gal.style.height = (ph + travel + innerHeight * .2) + "px";
+  const pt = Math.max(60, (innerHeight - ph) / 2);
+  gal.style.height = (pt + ph + travel) + "px";   // bande bleue collée aux crédits, sans gris autour
   update();
 }
 // entrée et sortie en douceur : courbe sur la progression + un peu d'inertie
@@ -291,6 +317,7 @@ function tick(){
 addEventListener("scroll", update, {passive:true});
 addEventListener("resize", sizeGal);
 addEventListener("load", sizeGal); sizeGal();
+{ let on = false; try { on = localStorage.getItem("tf-ascii") === "1"; } catch(e){} setAscii(on); }
 // images et légendes flottent légèrement avec la souris, chacune à son rythme
 if (!reducedM) gal.addEventListener("pointermove", e => {
   if (e.pointerType !== "mouse") return;
