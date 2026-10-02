@@ -45,7 +45,8 @@ main{padding:8vh 0 16vh}
 .m{width:var(--col);margin:0 auto}
 .m .box{position:relative;aspect-ratio:16/9;background:#000;box-shadow:0 18px 50px rgba(1,8,36,.12)}
 .m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
-.cap{margin-top:12px;font-size:11px;letter-spacing:.06em;color:var(--blue);white-space:pre;min-height:1.4em;text-align:center}
+.cap{margin-top:12px;font-size:11px;letter-spacing:.06em;color:var(--blue);white-space:pre;min-height:1.4em}
+.cap.r{text-align:right}
 
 .intro{width:var(--col);margin:12vh auto;text-align:center}
 .intro .kick{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
@@ -57,12 +58,15 @@ main{padding:8vh 0 16vh}
 
 /* galerie sur le bleu : composition libre, tout visible, sans effet */
 .gal{background:var(--blue);color:#fff;padding:14vh 16px}
-.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,3vw,40px);row-gap:clamp(40px,8vh,96px);align-items:start}
-.grid figure{grid-column:var(--c)}
-.grid figure:nth-child(even){margin-top:var(--down,8vh)}
+/* deux colonnes décalées : une large à gauche, une plus étroite à droite qui démarre plus bas */
+.grid{max-width:1200px;margin:0 auto;display:flex;align-items:flex-start;gap:clamp(20px,4vw,56px)}
+.grid .col{display:flex;flex-direction:column;gap:clamp(40px,9vh,110px);min-width:0}
+.grid .col:first-child{flex:58}
+.grid .col:last-child{flex:42;padding-top:clamp(60px,16vh,200px)}
 .grid img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
 .grid figcaption{margin-top:10px;font-size:10.5px;letter-spacing:.12em;opacity:.7}
-@media (max-width:760px){.grid{grid-template-columns:1fr;row-gap:6vh}.grid figure{grid-column:auto!important;margin-top:0!important;width:var(--mw,100%);justify-self:var(--js,start)}}
+.grid .col:last-child figcaption{text-align:right}
+@media (max-width:760px){.grid{flex-direction:column;gap:6vh}.grid .col:last-child{padding-top:0;padding-left:14%}.grid .col{gap:6vh;width:100%}.grid .col:first-child{padding-right:6%}}
 
 /* crédits et award côte à côte, centrés */
 .credits{background:var(--nuit);color:#fff;padding:16vh 16px}
@@ -77,14 +81,14 @@ main{padding:8vh 0 16vh}
 .cols .aw .y{color:var(--accent)}
 
 /* navigation de fin : discrète, sauf le retour aux projets */
-.nav{background:var(--blue);color:#fff;padding:12vh 16px 0;display:flex;flex-direction:column;align-items:center;gap:8vh}
-.home{text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,.75);padding:14px 22px}
-.home:hover{background:#fff;color:var(--blue)}
+.nav{background:transparent;color:var(--ink);padding:14vh 16px 0;display:flex;flex-direction:column;align-items:center;gap:8vh}
+.home{text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);border:1px solid var(--blue);padding:14px 22px;background:var(--desk)}
+.home:hover{background:var(--blue);color:#fff}
 .pn{width:100%;display:flex;justify-content:space-between;gap:16px;padding-bottom:28px;font-size:10.5px;letter-spacing:.04em}
 .pn a{text-decoration:none;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .pn a:hover{opacity:1}
 .pn a:last-child{text-align:right}
-.foot{display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;background:var(--blue);color:#fff;padding:12vh 16px;border-top:1px solid rgba(255,255,255,.25)}
+.foot{display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;background:var(--blue);color:#fff;padding:12vh 16px}
 .foot h2{margin:0;font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:.06em;font-variation-settings:"wdth" 112.5}
 .foot a{text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,.7);padding:12px 20px}
 .foot a:hover{background:#fff;color:var(--blue)}
@@ -113,7 +117,7 @@ main{padding:8vh 0 16vh}
 
   <figure class="m">
     <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/bgGZbjq2eYg?rel=0&modestbranding=1&playsinline=1" title="Immunity Potion, la vidéo de case" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
-    <figcaption class="cap" data-t="VIDEO_CASE_V8Def.mp4"></figcaption>
+    <figcaption class="cap r" data-t="VIDEO_CASE_V8Def.mp4"></figcaption>
   </figure>
 
   <figure class="m">
@@ -185,13 +189,14 @@ document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
 
 /* galerie : composition libre sur 12 colonnes */
 const SRC = "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-";
-const G = [[1,"1 / span 7"],[2,"8 / span 5","14vh"],[3,"2 / span 5"],[4,"7 / span 6","10vh"],[6,"1 / span 6"],[10,"7 / span 5","16vh"]];
+const G = [1, 2, 3, 4, 6, 10];
 const grid = document.getElementById("grid");
-G.forEach(([n, c, down], i) => {
+const cols = [document.createElement("div"), document.createElement("div")];
+cols.forEach(c => { c.className = "col"; grid.appendChild(c); });
+G.forEach((n, i) => {
   const f = document.createElement("figure");
-  f.style.cssText = `--c:${c};${down ? "--down:" + down + ";" : ""}--mw:${i % 2 ? "84%" : "100%"};--js:${i % 2 ? "end" : "start"}`;
   f.innerHTML = `<img loading="lazy" decoding="async" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"><figcaption>SHOT ${String(i + 1).padStart(2, "0")}</figcaption>`;
-  grid.appendChild(f);
+  cols[i % 2].appendChild(f);
 });
 })();
 
