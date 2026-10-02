@@ -1,7 +1,19 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<script>try{var d=JSON.parse(localStorage.getItem("tf-dev")||"{}");if(d.scope==="page"&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("al");document.documentElement.style.setProperty("--alc",{bleu:"#0000EE",nuit:"#010824",clair:"#ECEDF3"}[d.color||"bleu"])}}catch(e){}</script>
+<script>
+/* chargement ASCII : seulement en arrivant de la home (ou de l'extérieur), jamais d'une page projet à une autre */
+(function(){try{
+  var r = document.referrer, same = false, home = false;
+  try { var u = new URL(r); same = u.origin === location.origin; home = /\/(index\.html)?$/.test(u.pathname); } catch(e){}
+  window.TF_INTRO = !(same && !home);
+  var d = {scope:"page", color:"bleu"}; try { Object.assign(d, JSON.parse(localStorage.getItem("tf-dev") || "{}")); } catch(e){}
+  if (window.TF_INTRO && d.scope === "page" && !matchMedia("(prefers-reduced-motion: reduce)").matches){
+    document.documentElement.classList.add("al");
+    document.documentElement.style.setProperty("--alc", {bleu:"#0000EE", nuit:"#010824", clair:"#ECEDF3"}[d.color] || "#0000EE");
+  }
+}catch(e){}})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Immunity Potion · Thomas & Florian</title>
@@ -87,11 +99,10 @@ main{padding:4vh 0 16vh}
 /* la légende est hors flux : à 0, les photos sont parfaitement alignées */
 .row figure{position:relative}
 .row figure figcaption{position:absolute;left:0;top:calc(100% + 8px)}
-.row figure.up figcaption{top:auto;bottom:calc(100% + 8px)}
 .row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 @media (max-width:760px){.row{grid-template-columns:repeat(2,1fr);gap:6vh 16px}}
 .row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
-.row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.55;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.32;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 
 /* crédits et award côte à côte */
 .credits{background:var(--nuit);color:#fff;padding:16vh 16px}
@@ -262,7 +273,7 @@ function asciiCover(box, bg, fg){
 }
 /* dev control : réglages gardés dans le navigateur */
 const PAL = {bleu:["#0000EE","#FFFFFF"], nuit:["#010824","#5A5AFF"], clair:["#ECEDF3","#0B1446"]};
-const dev = Object.assign({scope:"photo", color:"bleu", off:50, rule:"off"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
+const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
 const saveDev = () => { try { localStorage.setItem("tf-dev", JSON.stringify(dev)); } catch(e){} };
 function loader(){
   if (reducedM){ document.documentElement.classList.remove("al"); return; }
@@ -278,8 +289,8 @@ function logoReveal(){
   logoCover = asciiCover(document.querySelector(".logo .box"), ...PAL[dev.color]); logoCover.play(150);
 }
 function playAscii(){ if (dev.scope === "page") loader(); else if (dev.scope === "photo") logoReveal(); }
-playAscii();
-const titleAt = dev.scope === "page" ? 900 : 450;
+if (window.TF_INTRO) playAscii();
+const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
@@ -321,8 +332,7 @@ const row = document.getElementById("row"), gal = row.closest(".gal");
 const fl = [];
 G.forEach((n, i) => {
   const fig = document.createElement("figure");
-  if (i % 2) fig.className = "up";
-  fig.innerHTML = `<div class="fl"><img loading="lazy" decoding="async" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"></div><figcaption>SHOT_${String(i + 1).padStart(2, "0")}</figcaption>`;
+  fig.innerHTML = `<div class="fl"><img loading="lazy" decoding="async" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"></div><figcaption>SHOT_${String(i + 1).padStart(2, "0")}.jpg</figcaption>`;
   row.appendChild(fig);
   fl.push({img: fig.querySelector(".fl"), cap: fig.querySelector("figcaption"), k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
 });
