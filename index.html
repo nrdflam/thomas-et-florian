@@ -98,7 +98,7 @@ a{color:var(--blue)}
 .proj{position:relative;display:block;color:inherit;text-decoration:none;margin-left:var(--l);width:min(var(--w), calc(66vh * var(--ar)));margin-top:var(--mt);will-change:transform}
 .proj:first-child{margin-top:8vh}
 .frame{position:relative;aspect-ratio:var(--ratio);max-width:100%}
-.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,center);background:var(--c);display:block}
+.frame img,.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,center);background:var(--c);display:block}
 .frame canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .frame .ph{position:absolute;left:12px;bottom:10px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(1,8,36,.55);opacity:0;transition:opacity .25s}
 .cap{position:absolute;display:flex;flex-direction:column;gap:5px;width:max-content;max-width:300px;font-size:clamp(11.5px,.45vw + 9px,14px);line-height:1.35}
@@ -470,12 +470,12 @@ document.fonts.ready.then(() => {
    le nom de fichier se tape la première fois qu'il y arrive */
 (() => {
   const P = [
-    {fn:"THE_INFRASTRUCTORS.mp4",                 href:"the-infrastructors", img:"https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP01.mp4.00_01_13_07.Still005.jpg",  c:"#B8FF5C", l:30, w:48, r:"16/9", cap:"below-right",  mt:0,  px:.04,  lm:4,  wm:94},
-    {fn:"BUILDING_TOMORROW.mp4", aw:["GRAND PRIX DU BRAND CONTENT_GOLD","THE DRUM AWARDS_WINNER X2"],                  href:"building-tomorrow", img:"https://thomasetflorian.com/wp-content/uploads/2024/11/DS_BuildingTomorrow_Board_Final2-scaled.jpg",   c:"#FF5A36", l:8,  w:44, r:"4/5",  cap:"right-bottom", mt:16,  px:.05,  lm:0,  wm:86},
-    {fn:"IMMUNITY_POTION_Actimel.mp4", page:"immunity-potion.html", aw:["EFFIE_SILVER"],            href:"immunity-potion", img:"https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-1.jpg",     c:"#FFD84D", l:48, w:44, r:"16/9", cap:"above-left",   mt:20, px:-.04, lm:12, wm:88},
-    {fn:"NUK_SAFETY_SQUAD.mp4", aw:["EPICA_GOLD","CANNES LIONS_SHORTLIST"],                   href:"safety-squad", img:"https://thomasetflorian.com/wp-content/uploads/2024/10/presse-scaled.jpg",        c:"#9BE8FF", l:20, w:30, r:"4/5",  cap:"right-top",    mt:16, px:.07,  lm:4,  wm:74},
-    {fn:"CUISINEL-LÀ_Cuisinella.mp4",             href:"cuisinella", img:"https://thomasetflorian.com/wp-content/uploads/2024/11/221216_CUISINELLA-20sec-WEB.mp4.01_00_09_05.Still004.jpg",          c:"#FF9ED8", l:3,  w:58, r:"16/9", cap:"below-right",  mt:18, px:-.03, lm:0,  wm:100},
-    {fn:"THE_PARISIAN_RENDEZ-VOUS.mp4", aw:["CANNES LIONS_BRONZE","EPICA_GRAND PRIX"],           href:"parisian-rendez-vous", img:"https://thomasetflorian.com/wp-content/uploads/2024/10/1.jpg",c:"#7CF29A", l:58, w:30, r:"3/4",  cap:"left-bottom",  mt:16, px:.06,  lm:26, wm:74},
+    {fn:"THE_INFRASTRUCTORS.mp4",                 href:"the-infrastructors", vid:"assets/infrastructors-arya-limonade.mp4",  c:"#B8FF5C", l:30, w:48, r:"16/9", cap:"below-right",  mt:0,  px:.04,  lm:4,  wm:94},
+    {fn:"BUILDING_TOMORROW.mp4", aw:["GRAND PRIX DU BRAND CONTENT_GOLD","THE DRUM AWARDS_WINNER X2"],                  href:"building-tomorrow", vid:"https://thomasetflorian.com/wp-content/uploads/2024/11/PL01_Seine_v3.mp4",   c:"#FF5A36", l:8,  w:44, r:"4/5",  cap:"right-bottom", mt:16,  px:.05,  lm:0,  wm:86},
+    {fn:"IMMUNITY_POTION_Actimel.mp4", page:"immunity-potion.html", aw:["EFFIE_SILVER"],            href:"immunity-potion", vid:"https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov",     c:"#FFD84D", l:48, w:44, r:"16/9", cap:"above-left",   mt:20, px:-.04, lm:12, wm:88},
+    {fn:"NUK_SAFETY_SQUAD.mp4", aw:["EPICA_GOLD","CANNES LIONS_SHORTLIST"],                   href:"safety-squad", vid:"https://thomasetflorian.com/wp-content/uploads/2024/10/Nuk_IntroMonsters.mp4",        c:"#9BE8FF", l:20, w:30, r:"4/5",  cap:"right-top",    mt:16, px:.07,  lm:4,  wm:74},
+    {fn:"CUISINEL-LÀ_Cuisinella.mp4",             href:"cuisinella", vid:"https://thomasetflorian.com/wp-content/uploads/2024/11/Cuisinella-Gif-Poulet.mp4",          c:"#FF9ED8", l:3,  w:58, r:"16/9", cap:"below-right",  mt:18, px:-.03, lm:0,  wm:100},
+    {fn:"THE_PARISIAN_RENDEZ-VOUS.mp4", aw:["CANNES LIONS_BRONZE","EPICA_GRAND PRIX"],           href:"parisian-rendez-vous", vid:"https://thomasetflorian.com/wp-content/uploads/2024/10/ANIM-LOGO.mp4",c:"#7CF29A", l:58, w:30, r:"3/4",  cap:"left-bottom",  mt:16, px:.06,  lm:26, wm:74},
     {fn:"EUPHYTOSE_ÉTUDIANTS.mp4",                href:"euphytose-etudiants", img:"assets/euphytose-etudiants-header.jpg", c:"#FFFFFF", l:28, w:42, r:"1/1",  cap:"above-right",  mt:22, px:-.05, lm:6,  wm:82},
     {fn:"EUPHYTOSE_STRESS.mp4",                   href:"euphytose-stress", img:"assets/euphytose-stress-header.jpg", pos:"77% center",    c:"#FFB000", l:6,  w:38, r:"4/5",  cap:"right-mid",    mt:16, px:.04,  lm:0,  wm:80},
     {fn:"SYNAESTHESIA_Moët&Chandon.mp4",          href:"synaesthesia", img:"assets/synaesthesia-header.jpg",        c:"#C7B8FF", l:38, w:54, r:"16/9", cap:"below-left",   mt:20, px:-.04, lm:10, wm:90}
@@ -497,12 +497,16 @@ document.fonts.ready.then(() => {
     a.href = p.href + ".html";   // chaque projet a sa page
     a.setAttribute("aria-label", p.fn.replace(/\.mp4$/, "").replace(/_/g, " "));
     a.style.cssText = `--l:${p.l}%;--w:${p.w}%;--mt:${p.mt}vh;--ratio:${p.r};--ar:${p.r.split('/')[0]/p.r.split('/')[1]};--lm:${p.lm}%;--wm:${p.wm}%`;
-    a.innerHTML = `<div class="frame" style="--c:${p.c}${p.pos ? `;--pos:${p.pos}` : ""}">${p.img ? `<img src="${p.img}" alt="" loading="lazy" decoding="async">` : ""}<canvas></canvas><span class="ph">${p.img ? "" : `Visuel ${p.r.replace("/",":")}`}</span></div><div class="cap ${p.cap}"><span class="fn"></span>${(p.aw||[]).length ? `<ul class="aw">${p.aw.map(t => `<li><span class="ast" aria-hidden="true">***</span> ${t} <span class="ast" aria-hidden="true">***</span></li>`).join("")}</ul>` : ""}<span class="go">Voir le projet →</span></div>`;
+    a.innerHTML = `<div class="frame" style="--c:${p.c}${p.pos ? `;--pos:${p.pos}` : ""}">${p.vid ? `<video src="${p.vid}" muted loop playsinline preload="metadata" aria-hidden="true"></video>` : p.img ? `<img src="${p.img}" alt="" loading="lazy" decoding="async">` : ""}<canvas></canvas><span class="ph">${p.img || p.vid ? "" : `Visuel ${p.r.replace("/",":")}`}</span></div><div class="cap ${p.cap}"><span class="fn"></span>${(p.aw||[]).length ? `<ul class="aw">${p.aw.map(t => `<li><span class="ast" aria-hidden="true">***</span> ${t} <span class="ast" aria-hidden="true">***</span></li>`).join("")}</ul>` : ""}<span class="go">Voir le projet →</span></div>`;
     gal.appendChild(a);
     const it = {p, idx, el:a, cv:a.querySelector("canvas"), ph:a.querySelector(".ph"), fn:a.querySelector(".fn"), rev:-1, typed:0, typing:false, named:false};
     it.ctx = it.cv.getContext("2d");
     return it;
   });
+
+  // les boucles ne tournent que quand leur case est à l'écran
+  const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), {threshold:.1});
+  items.forEach(it => { const v = it.el.querySelector("video"); if (v) vio.observe(v); });
 
   function setup(it){
     const dpr = Math.min(2, devicePixelRatio || 1), w = it.cv.clientWidth, h = it.cv.clientHeight;
@@ -527,7 +531,7 @@ document.fonts.ready.then(() => {
     const {ctx, w, h, cols, rows, cw, ch, p} = it;
     ctx.clearRect(0,0,w,h);
     // le visuel (placeholder coloré pour l'instant, image ou vidéo plus tard)
-    if (!p.img){ ctx.fillStyle = p.c; ctx.fillRect(0,0,w,h); }   // avec une image, le canvas ne fait que la masquer
+    if (!p.img && !p.vid){ ctx.fillStyle = p.c; ctx.fillRect(0,0,w,h); }   // avec une image, le canvas ne fait que la masquer
     if (opts.reveal === "plain" || r >= .999) return;
     ctx.font = `500 ${(ch*.8).toFixed(1)}px "Martian Mono", ui-monospace, monospace`;
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
