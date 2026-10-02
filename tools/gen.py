@@ -32,10 +32,10 @@ P = [
   dict(slug="building-tomorrow", fn="BUILDING_TOMORROW.mp4", name="Building Tomorrow", client="Dassault Systèmes",
        h1="Le B2B aussi peut être sexy.",
        p="On est parti de ça.",
-       hero=("video", u("2024/11/PL01_Seine_v3.mp4"), None, {"nat"}),   # TODO : logo par-dessus la boucle
+       hero=("video", u("2024/11/PL01_Seine_v3.mp4"), None, {"nat", "loop"}),   # TODO : logo par-dessus la boucle
        media=[("img", u("2024/11/buildingtomorrow-data.png"), "Boring_And_Confusing_Screenshot_01.png", {"nat", "small"}),
               ("txt", "Pour arriver à ça."),
-              ("video", u("2024/11/PL02_Proche_v2-Cut.mov"), "Building_Tomorrow_Reveal.mov", {"nat", "big"}),
+              ("video", u("2024/11/PL02_Proche_v2-Cut.mov"), "Building_Tomorrow_Reveal.mov", {"nat", "big", "loop"}),
               ("txt", "Pour démontrer les fonctionnalités de sa plateforme de construction, nous avons proposé à Dassault Systèmes de créer le case study d’un extraordinaire projet de construction fictif : une tour Eiffel élaborée avec les techniques et les enjeux du XXIe siècle grâce à la plateforme de Dassault Systèmes."),
               ("yt", "L2TvitutMIc", "VIDEO_CASE_Building_Tomorrow.mp4", set()),
               ("img", u("2024/11/DS_BuildingTomorrow_Board_Final2-scaled.jpg"), "DS_BuildingTomorrow_Board_Final2.jpg", {"nat"})],
@@ -55,7 +55,7 @@ P = [
   dict(slug="safety-squad", fn="NUK_SAFETY_SQUAD.mp4", name="The Safety Squad", client="Nuk",
        h1="Nuk veut prendre soin de tous les bébés.",
        p="Alors on leur a proposé d’offrir leur technologie de biberon anti-brûlures directement dans leurs publicités. Ils ont adoré l’idée. Nous avons mis la technologie dans des annonces presse, des flyers… en fait, partout où on peut croiser des bébés.",
-       hero=("video", u("2024/10/Nuk_IntroMonsters.mp4"), None, {"nat", "clean"}),
+       hero=("video", u("2024/10/Nuk_IntroMonsters.mp4"), None, {"nat", "clean", "loop"}),
        media=[("video", u("2024/10/SafetySquad-Reveal.mov"), "SafetySquad_Reveal.mov", {"nat", "loop", "clean"}),
               ("yt", "H4puCuvlLUU", "VIDEO_CASE_Safety_Squad.mp4", {"clean"})],
        gal=[u(f"2024/10/{n}-scaled.jpg") for n in ("all", "bug_seul", "chaise_haute", "flyer2", "presse", "sous-bock")], gr="auto",
@@ -66,8 +66,8 @@ P = [
   dict(slug="cuisinella", fn="CUISINEL-LÀ_Cuisinella.mp4", name="Cuisinel-là", client="Cuisinella",
        h1="Toute une campagne qui part de là.\nOu plutôt d’un La.",
        p="",
-       hero=("video", u("2024/11/Cuisinella-Gif-Poulet.mp4"), None, {"nat", "loop"}),
-       media=[("video", u("2024/09/Cuisinella-Gif-Topinambour2.mp4"), "Cuisinella_Topinambour.gif", {"nat", "loop"}),
+       hero=("video", u("2024/11/Cuisinella-Gif-Poulet.mp4"), None, set()),
+       media=[("video", u("2024/09/Cuisinella-Gif-Topinambour2.mp4"), "Cuisinella_Topinambour.gif", set()),
               ("yt", "lhlVSG6ijYY", "VIDEO_Cuisinella.mp4", set())],
        gal=[u(f"2024/11/221216_CUISINELLA-20sec-WEB.mp4.01_00_{t}.jpg") for t in ("04_06.Still002", "05_23.Still003", "09_05.Still004", "11_08.Still005", "12_24.Still006", "15_11.Still007")], gr="16/9",
        credits=[ECD_AP, AD, CW, ("Réalisateur", "Big Red Button")], awards=[]),
@@ -186,6 +186,8 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
         "  .loop .box{aspect-ratio:1/1}\n  .nat.loop .box video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}")
     rep("  .case{margin-top:5vh}\n  .bottle{margin-top:6vh}", "  .v1,.v2,.v3,.v4,.intro + .m,.pair,.say{margin-top:6vh}\n  .say + .m{margin-top:5vh}\n  .m.small{--w:76vw}\n  .pair .m:last-child{margin-top:4vh}")
     rep(".row img{display:block;width:100%;aspect-ratio:16/9;", ".row img{display:block;width:100%;aspect-ratio:var(--gr,16/9);")
+
+    rep('<a class="back" href="index.html#projets">← Retour</a>', '<a class="back ax" href="index.html#projets">' + ARL.replace("class='ar'", "class='arr'") + 'Retour</a>')
 
     # ---- contenu principal
     a = s.index("<main>\n") + len("<main>\n"); b = s.index("</main>")
