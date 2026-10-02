@@ -73,11 +73,12 @@ main{padding:4vh 0 16vh}
 .m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
 .logo{--w:880px}
 .clean .box{box-shadow:none;background:transparent}
-.v1{--w:1040px;--dx:-1.6vw;margin-top:12vh}
-.v2{--w:760px;--dx:2vw;margin-top:14vh}
-.v3{--w:900px;--dx:-1vw;margin-top:14vh}
-.v4{--w:820px;--dx:1.4vw;margin-top:14vh}
+.v1{--w:1040px;margin-top:12vh}
+.v2{--w:760px;margin-top:14vh}
+.v3{--w:900px;margin-top:14vh}
+.v4{--w:820px;margin-top:14vh}
 .intro + .m{margin-top:12vh}
+/* tous les médias centrés */
 /* proportions d'origine : le média garde son format, l'ombre passe sur le média */
 .nat .box{aspect-ratio:auto;background:none;box-shadow:none;display:flex;justify-content:center}
 .nat .box video,.nat .box img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain;box-shadow:0 18px 50px rgba(1,8,36,.12)}
@@ -88,8 +89,7 @@ main{padding:4vh 0 16vh}
 .say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
 .say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .say + .m{margin-top:8vh}
-/* dev control : décalages gauche / droite activables */
-body.nodx .m{--dx:0px !important}
+
 .pair{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,80px);margin:12vh auto 0;padding:0 16px;max-width:1040px}
 .pair .m{width:min(400px,48%);margin:0;transform:none}
 .pair .m:last-child{margin-top:8vh}
@@ -260,7 +260,6 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <div><div class="lb">Couleur</div><div class="seg" data-k="color"><button data-v="bleu">Bleu</button><button data-v="nuit">Nuit</button><button data-v="clair">Clair</button></div></div>
     <div class="seg"><button id="devPlay" type="button">↻ Rejouer</button></div>
     <div><div class="lb">Galerie décalage <span id="offV"></span></div><input type="range" id="devOff" min="0" max="100" step="1"></div>
-    <div><div class="lb">Décalages</div><div class="seg" data-k="dx"><button data-v="on">On</button><button data-v="off">Off</button></div></div>
     <div><div class="lb">Règle</div><div class="seg" data-k="rule"><button data-v="on">On</button><button data-v="off">Off</button></div></div>
   </div>
   <button type="button" id="devBtn" aria-expanded="false">DEV</button>
@@ -328,7 +327,7 @@ function asciiCover(box, bg, fg){
 }
 /* dev control : réglages gardés dans le navigateur */
 const PAL = {bleu:["#0000EE","#FFFFFF"], nuit:["#010824","#5A5AFF"], clair:["#ECEDF3","#0B1446"]};
-const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on", dx:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
+const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
 const saveDev = () => { try { localStorage.setItem("tf-dev", JSON.stringify(dev)); } catch(e){} };
 function loader(){
   if (reducedM){ document.documentElement.classList.remove("al"); return; }
@@ -433,7 +432,6 @@ function syncDev(){
   pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", dev[sg.dataset.k] === b.dataset.v)));
   rng.value = dev.off; document.getElementById("offV").textContent = dev.off;
   ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);
-  document.body.classList.toggle("nodx", dev.dx === "off");
 }
 devBtn.addEventListener("click", () => { pan.hidden = !pan.hidden; devBtn.setAttribute("aria-expanded", !pan.hidden); });
 pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.addEventListener("click", e => {

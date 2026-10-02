@@ -138,11 +138,12 @@ def build(i, d):
 .case{--w:1040px;--dx:-1.6vw;margin-top:12vh}
 .bottle{--w:760px;--dx:2vw;margin-top:14vh}""",
 """.clean .box{box-shadow:none;background:transparent}
-.v1{--w:1040px;--dx:-1.6vw;margin-top:12vh}
-.v2{--w:760px;--dx:2vw;margin-top:14vh}
-.v3{--w:900px;--dx:-1vw;margin-top:14vh}
-.v4{--w:820px;--dx:1.4vw;margin-top:14vh}
+.v1{--w:1040px;margin-top:12vh}
+.v2{--w:760px;margin-top:14vh}
+.v3{--w:900px;margin-top:14vh}
+.v4{--w:820px;margin-top:14vh}
 .intro + .m{margin-top:12vh}
+/* tous les médias centrés */
 /* proportions d'origine : le média garde son format, l'ombre passe sur le média */
 .nat .box{aspect-ratio:auto;background:none;box-shadow:none;display:flex;justify-content:center}
 .nat .box video,.nat .box img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain;box-shadow:0 18px 50px rgba(1,8,36,.12)}
@@ -153,8 +154,7 @@ def build(i, d):
 .say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
 .say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .say + .m{margin-top:8vh}
-/* dev control : décalages gauche / droite activables */
-body.nodx .m{--dx:0px !important}
+
 .pair{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,80px);margin:12vh auto 0;padding:0 16px;max-width:1040px}
 .pair .m{width:min(400px,48%);margin:0;transform:none}
 .pair .m:last-child{margin-top:8vh}
@@ -204,9 +204,6 @@ const G = [1, 2, 3, 4, 6, 10];''', f"const G = {json.dumps(g)};")
     f.style.setProperty("--ox", (OX[j] * k).toFixed(1) + "px"); f.style.setProperty("--oy", (OY[j] * k).toFixed(1) + "px");""")
     rep("/* galerie : six images sur deux lignes, sur la bande bleue */", "/* galerie : les images par lignes de trois, sur la bande bleue */")
 
-    rep('<div><div class="lb">Règle</div><div class="seg" data-k="rule">', '<div><div class="lb">Décalages</div><div class="seg" data-k="dx"><button data-v="on">On</button><button data-v="off">Off</button></div></div>\n    <div><div class="lb">Règle</div><div class="seg" data-k="rule">')
-    rep('{scope:"page", color:"bleu", off:0, rule:"on"}', '{scope:"page", color:"bleu", off:0, rule:"on", dx:"on"}')
-    rep('  ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);', '  ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);\n  document.body.classList.toggle("nodx", dev.dx === "off");')
     rep('  if (sg.dataset.k !== "rule") playAscii();', '  if (sg.dataset.k === "scope" || sg.dataset.k === "color") playAscii();')
     rep('document.querySelectorAll(".intro p span").forEach(el => {', 'document.querySelectorAll(".intro p span, .say span").forEach(el => {')
 
