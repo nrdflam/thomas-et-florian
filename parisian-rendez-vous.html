@@ -89,6 +89,9 @@ main{padding:4vh 0 16vh}
 .m.full{width:100%;transform:none}
 .nat.full .box video,.nat.full .box img{width:100%;max-width:none;max-height:none;box-shadow:none}
 .m.full .cap{padding:0 16px}
+.m.full + .m.full{margin-top:0 !important}
+.m.full .box{display:block}
+main:has(> .m.full:last-child){padding-bottom:0 !important}
 .m.big{--w:1240px}
 .say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
 .say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
