@@ -9,14 +9,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wdth,wght@75..112.5,300..800&display=swap">
 <style>
-/* Page projet. Fond de base : le bureau gris pointillé, sur lequel on pose les médias
-   (boucle logo, film, boucle switch). La galerie d'images passe sur le bleu, crédits et award sur le nuit, centrés. */
+/* Page projet. Fond de base : le bureau gris pointillé. Une seule colonne centrée :
+   boucle logo (ou KV), sous-titre, texte, vidéo de case, boucle bouteille.
+   Puis la galerie sur le bleu, crédits et award côte à côte sur le nuit. Pas d'effet ASCII : le travail d'abord. */
 :root{
   --desk:#ECEDF3;
   --ink:#0B1446;
   --blue:#0000EE;
   --nuit:#010824;
   --accent:#3D3DFF;
+  --col:min(960px, calc(100% - 32px));
   --script:"Courier Prime", "Courier New", Courier, monospace;
   --ui:"Martian Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;  /* à remplacer par t26-carbon */
   color-scheme:light;
@@ -28,7 +30,7 @@ body{margin:0;font-family:var(--ui);font-size:12px;-webkit-font-smoothing:antial
 a{color:inherit}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px}
 #dots{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
-main,section,footer{position:relative;z-index:1}
+main,section,nav,footer{position:relative;z-index:1}
 .k{display:inline-block;width:.55em;height:1.05em;background:currentColor;vertical-align:-.15em;margin-right:-.55em;animation:blink 1.05s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 
@@ -38,64 +40,55 @@ main,section,footer{position:relative;z-index:1}
 .top a{text-decoration:none;letter-spacing:.14em;text-transform:uppercase;font-size:10.5px;color:var(--blue);white-space:nowrap}
 .top a:hover{text-decoration:underline;text-underline-offset:3px}
 
-/* en-tête : client, idée tapée, texte */
-.intro{padding:14vh 16px 10vh;text-align:center}
+/* une colonne centrée */
+main{padding:8vh 0 16vh}
+.m{width:var(--col);margin:0 auto}
+.m .box{position:relative;aspect-ratio:16/9;background:#000;box-shadow:0 18px 50px rgba(1,8,36,.12)}
+.m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
+.cap{margin-top:12px;font-size:11px;letter-spacing:.06em;color:var(--blue);white-space:pre;min-height:1.4em;text-align:center}
+
+.intro{width:var(--col);margin:12vh auto;text-align:center}
 .intro .kick{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
 .intro h1{margin:22px auto 0;max-width:24ch;font-weight:700;font-size:clamp(22px,3.2vw,40px);line-height:1.18;text-transform:uppercase;min-height:2.4em;text-wrap:balance}
 .intro p{margin:5vh auto 0;max-width:60ch;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty;opacity:0;transform:translateY(6px);transition:opacity .6s,transform .6s}
 .intro.on p{opacity:1;transform:none}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.m + .m{margin-top:12vh}
 
-/* médias posés sur le bureau */
-.media{display:flex;flex-direction:column;gap:14vh;padding:4vh 16px 18vh}
-.m{width:min(var(--w,880px), 100%);margin-left:var(--ml,auto);margin-right:var(--mr,auto)}
-.m .box{position:relative;aspect-ratio:16/9;background:#000;box-shadow:0 18px 50px rgba(1,8,36,.12)}
-.m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
-.m canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.cap{display:flex;gap:10px;align-items:baseline;margin-top:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:pre;min-height:1.4em}
-.cap.r{justify-content:flex-end}
-.cap .n{color:var(--blue)}
-.cap .d{opacity:.6}
+/* galerie sur le bleu : composition libre, tout visible, sans effet */
+.gal{background:var(--blue);color:#fff;padding:14vh 16px}
+.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,3vw,40px);row-gap:clamp(40px,8vh,96px);align-items:start}
+.grid figure{grid-column:var(--c)}
+.grid figure:nth-child(even){margin-top:var(--down,8vh)}
+.grid img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
+.grid figcaption{margin-top:10px;font-size:10.5px;letter-spacing:.12em;opacity:.7}
+@media (max-width:760px){.grid{grid-template-columns:1fr;row-gap:6vh}.grid figure{grid-column:auto!important;margin-top:0!important;width:var(--mw,100%);justify-self:var(--js,start)}}
 
-/* galerie d'images sur le bleu : bande qui défile à l'horizontale, formats et hauteurs variés */
-.gal{background:var(--blue);color:#fff;padding:12vh 0 10vh}
-.ghead{display:flex;justify-content:space-between;gap:16px;padding:0 16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
-.ghead span:last-child{opacity:.7}
-.strip{display:flex;align-items:flex-start;gap:clamp(24px,4vw,64px);overflow-x:auto;overscroll-behavior-x:contain;padding:8vh 16px 4vh;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
-.strip::-webkit-scrollbar{display:none}
-.strip.drag{cursor:grabbing;user-select:none}
-.strip figure{flex:none;width:var(--sw);margin-top:var(--st)}
-.strip .box{position:relative;aspect-ratio:16/9}
-.strip canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.strip .cap .n{color:#fff}
-.strip .end{flex:none;width:1px}
+/* crédits et award côte à côte, centrés */
+.credits{background:var(--nuit);color:#fff;padding:16vh 16px}
+.cols{display:flex;justify-content:center;gap:clamp(40px,10vw,160px);flex-wrap:wrap;max-width:1080px;margin:0 auto}
+.cols > div{display:flex;flex-direction:column;align-items:center;text-align:center}
+.cols h2{margin:0 0 26px;font-size:10.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+.cols dl{margin:0;display:flex;flex-direction:column;gap:16px;font-size:12px;line-height:1.5;letter-spacing:.03em;text-transform:uppercase}
+.cols dt{color:var(--accent);font-size:10.5px;letter-spacing:.12em}
+.cols dd{margin:2px 0 0}
+.cols .aw{font-size:12px;letter-spacing:.06em}
+.cols .aw .ast{opacity:.55}
+.cols .aw .y{color:var(--accent)}
 
-/* crédits et award, centrés sur le nuit */
-.credits{background:var(--nuit);color:#fff;padding:16vh 16px;text-align:center}
-.credits h2{margin:0 0 28px;font-size:10.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
-.credits dl{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;max-width:760px;margin:0 auto;font-size:12px;line-height:1.5;letter-spacing:.03em;text-transform:uppercase}
-.credits dt{text-align:right;color:var(--accent)}
-.credits dd{margin:0;text-align:left}
-.credits .aw{margin-top:12vh}
-.credits .aw p{margin:0;font-size:12px;letter-spacing:.06em}
-.credits .aw .ast{opacity:.55}
-.credits .aw .y{color:var(--accent)}
-@media (max-width:560px){.credits dl{grid-template-columns:1fr;gap:2px}.credits dt,.credits dd{text-align:center}.credits dd{margin-bottom:14px}}
-
-/* projet suivant + footer */
-.next{display:block;text-decoration:none;text-align:center;background:var(--blue);color:#fff;padding:14vh 16px}
-.next small{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:18px}
-.next b{font-weight:600;font-size:clamp(16px,2.6vw,30px);letter-spacing:.01em;white-space:pre}
-.next:hover b{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+/* navigation de fin : discrète, sauf le retour aux projets */
+.nav{background:var(--blue);color:#fff;padding:12vh 16px 0;display:flex;flex-direction:column;align-items:center;gap:8vh}
+.home{text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,.75);padding:14px 22px}
+.home:hover{background:#fff;color:var(--blue)}
+.pn{width:100%;display:flex;justify-content:space-between;gap:16px;padding-bottom:28px;font-size:10.5px;letter-spacing:.04em}
+.pn a{text-decoration:none;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pn a:hover{opacity:1}
+.pn a:last-child{text-align:right}
 .foot{display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;background:var(--blue);color:#fff;padding:12vh 16px;border-top:1px solid rgba(255,255,255,.25)}
 .foot h2{margin:0;font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:.06em;font-variation-settings:"wdth" 112.5}
 .foot a{text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,.7);padding:12px 20px}
 .foot a:hover{background:#fff;color:var(--blue)}
-
-@media (max-width:760px){
-  .m{--ml:0;--mr:0}
-  .media{gap:10vh}
-}
+@media (max-width:560px){.pn{flex-direction:column;gap:12px}.pn a:last-child{text-align:left}}
 @media (prefers-reduced-motion:reduce){.intro p{transition:none}}
 </style>
 </head>
@@ -108,51 +101,56 @@ main,section,footer{position:relative;z-index:1}
 </header>
 
 <main>
+  <figure class="m">
+    <div class="box"><video muted loop playsinline autoplay preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov" aria-label="Le logo Immunity Potion"></video></div>
+  </figure>
+
   <section class="intro" id="intro">
     <div class="kick">Actimel · 2024</div>
     <h1 id="ideaT" aria-label="Protéger les joueurs aussi bien en jeu que dans la vraie vie."></h1>
     <p><span>Comme tout le monde, nous avons joué à Fortnite. Et comme tout le monde, nous avons perdu dès la première game. Si seulement il existait une petite boisson super forte qui booste l’immunité des joueurs et les empêche de tomber dès la première confrontation&#8239;! Et comme on bossait en même temps pour la marque Actimel, on s’est dit qu’on allait faire exactement ça. Et pour pimenter le tout, on a rajouté des zombies.</span></p>
   </section>
 
-  <section class="media" aria-label="Le film et ses boucles">
-    <figure class="m" style="--w:820px;--ml:auto;--mr:max(0px, calc(50% - 560px))">
-      <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov" aria-label="Boucle : le logo"></video><canvas aria-hidden="true"></canvas></div>
-      <figcaption class="cap r"><span class="n" data-t="LOOP 01"></span><span class="d" data-t="// Logo"></span></figcaption>
-    </figure>
-    <figure class="m" style="--w:1080px">
-      <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/bgGZbjq2eYg?rel=0&modestbranding=1&playsinline=1" title="Immunity Potion, le film" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe><canvas aria-hidden="true"></canvas></div>
-      <figcaption class="cap"><span class="n" data-t="FILM"></span><span class="d" data-t="// 30″"></span></figcaption>
-    </figure>
-    <figure class="m" style="--w:820px;--ml:max(0px, calc(50% - 560px));--mr:auto">
-      <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Switch.mov" aria-label="Boucle : le switch"></video><canvas aria-hidden="true"></canvas></div>
-      <figcaption class="cap"><span class="n" data-t="LOOP 02"></span><span class="d" data-t="// Switch"></span></figcaption>
-    </figure>
-  </section>
+  <figure class="m">
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/bgGZbjq2eYg?rel=0&modestbranding=1&playsinline=1" title="Immunity Potion, la vidéo de case" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <figcaption class="cap" data-t="VIDEO_CASE_V8Def.mp4"></figcaption>
+  </figure>
+
+  <figure class="m">
+    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Switch.mov" aria-label="La bouteille Actimel devient une potion"></video></div>
+    <figcaption class="cap" data-t="Bottle_Switch.gif"></figcaption>
+  </figure>
 </main>
 
 <section class="gal" aria-label="Images du projet">
-  <div class="ghead"><span>Shots</span><span>← Glisser →</span></div>
-  <div class="strip" id="strip"></div>
+  <div class="grid" id="grid"></div>
 </section>
 
 <section class="credits" aria-label="Crédits et award">
-  <h2>Crédits</h2>
-  <dl>
-    <dt>Executive Creative Director</dt><dd>Adrien Mancel &amp; Paul-Émile Raymond</dd>
-    <dt>Art Director</dt><dd>Florian Amoneau</dd>
-    <dt>Copywriter</dt><dd>Thomas Blanc</dd>
-    <dt>Developer</dt><dd>Apfel</dd>
-  </dl>
-  <div class="aw">
-    <h2>Award</h2>
-    <p><span class="ast">***</span> <span class="y">2024</span> EFFIE_SILVER <span class="ast">***</span></p>
+  <div class="cols">
+    <div>
+      <h2>Crédits</h2>
+      <dl>
+        <div><dt>Executive Creative Director</dt><dd>Adrien Mancel &amp; Paul-Émile Raymond</dd></div>
+        <div><dt>Art Director</dt><dd>Florian Amoneau</dd></div>
+        <div><dt>Copywriter</dt><dd>Thomas Blanc</dd></div>
+        <div><dt>Developer</dt><dd>Apfel</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h2>Award</h2>
+      <p class="aw"><span class="ast">***</span> <span class="y">2024</span> EFFIE_SILVER <span class="ast">***</span></p>
+    </div>
   </div>
 </section>
 
-<a class="next" href="https://thomasetflorian.com/portfolios/safety-squad/">
-  <small>Projet suivant</small>
-  <b id="nextT">NUK_SAFETY_SQUAD.mp4</b>
-</a>
+<nav class="nav" aria-label="Navigation entre projets">
+  <a class="home" href="index.html#projets">← Tous les projets</a>
+  <div class="pn">
+    <a href="https://thomasetflorian.com/portfolios/building-tomorrow/">← BUILDING_TOMORROW.mp4</a>
+    <a href="https://thomasetflorian.com/portfolios/safety-squad/">NUK_SAFETY_SQUAD.mp4 →</a>
+  </div>
+</nav>
 <footer class="foot">
   <h2>*** THOMAS &amp; FLORIAN ***</h2>
   <a href="mailto:florian.amoneau@gmail.com">Contacter →</a>
@@ -162,113 +160,39 @@ main,section,footer{position:relative;z-index:1}
 (() => {
 const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-const caret = () => { const k = document.createElement("span"); k.className = "k"; return k; };
-async function type(el, txt, speed = 22, keep = false){
-  const k = caret(); el.textContent = "";
+async function type(el, txt, speed = 22){
+  const k = document.createElement("span"); k.className = "k"; el.textContent = "";
   for (const c of txt){ el.textContent += c; el.appendChild(k); if (!reducedM) await sleep(speed); }
-  if (!keep) setTimeout(() => k.remove(), 900);
+  setTimeout(() => k.remove(), 900);
 }
-const hash = (i, j, s) => { let h = (i * 374761393 + j * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
-const GLYPHS = "/\\|_-+=*:.#";
-
-/* cache ASCII posé sur un média ; r = 0 tout couvert, 1 tout révélé */
-function Cover(cv, seed, bg, fg, drawUnder){
-  const ctx = cv.getContext("2d"); let W, H, cols, rows, cw, ch, th;
-  function setup(){
-    const dpr = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; if (!W) return;
-    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
-    cw = W < 400 ? 7 : 9; ch = cw * 1.6; cols = Math.ceil(W / cw); rows = Math.ceil(H / ch); th = new Float32Array(cols*rows);
-    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++){ const u=x/cols, v=y/rows; th[y*cols+x] = Math.min(.999, Math.hypot(u-.5, v-.5)/.71*.7 + hash(x,y,seed)*.3); }
-  }
-  function paint(r){
-    if (!th) return; ctx.clearRect(0,0,W,H);
-    if (drawUnder) drawUnder(ctx, W, H);
-    if (r >= .999) return;
-    ctx.font = `500 ${(ch*.8).toFixed(1)}px "Martian Mono", ui-monospace, monospace`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++){
-      const t = th[y*cols+x]; if (r > t) continue;
-      ctx.globalAlpha = 1; ctx.fillStyle = bg; ctx.fillRect(x*cw, y*ch, cw+.6, ch+.6);
-      const front = r > 0 && t - r < .06;
-      ctx.fillStyle = fg; ctx.globalAlpha = front ? 1 : .5;
-      ctx.fillText(front ? "#" : GLYPHS[Math.floor(hash(x,y,seed+3)*GLYPHS.length)], x*cw+cw/2, y*ch+ch/2+.5);
-    }
-    ctx.globalAlpha = 1;
-  }
-  return {setup, paint};
-}
-const smooth = x => x <= 0 ? 0 : x >= 1 ? 1 : x*x*(3 - 2*x);
-
 type(document.getElementById("fname"), "IMMUNITY_POTION_Actimel.mp4", 26);
 
-/* l'idée tapée, puis le texte */
-(() => {
-  const box = document.getElementById("intro"), h = document.getElementById("ideaT");
-  document.fonts.ready.then(async () => { await sleep(500); await type(h, "Protéger les joueurs aussi bien en jeu que dans la vraie vie.", 28); box.classList.add("on"); });
-})();
+/* sous-titre tapé quand il arrive à l'écran, puis le texte */
+const intro = document.getElementById("intro");
+new IntersectionObserver(async (es, io) => {
+  if (!es[0].isIntersecting) return; io.disconnect();
+  await type(document.getElementById("ideaT"), "Protéger les joueurs aussi bien en jeu que dans la vraie vie.", 26);
+  intro.classList.add("on");
+}, {rootMargin:"0px 0px -20% 0px"}).observe(intro);
 
-/* médias sur le bureau : le cache s'efface quand ils arrivent au centre ; les boucles jouent quand elles sont visibles */
-const media = [...document.querySelectorAll(".m")].map((el, i) => {
-  const cv = el.querySelector("canvas"), video = el.querySelector("video");
-  return {el, video, cover: Cover(cv, 30 + i, "#ECEDF3", "#0B1446", null), cv, rev: -1, caps: [...el.querySelectorAll("[data-t]")]};
-});
+/* légendes tapées à l'arrivée ; boucles jouées seulement quand elles sont à l'écran */
+document.querySelectorAll(".cap[data-t]").forEach(c => new IntersectionObserver((es, io) => {
+  if (es[0].isIntersecting){ io.disconnect(); type(c, c.dataset.t, 24); }
+}, {rootMargin:"0px 0px -15% 0px"}).observe(c));
+document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
+  es[0].isIntersecting ? v.play().catch(() => {}) : v.pause();
+}, {threshold:.15}).observe(v));
 
-/* galerie : bande horizontale, tailles et hauteurs variées, révélation au centre de la bande */
+/* galerie : composition libre sur 12 colonnes */
 const SRC = "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-";
-const SH = [[1,"min(46vw, 620px)","0vh"],[2,"min(34vw, 460px)","10vh"],[3,"min(52vw, 700px)","3vh"],[4,"min(30vw, 400px)","14vh"],[6,"min(44vw, 600px)","0vh"],[10,"min(36vw, 500px)","8vh"]];
-const strip = document.getElementById("strip");
-const shots = SH.map(([num, w, top], i) => {
-  const el = document.createElement("figure");
-  el.style.cssText = `--sw:${w};--st:${top}`;
-  const label = "SHOT " + String(i + 1).padStart(2, "0");
-  el.innerHTML = `<div class="box"><canvas role="img" aria-label="${label}"></canvas></div><figcaption class="cap ${i % 2 ? "r" : ""}"><span class="n"></span></figcaption>`;
-  strip.appendChild(el);
-  const img = new Image(); img.decoding = "async"; img.src = SRC + num + ".jpg";
-  const it = {el, img, label, n: el.querySelector(".n"), rev: -1};
-  it.cover = Cover(el.querySelector("canvas"), 60 + i, "#0000EE", "#FFFFFF", (ctx, W, H) => { if (img.complete && img.naturalWidth) ctx.drawImage(img, 0, 0, W, H); else { ctx.fillStyle = "rgba(255,255,255,.1)"; ctx.fillRect(0,0,W,H); } });
-  img.onload = () => { it.rev = -1; };
-  return it;
+const G = [[1,"1 / span 7"],[2,"8 / span 5","14vh"],[3,"2 / span 5"],[4,"7 / span 6","10vh"],[6,"1 / span 6"],[10,"7 / span 5","16vh"]];
+const grid = document.getElementById("grid");
+G.forEach(([n, c, down], i) => {
+  const f = document.createElement("figure");
+  f.style.cssText = `--c:${c};${down ? "--down:" + down + ";" : ""}--mw:${i % 2 ? "84%" : "100%"};--js:${i % 2 ? "end" : "start"}`;
+  f.innerHTML = `<img loading="lazy" decoding="async" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"><figcaption>SHOT ${String(i + 1).padStart(2, "0")}</figcaption>`;
+  grid.appendChild(f);
 });
-strip.insertAdjacentHTML("beforeend", '<div class="end"></div>');
-// glisser à la souris
-let dragX = null, startL = 0;
-strip.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; dragX = e.clientX; startL = strip.scrollLeft; strip.classList.add("drag"); strip.setPointerCapture(e.pointerId); });
-strip.addEventListener("pointermove", e => { if (dragX !== null) strip.scrollLeft = startL - (e.clientX - dragX); });
-const stop = () => { dragX = null; strip.classList.remove("drag"); };
-strip.addEventListener("pointerup", stop); strip.addEventListener("pointercancel", stop);
-// la molette verticale fait défiler la bande quand elle est au centre de l'écran
-strip.addEventListener("wheel", e => {
-  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-  const max = strip.scrollWidth - strip.clientWidth;
-  if ((e.deltaY > 0 && strip.scrollLeft < max - 1) || (e.deltaY < 0 && strip.scrollLeft > 0)){ strip.scrollLeft += e.deltaY; e.preventDefault(); }
-}, {passive:false});
-
-function frame(){
-  const vh = innerHeight, mid = vh / 2;
-  for (const it of media){
-    const r = it.el.getBoundingClientRect();
-    if (it.video){ const vis = r.top < vh && r.bottom > 0; if (vis && it.video.paused) it.video.play().catch(() => {}); if (!vis && !it.video.paused) it.video.pause(); }
-    if (r.bottom < -vh*.5 || r.top > vh*1.5) continue;
-    const gap = mid < r.top ? r.top - mid : mid > r.bottom ? mid - r.bottom : 0, near = gap / (vh * .5);
-    const rv = reducedM ? 1 : smooth(1 - near / .7);
-    if (Math.abs(rv - it.rev) > .004){ it.rev = rv; it.cover.paint(rv); if (rv >= .999) it.cv.style.display = "none"; else it.cv.style.display = ""; }
-    if (near < .12 && !it.named){ it.named = true; (async () => { for (const c of it.caps) await type(c, c.dataset.t, 30); })(); }
-  }
-  const sr = strip.getBoundingClientRect(), cx = sr.left + sr.width / 2, inView = sr.top < vh && sr.bottom > 0;
-  if (inView) for (const it of shots){
-    const r = it.el.getBoundingClientRect();
-    const gap = cx < r.left ? r.left - cx : cx > r.right ? cx - r.right : 0, near = gap / (sr.width * .5);
-    const rv = reducedM ? 1 : smooth(1 - near / .75);
-    if (Math.abs(rv - it.rev) > .004){ it.rev = rv; it.cover.paint(rv); }
-    if (near < .1 && !it.named){ it.named = true; type(it.n, it.label, 30); }
-  }
-  requestAnimationFrame(frame);
-}
-document.fonts.ready.then(() => { media.forEach(m => m.cover.setup()); shots.forEach(s => s.cover.setup()); requestAnimationFrame(frame); });
-let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { [...media, ...shots].forEach(it => { it.cover.setup(); it.rev = -1; }); }, 120); });
-
-/* projet suivant : le nom se retape au survol */
-const nx = document.getElementById("nextT"), nxt = nx.textContent;
-nx.closest("a").addEventListener("mouseenter", () => { if (!reducedM) type(nx, nxt, 18); });
 })();
 
 /* ---------- fond : grille de points ; la souris laisse un sillage bleu ---------- */
