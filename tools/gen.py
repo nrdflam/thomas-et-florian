@@ -94,9 +94,9 @@ P = [
        h1="Moët & Chandon Synaesthesia.",
        p="Une nouvelle gamme de cocktails destinée à éveiller vos sens en fusionnant champagne et recettes de cocktails emblématiques. À travers cette campagne, nous nous sommes fixé comme objectif de faire ressentir au spectateur les sensations procurées par les cocktails, tout en déguisant une campagne d’image de marque en tutoriels de mixologie.",
        hero=("img", "assets/synaesthesia-header.jpg", None, set()),
-       # TODO : vidéo principale (lien à fournir) → ("yt", "<ID>", "VIDEO_Synaesthesia.mp4", set()), à placer avant les stories
-       media=[("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", "InstaStory_V5.mp4", {"nat", "tall"}),
-              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", "Recipes_V2.mp4", {"nat", "tall"})],
+       media=[("yt", "cQ46NoSYuZk", "FILM_Synaesthesia.mp4", set()),
+              ("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", "InstaStory_V5.mp4", {"nat", "full"}),
+              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", "Recipes_V2.mp4", {"nat", "full"})],
        gal=[], credits=[("Creative Directors", "Paul-Émile Raymond & Adrien Mancel"), AD, CW, ("Directors", "Julien & Quentin")], awards=[]),
 ]
 
@@ -157,6 +157,10 @@ def build(i, d):
 .nat.clean .box video,.nat.clean .box img{box-shadow:none}
 .nat.tall{--w:440px}
 .m.small{--w:560px}
+/* pleine largeur : le média occupe tout l'écran */
+.m.full{width:100%;transform:none}
+.nat.full .box video,.nat.full .box img{width:100%;max-width:none;max-height:none;box-shadow:none}
+.m.full .cap{padding:0 16px}
 .m.big{--w:1240px}
 .say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
 .say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}

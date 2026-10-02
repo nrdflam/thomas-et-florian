@@ -85,6 +85,10 @@ main{padding:4vh 0 16vh}
 .nat.clean .box video,.nat.clean .box img{box-shadow:none}
 .nat.tall{--w:440px}
 .m.small{--w:560px}
+/* pleine largeur : le média occupe tout l'écran */
+.m.full{width:100%;transform:none}
+.nat.full .box video,.nat.full .box img{width:100%;max-width:none;max-height:none;box-shadow:none}
+.m.full .cap{padding:0 16px}
 .m.big{--w:1240px}
 .say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
 .say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
@@ -231,16 +235,20 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <p><span>Une nouvelle gamme de cocktails destinée à éveiller vos sens en fusionnant champagne et recettes de cocktails emblématiques. À travers cette campagne, nous nous sommes fixé comme objectif de faire ressentir au spectateur les sensations procurées par les cocktails, tout en déguisant une campagne d’image de marque en tutoriels de mixologie.</span></p>
   </section>
 
-  <div class="pair">
-  <figure class="m v2 nat tall">
-    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4" aria-label="Synaesthesia, média 1"></video></div>
+  <figure class="m v1">
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/cQ46NoSYuZk?rel=0&modestbranding=1&playsinline=1" title="Synaesthesia, média 1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <figcaption class="cap right" data-t="FILM_Synaesthesia.mp4"></figcaption>
+  </figure>
+
+  <figure class="m v2 full nat">
+    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4" aria-label="Synaesthesia, média 2"></video></div>
     <figcaption class="cap left" data-t="InstaStory_V5.mp4"></figcaption>
   </figure>
-  <figure class="m v1 nat tall">
-    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4" aria-label="Synaesthesia, média 2"></video></div>
+
+  <figure class="m v3 full nat">
+    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4" aria-label="Synaesthesia, média 3"></video></div>
     <figcaption class="cap right" data-t="Recipes_V2.mp4"></figcaption>
   </figure>
-  </div>
 </main>
 
 <section class="gal" aria-label="Images du projet" style="--gr:16/9" hidden>
