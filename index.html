@@ -141,6 +141,10 @@ a{color:var(--blue)}
 .alist .r{white-space:pre;flex:none}
 .alist .y,.alist .sep{color:var(--aw-accent)}
 .alist .lead{flex:1 1 24px;min-width:24px;align-self:flex-end;height:1px;margin-bottom:.48em;background:repeating-linear-gradient(90deg,var(--aw-accent) 0 3px,transparent 3px 5px);clip-path:inset(0 100% 0 0)}
+.alist li.multi{display:block;position:relative}
+.alist li.multi .l{display:inline}
+.alist li.multi .lead{display:inline-block;vertical-align:middle;margin:0 0 0 6px}
+.alist li.multi .r{position:absolute;right:0;bottom:0}
 .alist li.lead-on .lead{clip-path:inset(0 0 0 0);transition:clip-path .32s steps(14)}
 .alist .k{position:absolute;left:calc(100% + 2px);top:.15em;width:.55em;height:1.05em;background:currentColor;animation:blink 1.05s steps(1) infinite}
 @media (max-width:600px){
@@ -164,7 +168,7 @@ a{color:var(--blue)}
 .ents{position:relative;list-style:none;margin:0;padding:6vh 0 0}
 .ent{position:relative;margin-bottom:clamp(44px,7vh,80px);--x:50%}
 .ent .nd{position:absolute;left:var(--x);top:.15em;transform:translateX(-50%);font-size:13px;line-height:1;color:var(--blue);background:var(--desk);padding:2px 1px;z-index:1}
-.ent .tx{width:min(320px, 100%);position:relative;background:var(--desk);box-shadow:0 0 0 14px var(--desk)}
+.ent .tx{width:min(320px, 100%);position:relative;background:rgba(236,237,243,.8);box-shadow:0 0 0 6px rgba(236,237,243,.8)}
 .ent.R .tx{margin-left:calc(var(--x) + 22px)}
 .ent.L .tx{margin-left:calc(var(--x) - 22px - min(320px, 100%));text-align:right}
 .ent .yr{display:block;position:relative;font-size:11px;line-height:1.5;letter-spacing:.08em;text-transform:uppercase;min-height:1.5em;white-space:normal}
@@ -625,8 +629,24 @@ document.fonts.ready.then(() => {
   }
   function showNow(row){
     row.el.textContent = ""; segsOf(row.l).forEach(([cls, txt]) => { const sp = document.createElement("span"); if (cls) sp.className = cls; sp.textContent = txt; row.el.appendChild(sp); });
-    row.er.textContent = row.r; row.li.classList.add("lead-on"); row.state = 2;
+    row.er.textContent = row.r; row.li.classList.add("lead-on"); row.state = 2; fit(row);
   }
+  // si le nom du prix passe sur plusieurs lignes, les pointillés repartent juste après le dernier mot
+  function fit(row){
+    const {li, el, er} = row, lead = li.querySelector(".lead");
+    li.classList.remove("multi"); lead.style.width = ""; li.style.paddingRight = "";
+    const lh = parseFloat(getComputedStyle(el).lineHeight) || 18;
+    if (el.getBoundingClientRect().height < lh * 1.6) return;
+    // on réserve la place du niveau à droite, le nom coule à gauche, les pointillés comblent la fin de sa dernière ligne
+    const rw = er.getBoundingClientRect().width;
+    li.classList.add("multi"); li.style.paddingRight = (rw + 10) + "px";
+    lead.style.width = "0px";
+    const range = document.createRange(); range.selectNodeContents(el);
+    const rects = [...range.getClientRects()].filter(r => r.width > 0);
+    const last = rects[rects.length - 1], lr = li.getBoundingClientRect();
+    lead.style.width = Math.max(16, lr.right - rw - 10 - last.right - 8) + "px";
+  }
+  addEventListener("resize", () => rows.forEach(r => { if (r.state === 2) fit(r); }));
   const queue = []; let busy = false;
   async function pump(){
     if (busy) return; busy = true;
@@ -639,7 +659,7 @@ document.fonts.ready.then(() => {
         await typeSegs(row.el, segsOf(row.l), sp);
         row.li.classList.add("lead-on"); await sleep(330);
         await typeInto(row.er, row.r, sp + 6);
-        row.state = 2;
+        row.state = 2; fit(row);
       }
       await sleep(fast ? 0 : 90);
     }
