@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
+<script>try{if(localStorage.getItem("tf-ascii")==="1"&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("al")}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Immunity Potion · Thomas & Florian</title>
@@ -72,13 +73,12 @@ main{padding:4vh 0 16vh}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* galerie sur le bleu : les six images côte à côte, tailles différentes ; SHOT_XX discret qui flotte avec la souris */
-.gal{position:relative;color:#fff;background:var(--blue);padding:var(--pt,20vh) 0 0}
+.gal{position:relative;color:#fff}
 .gal .pin{position:sticky;top:var(--pt,20vh);display:flex;align-items:center;overflow:hidden;background:var(--blue);padding:7vh 0}
 .row{display:flex;align-items:center;gap:clamp(16px,2.2vw,36px);padding:0 16px;will-change:transform}
 .row figure{flex:none;width:calc(min(560px, 72vw) * var(--z,1));display:flex;flex-direction:column;gap:8px}
 .row figure.up{flex-direction:column-reverse}
-.row .fl{position:relative;will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.row .fl canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
 .row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.55;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 
@@ -109,6 +109,10 @@ main{padding:4vh 0 16vh}
 .sig a:hover{background:#fff;color:var(--blue)}
 @media (max-width:620px){.pn{grid-template-columns:1fr 1fr}.pn .all{grid-column:1 / -1;grid-row:1;text-align:center}}
 @media (prefers-reduced-motion:reduce){.intro p,.row figcaption{transition:none}}
+/* chargement ASCII plein écran */
+html.al body::after{content:"";position:fixed;inset:0;background:var(--desk);z-index:99}
+#loader{position:fixed;inset:0;z-index:100;pointer-events:none}
+#loader canvas{position:absolute;inset:0;width:100%;height:100%}
 </style>
 </head>
 <body>
@@ -223,25 +227,27 @@ function asciiCover(box, bg, fg){
     kill(){ done = true; cv.remove(); }
   };
 }
-// boucle logo : démarre tout de suite, un peu avant la frappe du titre
-if (!reducedM) asciiCover(document.querySelector(".logo .box"), "#ECEDF3", "#0B1446").play(150);
-
-// toggle : reveal sur toute la page (vidéos + galerie), à l'arrivée à l'écran
+// toggle : "chargement" ASCII sur tout l'écran, une seule fois à l'arrivée sur la page
 const tg = document.getElementById("asciiTg");
-let covers = [];
-function setAscii(on){
-  tg.setAttribute("aria-pressed", on); tg.textContent = on ? "ASCII_REVEAL [x]" : "ASCII_REVEAL [ ]";
-  try { localStorage.setItem("tf-ascii", on ? "1" : "0"); } catch(e){}
-  covers.forEach(c => { c.io.disconnect(); c.kill(); }); covers = [];
-  if (!on || reducedM) return;
-  document.querySelectorAll(".case .box, .bottle .box, .row .fl").forEach((box, i) => {
-    const onBlue = !!box.closest(".gal");
-    const c = asciiCover(box, onBlue ? "#0000EE" : "#ECEDF3", onBlue ? "#FFFFFF" : "#0B1446");
-    c.io = new IntersectionObserver(es => { if (es[0].isIntersecting){ c.io.disconnect(); c.play(80, onBlue ? 1100 : 1500); } }, {threshold:.25});
-    c.io.observe(box); covers.push(c);
-  });
+let asciiOn = false; try { asciiOn = localStorage.getItem("tf-ascii") === "1"; } catch(e){}
+function showTg(){ tg.setAttribute("aria-pressed", asciiOn); tg.textContent = asciiOn ? "ASCII_REVEAL [x]" : "ASCII_REVEAL [ ]"; }
+function loader(){
+  if (reducedM){ document.documentElement.classList.remove("al"); return; }
+  const host = document.createElement("div"); host.id = "loader"; document.body.appendChild(host);
+  const c = asciiCover(host, "#ECEDF3", "#0B1446");
+  document.documentElement.classList.remove("al");
+  c.play(120, 1700); setTimeout(() => host.remove(), 2000);
 }
-tg.addEventListener("click", () => setAscii(tg.getAttribute("aria-pressed") !== "true"));
+showTg();
+tg.addEventListener("click", () => {
+  asciiOn = !asciiOn; showTg();
+  try { localStorage.setItem("tf-ascii", asciiOn ? "1" : "0"); } catch(e){}
+  if (asciiOn) loader();            // aperçu immédiat quand on l'active
+});
+// boucle logo : son propre reveal seulement si le chargement plein écran est coupé
+if (asciiOn) loader();
+else if (!reducedM) asciiCover(document.querySelector(".logo .box"), "#ECEDF3", "#0B1446").play(150);
+const titleAt = asciiOn ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
@@ -257,7 +263,7 @@ document.fonts.ready.then(() => placeBar(0));
 addEventListener("resize", () => placeBar(chars.filter(c => c.classList.contains("on")).length));
 new IntersectionObserver(async (es, io) => {
   if (!es[0].isIntersecting) return; io.disconnect();
-  if (!reducedM) await sleep(Math.max(0, 450 - performance.now()));
+  if (!reducedM) await sleep(Math.max(0, titleAt - performance.now()));
   for (let i = 0; i < chars.length; i++){ chars[i].classList.add("on"); placeBar(i + 1); if (!reducedM) await sleep(26); }
   intro.classList.add("on");
 }, {rootMargin:"0px 0px -20% 0px"}).observe(intro);
@@ -294,10 +300,9 @@ const pin = gal.querySelector(".pin");
 [1, .92, 1.08, .95, 1.06, .9].forEach((z, i) => row.children[i].style.setProperty("--z", z));
 function sizeGal(){
   const ph = pin.offsetHeight;
-  gal.style.setProperty("--pt", Math.max(60, (innerHeight - ph) / 2) + "px");     // bande centrée pendant le défilement
+  gal.style.setProperty("--pt", Math.max(0, innerHeight - ph) + "px");     // bande calée en bas de l'écran pendant le défilement
   travel = Math.max(0, row.scrollWidth - innerWidth);
-  const pt = Math.max(60, (innerHeight - ph) / 2);
-  gal.style.height = (pt + ph + travel) + "px";   // bande bleue collée aux crédits, sans gris autour
+  gal.style.height = (ph + travel) + "px";   // bande bleue de hauteur raisonnable, collée aux crédits
   update();
 }
 // entrée et sortie en douceur : courbe sur la progression + un peu d'inertie
@@ -317,7 +322,6 @@ function tick(){
 addEventListener("scroll", update, {passive:true});
 addEventListener("resize", sizeGal);
 addEventListener("load", sizeGal); sizeGal();
-{ let on = false; try { on = localStorage.getItem("tf-ascii") === "1"; } catch(e){} setAscii(on); }
 // images et légendes flottent légèrement avec la souris, chacune à son rythme
 if (!reducedM) gal.addEventListener("pointermove", e => {
   if (e.pointerType !== "mouse") return;
