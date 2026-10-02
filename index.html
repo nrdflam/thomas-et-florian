@@ -204,6 +204,8 @@ a{color:var(--blue)}
 .egg.on{opacity:1;visibility:visible;transition:opacity .35s}
 .egg iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .egg button{position:absolute;top:10px;right:16px;z-index:2;font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#0000EE;background:none;border:0;padding:4px 0;cursor:pointer}
+.kc{position:fixed;right:16px;bottom:14px;z-index:150;font-family:"Martian Mono", ui-monospace, monospace;font-size:11px;letter-spacing:.3em;color:#0000EE;pointer-events:none;opacity:0;transition:opacity .4s}
+.kc.on{opacity:1;transition:opacity .1s}
 .egg button:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
@@ -759,17 +761,42 @@ document.fonts.ready.then(() => {
 })();
 </script>
 
+<div class="kc" id="kc" aria-hidden="true"></div>
 <div class="egg" id="egg" role="dialog" aria-label="Thomas et Florian dans le canapé" aria-hidden="true"><button type="button" id="eggX">Fermer ×</button></div>
 <script>
 /* easter egg : ↑ ↑ ↓ ↓ ← → ← → (au clavier) ou les mêmes balayages au doigt */
 (() => {
   const SEQ = ["up","up","down","down","left","right","left","right"];
   const egg = document.getElementById("egg"), x = document.getElementById("eggX");
-  let pos = 0;
+  let pos = 0, kt = 0;
+  const kc = document.getElementById("kc"), AR = {up:"↑", down:"↓", left:"←", right:"→"};
+  // retour discret : les bonnes flèches s'affichent dans le coin, puis s'effacent
+  function show(){
+    clearTimeout(kt);
+    if (!pos){ kc.classList.remove("on"); return; }
+    kc.textContent = SEQ.slice(0, pos).map(k => AR[k]).join(""); kc.classList.add("on");
+    kt = setTimeout(() => { kc.classList.remove("on"); pos = 0; }, 1600);
+  }
   function feed(k){
     pos = k === SEQ[pos] ? pos + 1 : (k === SEQ[0] ? 1 : 0);
-    if (pos === SEQ.length){ pos = 0; open(); }
+    show();
+    if (pos === SEQ.length){ pos = 0; setTimeout(() => { show(); open(); }, 250); }
   }
+  // l'indice, pour les curieux qui ouvrent la console
+  console.log(`%c
+         .----.                .----.
+        ( o--o )              ( -  - )
+         \\  _ /                \\ ~~ /
+          '--'                  '--'
+       .--|  |--.            .--|  |--.
+      /   |__|   \\          /   |__|   \\
+  ___/__/      \\__\\________/__/      \\__\\___
+ |      |      |              |      |      |
+ |      |______|______________|______|      |
+ |__________________________________________|
+    ||                                  ||
+
+ // ↑ ↑ ↓ ↓ ← → ← →`, "font-family:monospace;color:#0000EE;font-size:11px;line-height:1.25");
   function open(){
     if (!egg.querySelector("iframe")){ const f = document.createElement("iframe"); f.src = "canape.html?embed=1"; f.title = "Thomas et Florian dans le canapé"; egg.appendChild(f); }
     else egg.querySelector("iframe").contentWindow.postMessage("replay", "*");
