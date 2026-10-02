@@ -95,8 +95,8 @@ P = [
        p="Une nouvelle gamme de cocktails destinée à éveiller vos sens en fusionnant champagne et recettes de cocktails emblématiques. À travers cette campagne, nous nous sommes fixé comme objectif de faire ressentir au spectateur les sensations procurées par les cocktails, tout en déguisant une campagne d’image de marque en tutoriels de mixologie.",
        hero=("img", "assets/synaesthesia-header.jpg", None, set()),
        media=[("yt", "cQ46NoSYuZk", "FILM_Synaesthesia.mp4", set()),
-              ("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", "InstaStory_V5.mp4", {"nat", "full"}),
-              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", "Recipes_V2.mp4", {"nat", "full"})],
+              ("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", None, {"nat", "full"}),
+              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", None, {"nat", "full"})],
        gal=[], credits=[("Creative Directors", "Paul-Émile Raymond & Adrien Mancel"), AD, CW, ("Directors", "Julien & Quentin")], awards=[]),
 ]
 
