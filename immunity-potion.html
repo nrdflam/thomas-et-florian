@@ -70,11 +70,10 @@ main{padding:4vh 0 16vh}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* galerie sur le bleu : les six images côte à côte, tailles différentes ; SHOT_XX discret qui flotte avec la souris */
-.gal{background:var(--blue);color:#fff}
-.gal{padding:0;position:relative}
-.gal .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.gal{position:relative;color:#fff;padding:10vh 0}
+.gal .pin{position:sticky;top:var(--pt,20vh);display:flex;align-items:center;overflow:hidden;background:var(--blue);padding:7vh 0}
 .row{display:flex;align-items:center;gap:clamp(16px,2.2vw,36px);padding:0 16px;will-change:transform}
-.row figure{flex:none;width:min(560px, 72vw);display:flex;flex-direction:column;gap:8px}
+.row figure{flex:none;width:calc(min(560px, 72vw) * var(--z,1));display:flex;flex-direction:column;gap:8px}
 .row figure.up{flex-direction:column-reverse}
 .row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
@@ -210,12 +209,13 @@ async function type(el, txt, speed = 22){
     }
     ctx.globalAlpha = 1;
   }
-  document.fonts.ready.then(() => {
+  // démarre tout de suite (sans attendre la police), un peu avant la frappe du titre
+  (() => {
     setup(); paint(0);
-    const t0 = performance.now() + 600, D = 1500;
+    const t0 = performance.now() + 150, D = 1500;
     const step = t => { const k = Math.max(0, Math.min(1, (t - t0) / D)), e = k*k*(3-2*k); paint(e); if (k < 1) requestAnimationFrame(step); else cv.remove(); };
     requestAnimationFrame(step);
-  });
+  })();
 })();
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
@@ -232,6 +232,7 @@ document.fonts.ready.then(() => placeBar(0));
 addEventListener("resize", () => placeBar(chars.filter(c => c.classList.contains("on")).length));
 new IntersectionObserver(async (es, io) => {
   if (!es[0].isIntersecting) return; io.disconnect();
+  if (!reducedM) await sleep(Math.max(0, 450 - performance.now()));
   for (let i = 0; i < chars.length; i++){ chars[i].classList.add("on"); placeBar(i + 1); if (!reducedM) await sleep(26); }
   intro.classList.add("on");
 }, {rootMargin:"0px 0px -20% 0px"}).observe(intro);
@@ -262,17 +263,32 @@ G.forEach((n, i) => {
   row.appendChild(fig);
   fl.push({img: fig.querySelector(".fl"), cap: fig.querySelector("figcaption"), k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
 });
-let travel = 0;
+let travel = 0, cur = 0, target = 0, raf = 0;
+const pin = gal.querySelector(".pin");
+// tailles légèrement différentes (± 10 %)
+[1, .92, 1.08, .95, 1.06, .9].forEach((z, i) => row.children[i].style.setProperty("--z", z));
 function sizeGal(){
+  const ph = pin.offsetHeight;
+  pin.style.setProperty("--pt", Math.max(60, (innerHeight - ph) / 2) + "px");     // bande centrée pendant le défilement
   travel = Math.max(0, row.scrollWidth - innerWidth);
-  gal.style.height = (innerHeight + travel) + "px";
-  moveGal();
+  gal.style.height = (ph + travel + innerHeight * .2) + "px";
+  update();
 }
-function moveGal(){
-  const r = gal.getBoundingClientRect(), p = travel ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
-  row.style.transform = `translateX(${(-p * travel).toFixed(1)}px)`;
+// entrée et sortie en douceur : courbe sur la progression + un peu d'inertie
+const ease = p => p + ((p * p * (3 - 2 * p)) - p) * .65;
+function update(){
+  const r = gal.getBoundingClientRect(), start = parseFloat(getComputedStyle(pin).top) - parseFloat(getComputedStyle(gal).paddingTop);
+  const p = travel ? Math.min(1, Math.max(0, (start - r.top) / travel)) : 0;
+  target = ease(p) * travel;
+  if (!raf) raf = requestAnimationFrame(tick);
 }
-addEventListener("scroll", moveGal, {passive:true});
+function tick(){
+  cur += (target - cur) * (reducedM ? 1 : .14);
+  if (Math.abs(target - cur) < .3) cur = target;
+  row.style.transform = `translateX(${(-cur).toFixed(1)}px)`;
+  raf = cur !== target ? requestAnimationFrame(tick) : 0;
+}
+addEventListener("scroll", update, {passive:true});
 addEventListener("resize", sizeGal);
 addEventListener("load", sizeGal); sizeGal();
 // images et légendes flottent légèrement avec la souris, chacune à son rythme
