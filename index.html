@@ -199,6 +199,12 @@ a{color:var(--blue)}
 
 
 @media (prefers-reduced-motion:reduce){.c{visibility:visible}}
+/* easter egg : konami code → le canapé en ASCII */
+.egg{position:fixed;inset:0;z-index:200;background:#ECEDF3;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.egg.on{opacity:1;visibility:visible;transition:opacity .35s}
+.egg iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.egg button{position:absolute;top:10px;right:16px;z-index:2;font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#0000EE;background:none;border:0;padding:4px 0;cursor:pointer}
+.egg button:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -750,6 +756,40 @@ document.fonts.ready.then(() => {
   let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(layout, 100); });
   const img = photo.querySelector("img");
   (img.complete ? Promise.resolve() : new Promise(r => img.onload = r)).then(() => document.fonts.ready).then(layout);
+})();
+</script>
+
+<div class="egg" id="egg" role="dialog" aria-label="Thomas et Florian dans le canapé" aria-hidden="true"><button type="button" id="eggX">Fermer ×</button></div>
+<script>
+/* easter egg : ↑ ↑ ↓ ↓ ← → ← → B A (au clavier) ou les mêmes gestes au doigt (balayages, puis deux tapes) */
+(() => {
+  const SEQ = ["up","up","down","down","left","right","left","right","b","a"];
+  const egg = document.getElementById("egg"), x = document.getElementById("eggX");
+  let pos = 0;
+  function feed(k){
+    pos = k === SEQ[pos] ? pos + 1 : (k === SEQ[0] ? 1 : 0);
+    if (pos === SEQ.length){ pos = 0; open(); }
+  }
+  function open(){
+    if (!egg.querySelector("iframe")){ const f = document.createElement("iframe"); f.src = "canape.html?embed=1"; f.title = "Thomas et Florian dans le canapé"; egg.appendChild(f); }
+    else egg.querySelector("iframe").contentWindow.postMessage("replay", "*");
+    egg.classList.add("on"); egg.setAttribute("aria-hidden", "false"); x.focus();
+  }
+  function close(){ egg.classList.remove("on"); egg.setAttribute("aria-hidden", "true"); }
+  x.addEventListener("click", close);
+  addEventListener("keydown", e => {
+    if (e.key === "Escape" && egg.classList.contains("on")) return close();
+    const k = {ArrowUp:"up", ArrowDown:"down", ArrowLeft:"left", ArrowRight:"right", b:"b", B:"b", a:"a", A:"a"}[e.key];
+    feed(k || "");
+  });
+  // au doigt : balayages pour les flèches ; B puis A = deux tapes
+  let t0 = null;
+  addEventListener("touchstart", e => { const t = e.touches[0]; t0 = {x: t.clientX, y: t.clientY}; }, {passive:true});
+  addEventListener("touchend", e => {
+    if (!t0) return; const t = e.changedTouches[0], dx = t.clientX - t0.x, dy = t.clientY - t0.y; t0 = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 30) return feed(pos === 8 ? "b" : pos === 9 ? "a" : "tap");
+    feed(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up"));
+  }, {passive:true});
 })();
 </script>
 
