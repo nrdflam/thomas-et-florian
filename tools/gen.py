@@ -78,8 +78,8 @@ P = [
        h1="Les étudiants aussi sont stressés.",
        p="Euphytose Stress a voulu s’adresser à eux pendant la période de révisions. La marque, plutôt habituée à communiquer auprès de leurs mamans, a accepté d’adopter un ton beaucoup plus amusant.",
        hero=("img", "assets/euphytose-etudiants-header.jpg", None, set()),
-       media=[("yt", "5VE7IdXRTNg", "VIDEO_Revision_01.mp4", set()),
-              ("yt", "n-SYL-BNttk", "VIDEO_Revision_02.mp4", set())],
+       media=[("yt", "5VE7IdXRTNg", "VIDEO_Revision_01.mp4", {"v1"}),
+              ("yt", "n-SYL-BNttk", "VIDEO_Revision_02.mp4", {"v1"})],
        gal=[u("2024/10/" + n) for n in ("Napoelon_Revision_v2_29s.00_00_05_04.Still003.jpg", "Napoelon_Revision_v2_29s.00_00_07_15.Still002.jpg",
             "Napoelon_Revision_v2_29s.00_00_12_06.Still001.jpg", "Leonard_Revision_v2_29s.00_00_05_08.Still001.jpg",
             "Leonard_Revision_v2_29s.00_00_03_08.Still003.jpg", "Leonard_Revision_v2_29s.00_00_13_09.Still004.jpg")], gr="16/9",
@@ -192,7 +192,8 @@ def build(i, d):
         if "tall" in m[3] and k + 1 < len(ms) and "tall" in ms[k + 1][3]:   # deux formats verticaux côte à côte
             main += '\n  <div class="pair">\n' + media_html(m, "v2", f'{d["name"]}, média {k + 1}') + media_html(ms[k + 1], "v1", f'{d["name"]}, média {k + 2}') + "  </div>\n"
             k += 2; continue
-        main += "\n" + media_html(m, VARIANTS[vi % 4], f'{d["name"]}, média {k + 1}'); k += 1; vi += 1
+        cls = next((o for o in m[3] if o in VARIANTS), VARIANTS[vi % 4])   # variante imposée possible (ex. même taille)
+        main += "\n" + media_html((m[0], m[1], m[2], m[3] - set(VARIANTS)), cls, f'{d["name"]}, média {k + 1}'); k += 1; vi += 1
     s = s[:a] + main + s[b:]
     rep('const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });',
         'const chars = []; [...TITLE].forEach(c => { if (c === "\\n"){ h1.appendChild(document.createElement("br")); return; } const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); chars.push(sp); });')
