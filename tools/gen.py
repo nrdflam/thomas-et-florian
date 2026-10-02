@@ -24,10 +24,9 @@ P = [
   dict(slug="the-infrastructors", fn="THE_INFRASTRUCTORS.mp4", name="The Infrastructors", client="Dassault Systèmes",
        h1="Les enfants reprennent les commandes.",
        p="Ce ne sont pas des ingénieurs. Pas des urbanistes. Juste des enfants. Et c’est précisément pour ça qu’il faut les écouter.",
-       hero=("img", u("2025/07/DASSAULT_EP01.mp4.00_01_13_07.Still005.jpg"), None, set()),
-       # TODO : vidéos des épisodes (liens YouTube à fournir)
-       media=[],
-       gal=[u("2025/07/DASSAULT_" + n) for n in ("EP03.mp4.00_00_18_24.Still003.jpg", "EP02.mp4.00_01_18_14.Still005.jpg",
+       hero=("video", "assets/infrastructors-arya-limonade.mp4", None, {"loop"}),
+       media=[("yt", "qDF0eK64afA", "VIDEO_The_Infrastructors.mp4", set())],
+       gal=[u("2025/07/DASSAULT_" + n) for n in ("EP01.mp4.00_01_13_07.Still005.jpg", "EP03.mp4.00_00_18_24.Still003.jpg", "EP02.mp4.00_01_18_14.Still005.jpg",
             "EP04.mp4.00_00_11_17.Still002.jpg", "EP05.mp4.00_00_00_00.Still001.jpg", "EP03.mp4.00_00_08_17.Still002.jpg")], gr="16/9",
        credits=[ECD_AP, AD, CW, ("Directors", "Thomas & Florian")], awards=[]),
   dict(slug="building-tomorrow", fn="BUILDING_TOMORROW.mp4", name="Building Tomorrow", client="Dassault Systèmes",

@@ -228,8 +228,8 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 </header>
 
 <main>
-  <figure class="m logo">
-    <div class="box"><img loading="lazy" decoding="async" src="https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP01.mp4.00_01_13_07.Still005.jpg" alt="The Infrastructors, Dassault Systèmes"></div>
+  <figure class="m logo loop">
+    <div class="box"><video muted loop playsinline autoplay preload="auto" src="assets/infrastructors-arya-limonade.mp4" aria-label="The Infrastructors, Dassault Systèmes"></video></div>
   </figure>
 
   <section class="intro" id="intro">
@@ -237,6 +237,11 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <h1 id="ideaT" aria-label="Les enfants reprennent les commandes."></h1>
     <p><span>Ce ne sont pas des ingénieurs. Pas des urbanistes. Juste des enfants. Et c’est précisément pour ça qu’il faut les écouter.</span></p>
   </section>
+
+  <figure class="m v1">
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/qDF0eK64afA?rel=0&modestbranding=1&playsinline=1" title="The Infrastructors, média 1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <figcaption class="cap right" data-t="VIDEO_The_Infrastructors.mp4"></figcaption>
+  </figure>
 </main>
 
 <section class="gal" aria-label="Images du projet" style="--gr:16/9">
@@ -384,7 +389,7 @@ document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
 }, {threshold:.15}).observe(v));
 
 /* galerie : les images par lignes de trois, sur la bande bleue */
-const G = ["https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP03.mp4.00_00_18_24.Still003.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP02.mp4.00_01_18_14.Still005.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP04.mp4.00_00_11_17.Still002.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP05.mp4.00_00_00_00.Still001.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP03.mp4.00_00_08_17.Still002.jpg"];
+const G = ["https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP01.mp4.00_01_13_07.Still005.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP03.mp4.00_00_18_24.Still003.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP02.mp4.00_01_18_14.Still005.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP04.mp4.00_00_11_17.Still002.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP05.mp4.00_00_00_00.Still001.jpg", "https://thomasetflorian.com/wp-content/uploads/2025/07/DASSAULT_EP03.mp4.00_00_08_17.Still002.jpg"];
 const row = document.getElementById("row"), gal = row.closest(".gal");
 const fl = [];
 G.forEach((n, i) => {
