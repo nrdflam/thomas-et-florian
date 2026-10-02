@@ -84,7 +84,10 @@ main{padding:4vh 0 16vh}
 .gal{position:relative;color:#fff;background:var(--blue);padding:12vh 16px}
 .row{display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:9vh clamp(16px,2.6vw,40px);max-width:1320px;margin:0 auto}
 .row figure{width:calc(88% * var(--z,1));justify-self:center;display:flex;flex-direction:column;gap:8px;transform:translate(var(--ox,0px),var(--oy,0px));transition:transform .5s cubic-bezier(.2,.7,.2,1),width .5s cubic-bezier(.2,.7,.2,1)}
-.row figure.up{flex-direction:column-reverse}
+/* la légende est hors flux : à 0, les photos sont parfaitement alignées */
+.row figure{position:relative}
+.row figure figcaption{position:absolute;left:0;top:calc(100% + 8px)}
+.row figure.up figcaption{top:auto;bottom:calc(100% + 8px)}
 .row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 @media (max-width:760px){.row{grid-template-columns:repeat(2,1fr);gap:6vh 16px}}
 .row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
