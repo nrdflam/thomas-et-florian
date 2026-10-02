@@ -29,7 +29,7 @@ P = [
               ("txt", "Pour arriver à ça."),
               ("video", u("2024/11/PL02_Proche_v2-Cut.mov"), "Building_Tomorrow_Reveal.mov", {"nat", "big"}),
               ("txt", "Pour démontrer les fonctionnalités de sa plateforme de construction, nous avons proposé à Dassault Systèmes de créer le case study d’un extraordinaire projet de construction fictif : une tour Eiffel élaborée avec les techniques et les enjeux du XXIe siècle grâce à la plateforme de Dassault Systèmes."),
-              # TODO : vidéo de case YouTube (lien à fournir) → ("yt", "<ID>", "VIDEO_CASE.mp4", set())
+              ("yt", "L2TvitutMIc", "VIDEO_CASE_Building_Tomorrow.mp4", set()),
               ("img", u("2024/11/DS_BuildingTomorrow_Board_Final2-scaled.jpg"), "DS_BuildingTomorrow_Board_Final2.jpg", {"nat"})],
        gal=[], credits=[ECD_AP, CW, ("Production", "Gang Life")],
        awards=[("2023", "THE DRUM AWARDS_WINNER", "B2B Content"), ("2023", "THE DRUM AWARDS_WINNER", "B2B Response to change"),
