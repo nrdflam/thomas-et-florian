@@ -93,9 +93,10 @@ P = [
   dict(slug="synaesthesia", fn="SYNAESTHESIA_Moët&Chandon.mp4", name="Synaesthesia", client="Moët & Chandon",
        h1="Moët & Chandon Synaesthesia.",
        p="Une nouvelle gamme de cocktails destinée à éveiller vos sens en fusionnant champagne et recettes de cocktails emblématiques. À travers cette campagne, nous nous sommes fixé comme objectif de faire ressentir au spectateur les sensations procurées par les cocktails, tout en déguisant une campagne d’image de marque en tutoriels de mixologie.",
-       hero=None,
-       media=[("video", u("2021/07/Slide1-MoëtSynesthesia-InstaStory-V5.mp4"), "InstaStory_V5.mp4", {"nat", "tall"}),
-              ("video", u("2021/07/Slide2-MoëtSynesthesia-Recipes-V2.mp4"), "Recipes_V2.mp4", {"nat", "tall"})],
+       hero=("img", "assets/synaesthesia-header.jpg", None, set()),
+       # TODO : vidéo principale (lien à fournir) → ("yt", "<ID>", "VIDEO_Synaesthesia.mp4", set()), à placer avant les stories
+       media=[("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", "InstaStory_V5.mp4", {"nat", "tall"}),
+              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", "Recipes_V2.mp4", {"nat", "tall"})],
        gal=[], credits=[("Creative Directors", "Paul-Émile Raymond & Adrien Mancel"), AD, CW, ("Directors", "Julien & Quentin")], awards=[]),
 ]
 
