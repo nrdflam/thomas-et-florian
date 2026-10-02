@@ -135,7 +135,9 @@ main{padding:4vh 0 16vh}
 @media (max-width:620px){.pn{grid-template-columns:1fr 1fr;row-gap:14px}.pn .all{grid-column:1 / -1;grid-row:1;justify-self:center}.pn .prev,.pn .next{font-size:9.5px}}
 /* mobile : espacements resserrés */
 @media (max-width:760px){
-  main{padding:2vh 0 7vh}
+  main{padding:7vh 0 7vh}
+  /* les boucles passent en carré sur mobile */
+  .logo .box,.bottle .box{aspect-ratio:1/1}
   .intro{margin:6vh auto}
   .intro h1{margin-top:14px}
   .intro p{margin-top:3vh}
@@ -147,7 +149,8 @@ main{padding:4vh 0 16vh}
 /* téléphone : une seule colonne, images pleine largeur */
 @media (max-width:620px){
   .row{grid-template-columns:1fr;gap:46px}
-  .row figure{width:100%;transform:none}
+  .row figure{width:78%;transform:none}
+  .row figcaption{opacity:.65}
   .credits{padding:8vh 16px}
   .cols{gap:6vh 40px}
   .cols h2{margin-bottom:18px}
