@@ -299,6 +299,9 @@ function addChars(parent, text, bi){
    « CRÉATIF #2 » jamais coupé, et les deux derniers mots de chaque paragraphe soudés */
 function typo(t){
   t = t.replace(/ ([?!;:])/g, "\u202F$1").replace(/CRÉATIF #/g, "CRÉATIF\u00A0#");
+  // jamais moins de trois mots sur la dernière ligne d'un paragraphe
+  const w = t.split(" ");
+  if (w.length > 4) return w.slice(0, -3).join(" ") + " " + w.slice(-3).join("\u00A0");
   const i = t.lastIndexOf(" ");
   return i > 0 ? t.slice(0, i) + "\u00A0" + t.slice(i + 1) : t;
 }
@@ -700,7 +703,8 @@ document.fonts.ready.then(() => {
   const items = E.map(e => {
     const li = document.createElement("li");
     li.className = "ent " + e.s + (e.now ? " now" : "");
-    const p = e.p.replace(/(\d) (\d{3})/g, "$1\u00A0$2").replace(/ %/g, "\u00A0%").replace(/ ([:;?!»])/g, "\u202F$1").replace(/« /g, "«\u202F");
+    const tail3 = str => { const m = str.match(/^(.*?)((?:\S+ ){2}\S+)(\s*(?:<a .*)?)$/s); return m && m[1].trim().split(" ").length > 1 ? m[1] + m[2].replace(/ /g, "\u00A0") + m[3] : str; };
+    const p = tail3(e.p).replace(/(\d) (\d{3})/g, "$1\u00A0$2").replace(/ %/g, "\u00A0%").replace(/ ([:;?!»])/g, "\u202F$1").replace(/« /g, "«\u202F");
     li.innerHTML = `<span class="nd" aria-hidden="true">*</span><div class="tx"><span class="yr"></span>${p ? `<p>${p}</p>` : ""}</div>`;
     ol.appendChild(li);
     return {e, li, nd: li.querySelector(".nd"), yr: li.querySelector(".yr"), state: 0};
