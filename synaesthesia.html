@@ -172,6 +172,8 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
   main{padding:5vh 0 7vh}
   /* les boucles passent en carré sur mobile */
   .loop .box{aspect-ratio:1/1}
+  .loop .box img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}
+  .right .box img,.right .box video{object-position:right center}
   .nat.loop .box video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}
   .intro{margin:6vh auto}
   .intro h1{margin-top:14px}
@@ -228,7 +230,7 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 </header>
 
 <main>
-  <figure class="m logo">
+  <figure class="m logo loop">
     <div class="box"><img loading="lazy" decoding="async" src="assets/synaesthesia-header.jpg" alt="Synaesthesia, Moët &amp; Chandon"></div>
   </figure>
 
@@ -243,11 +245,11 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <figcaption class="cap right" data-t="FILM_Synaesthesia.mp4"></figcaption>
   </figure>
 
-  <figure class="m v2 full nat">
+  <figure class="m v2 full loop nat">
     <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4" aria-label="Synaesthesia, média 2"></video></div>
   </figure>
 
-  <figure class="m v3 full nat">
+  <figure class="m v3 full loop nat">
     <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4" aria-label="Synaesthesia, média 3"></video></div>
   </figure>
 </main>

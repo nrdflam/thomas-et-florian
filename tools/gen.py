@@ -85,7 +85,7 @@ P = [
   dict(slug="euphytose-etudiants", fn="EUPHYTOSE_ÉTUDIANTS.mp4", name="Euphytose Étudiants", client="Euphytose",
        h1="Les étudiants aussi sont stressés.",
        p="Euphytose Stress a voulu s’adresser à eux pendant la période de révisions. La marque, plutôt habituée à communiquer auprès de leurs mamans, a accepté d’adopter un ton beaucoup plus amusant.",
-       hero=("img", "assets/euphytose-etudiants-header.jpg", None, set()),
+       hero=("img", "assets/euphytose-etudiants-header.jpg", None, {"loop"}),
        media=[("yt", "5VE7IdXRTNg", "VIDEO_Revision_01.mp4", {"v1"}),
               ("yt", "n-SYL-BNttk", "VIDEO_Revision_02.mp4", {"v1"})],
        gal=[u("2024/10/" + n) for n in ("Napoelon_Revision_v2_29s.00_00_05_04.Still003.jpg", "Napoelon_Revision_v2_29s.00_00_07_15.Still002.jpg",
@@ -95,16 +95,16 @@ P = [
   dict(slug="euphytose-stress", fn="EUPHYTOSE_STRESS.mp4", name="Euphytose Stress", client="Euphytose",
        h1="La publicité est partout. Et ça peut être un peu stressant.",
        p="Alors comment faire la pub d’un produit supposé lutter contre le stress ? Comme ça.",
-       hero=("img", "assets/euphytose-stress-header.jpg", None, set()),
+       hero=("img", "assets/euphytose-stress-header.jpg", None, {"loop", "right"}),
        media=[("yt", "2Xf4RDGxRGM", "VIDEO_Euphytose_Stress.mp4", set())], gal=[],
        credits=[("Executive Creative Director", "Thomas Derouault"), AD, CW, ("Production", "Blue Paris")], awards=[]),
   dict(slug="synaesthesia", fn="SYNAESTHESIA_Moët&Chandon.mp4", name="Synaesthesia", client="Moët & Chandon",
        h1="Moët & Chandon Synaesthesia.",
        p="Une nouvelle gamme de cocktails destinée à éveiller vos sens en fusionnant champagne et recettes de cocktails emblématiques. À travers cette campagne, nous nous sommes fixé comme objectif de faire ressentir au spectateur les sensations procurées par les cocktails, tout en déguisant une campagne d’image de marque en tutoriels de mixologie.",
-       hero=("img", "assets/synaesthesia-header.jpg", None, set()),
+       hero=("img", "assets/synaesthesia-header.jpg", None, {"loop"}),
        media=[("yt", "cQ46NoSYuZk", "FILM_Synaesthesia.mp4", set()),
-              ("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", None, {"nat", "full"}),
-              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", None, {"nat", "full"})],
+              ("video", U + "2021/07/Slide1-Moe%CC%88tSynesthesia-InstaStory-V5.mp4", None, {"nat", "full", "loop"}),
+              ("video", U + "2021/07/Slide2-Moe%CC%88tSynesthesia-Recipes-V2.mp4", None, {"nat", "full", "loop"})],
        gal=[], credits=[("Creative Directors", "Paul-Émile Raymond & Adrien Mancel"), AD, CW, ("Directors", "Julien & Quentin")], awards=[]),
 ]
 
@@ -183,7 +183,7 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
 .intro + .pair{margin-top:12vh}
 .m img{display:block;width:100%}""")
     rep("  .logo .box,.bottle .box{aspect-ratio:1/1}",
-        "  .loop .box{aspect-ratio:1/1}\n  .nat.loop .box video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}")
+        "  .loop .box{aspect-ratio:1/1}\n  .loop .box img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}\n  .right .box img,.right .box video{object-position:right center}\n  .nat.loop .box video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}")
     rep("  .case{margin-top:5vh}\n  .bottle{margin-top:6vh}", "  .v1,.v2,.v3,.v4,.intro + .m,.pair,.say{margin-top:6vh}\n  .say + .m{margin-top:5vh}\n  .m.small{--w:76vw}\n  .pair .m:last-child{margin-top:4vh}")
     rep(".row img{display:block;width:100%;aspect-ratio:16/9;", ".row img{display:block;width:100%;aspect-ratio:var(--gr,16/9);")
 
