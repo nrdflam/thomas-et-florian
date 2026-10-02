@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<script>try{if(localStorage.getItem("tf-ascii")==="1"&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("al")}catch(e){}</script>
+<script>try{var d=JSON.parse(localStorage.getItem("tf-dev")||"{}");if(d.scope==="page"&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("al");document.documentElement.style.setProperty("--alc",{bleu:"#0000EE",nuit:"#010824",clair:"#ECEDF3"}[d.color||"bleu"])}}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Immunity Potion · Thomas & Florian</title>
@@ -41,8 +41,16 @@ main,section,nav,footer{position:relative;z-index:1}
 .top .back:hover{text-decoration:underline;text-underline-offset:3px}
 .top .file{display:flex;align-items:center;gap:10px;min-width:0}
 .top .ico{flex:none;width:14px;height:16px;color:var(--blue);image-rendering:pixelated}
-.top .tg{justify-self:end;font:inherit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);background:none;border:0;padding:4px 0;cursor:pointer;white-space:pre}
-.top .tg:hover{text-decoration:underline;text-underline-offset:3px}
+/* règle façon traitement de texte (comme la home), activable dans le dev control */
+.top{row-gap:10px}
+.ruler{grid-column:1 / -1;margin:0 -16px -10px;position:relative;height:18px;background:var(--desk);border-top:1px solid #C9CCDA;border-bottom:1px solid #C9CCDA;overflow:hidden;user-select:none}
+.ruler[hidden]{display:none}
+.ruler .text{position:absolute;top:0;bottom:0;background:#fff}
+.ruler .ticks{position:absolute;inset:auto 0 0 0;height:6px;background:repeating-linear-gradient(90deg,#9DA1B8 0 1px,transparent 1px 18.9px) var(--zero,0px) 100%/100% 5px no-repeat,repeating-linear-gradient(90deg,#C9CCDA 0 1px,transparent 1px 9.45px) var(--zero,0px) 100%/100% 3px no-repeat}
+.ruler .num{position:absolute;top:3px;transform:translateX(-50%);font-size:8px;line-height:1;color:#70758F;font-variant-numeric:tabular-nums}
+.mk{position:absolute;width:9px;height:5px;background:var(--blue);transform:translateX(-50%)}
+.mk.first{top:0;clip-path:polygon(0 0,100% 0,50% 100%)}
+.mk.left,.mk.right{bottom:0;clip-path:polygon(50% 0,100% 100%,0 100%)}
 .top .fn{white-space:pre;overflow:hidden;text-overflow:ellipsis;min-width:0;font-weight:500}
 
 /* colonne : légers décalages, comme sur la home */
@@ -73,12 +81,12 @@ main{padding:4vh 0 16vh}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* galerie sur le bleu : les six images côte à côte, tailles différentes ; SHOT_XX discret qui flotte avec la souris */
-.gal{position:relative;color:#fff}
-.gal .pin{position:sticky;top:var(--pt,20vh);display:flex;align-items:center;overflow:hidden;background:var(--blue);padding:7vh 0}
-.row{display:flex;align-items:center;gap:clamp(16px,2.2vw,36px);padding:0 16px;will-change:transform}
-.row figure{flex:none;width:calc(min(560px, 72vw) * var(--z,1));display:flex;flex-direction:column;gap:8px}
+.gal{position:relative;color:#fff;background:var(--blue);padding:12vh 16px}
+.row{display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:9vh clamp(16px,2.6vw,40px);max-width:1320px;margin:0 auto}
+.row figure{width:calc(88% * var(--z,1));justify-self:center;display:flex;flex-direction:column;gap:8px;transform:translate(var(--ox,0px),var(--oy,0px));transition:transform .5s cubic-bezier(.2,.7,.2,1),width .5s cubic-bezier(.2,.7,.2,1)}
 .row figure.up{flex-direction:column-reverse}
 .row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+@media (max-width:760px){.row{grid-template-columns:repeat(2,1fr);gap:6vh 16px}}
 .row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
 .row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.55;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 
@@ -109,8 +117,18 @@ main{padding:4vh 0 16vh}
 .sig a:hover{background:#fff;color:var(--blue)}
 @media (max-width:620px){.pn{grid-template-columns:1fr 1fr}.pn .all{grid-column:1 / -1;grid-row:1;text-align:center}}
 @media (prefers-reduced-motion:reduce){.intro p,.row figcaption{transition:none}}
+/* dev control */
+.dev{position:fixed;left:12px;bottom:12px;z-index:50;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.dev > button{font:inherit;color:#fff;background:var(--nuit);border:1px solid rgba(255,255,255,.25);padding:7px 10px;cursor:pointer}
+.dev .pan{margin-bottom:8px;background:var(--nuit);border:1px solid rgba(255,255,255,.25);padding:12px;display:grid;gap:12px;width:250px}
+.dev .pan[hidden]{display:none}
+.dev .lb{opacity:.55;margin-bottom:6px}
+.dev .seg{display:flex;gap:4px;flex-wrap:wrap}
+.dev .seg button{font:inherit;color:#fff;background:none;border:1px solid rgba(255,255,255,.3);padding:5px 7px;cursor:pointer}
+.dev .seg button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue)}
+.dev input[type=range]{width:100%;accent-color:#3D3DFF}
 /* chargement ASCII plein écran */
-html.al body::after{content:"";position:fixed;inset:0;background:var(--desk);z-index:99}
+html.al body::after{content:"";position:fixed;inset:0;background:var(--alc,#0000EE);z-index:99}
 #loader{position:fixed;inset:0;z-index:100;pointer-events:none}
 #loader canvas{position:absolute;inset:0;width:100%;height:100%}
 </style>
@@ -121,7 +139,8 @@ html.al body::after{content:"";position:fixed;inset:0;background:var(--desk);z-i
 <header class="top">
   <a class="back" href="index.html#projets">← Retour</a>
   <div class="file"><svg class="ico" viewBox="0 0 14 16" width="14" height="16" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="15" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="15" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="5" y="12" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="7" y="0" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="15" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="10" y="1" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="13" y="6" width="1" height="1"/><rect x="13" y="7" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/></svg><span class="fn" id="fname">IMMUNITY_POTION_Actimel.mp4</span></div>
-  <button class="tg" id="asciiTg" type="button" aria-pressed="false">ASCII_REVEAL [ ]</button>
+  <span></span>
+  <div class="ruler" id="ruler" aria-hidden="true" hidden><div class="text" id="rtext"></div><div class="ticks"></div><div id="nums"></div><div class="mk first" id="mkf"></div><div class="mk left" id="mkl"></div><div class="mk right" id="mkr"></div></div>
 </header>
 
 <main>
@@ -147,7 +166,7 @@ html.al body::after{content:"";position:fixed;inset:0;background:var(--desk);z-i
 </main>
 
 <section class="gal" aria-label="Images du projet">
-  <div class="pin"><div class="row" id="row"></div></div>
+  <div class="row" id="row"></div>
 </section>
 
 <section class="credits" aria-label="Crédits et award">
@@ -167,6 +186,17 @@ html.al body::after{content:"";position:fixed;inset:0;background:var(--desk);z-i
     </div>
   </div>
 </section>
+
+<div class="dev" id="dev">
+  <div class="pan" id="devPan" hidden>
+    <div><div class="lb">ASCII reveal</div><div class="seg" data-k="scope"><button data-v="page">Page</button><button data-v="photo">Photo</button><button data-v="off">Off</button></div></div>
+    <div><div class="lb">Couleur</div><div class="seg" data-k="color"><button data-v="bleu">Bleu</button><button data-v="nuit">Nuit</button><button data-v="clair">Clair</button></div></div>
+    <div class="seg"><button id="devPlay" type="button">↻ Rejouer</button></div>
+    <div><div class="lb">Galerie décalage <span id="offV"></span></div><input type="range" id="devOff" min="0" max="100" step="1"></div>
+    <div><div class="lb">Règle</div><div class="seg" data-k="rule"><button data-v="on">On</button><button data-v="off">Off</button></div></div>
+  </div>
+  <button type="button" id="devBtn" aria-expanded="false">DEV</button>
+</div>
 
 <footer class="foot">
   <nav class="pn" aria-label="Navigation entre projets">
@@ -227,27 +257,26 @@ function asciiCover(box, bg, fg){
     kill(){ done = true; cv.remove(); }
   };
 }
-// toggle : "chargement" ASCII sur tout l'écran, une seule fois à l'arrivée sur la page
-const tg = document.getElementById("asciiTg");
-let asciiOn = false; try { asciiOn = localStorage.getItem("tf-ascii") === "1"; } catch(e){}
-function showTg(){ tg.setAttribute("aria-pressed", asciiOn); tg.textContent = asciiOn ? "ASCII_REVEAL [x]" : "ASCII_REVEAL [ ]"; }
+/* dev control : réglages gardés dans le navigateur */
+const PAL = {bleu:["#0000EE","#FFFFFF"], nuit:["#010824","#5A5AFF"], clair:["#ECEDF3","#0B1446"]};
+const dev = Object.assign({scope:"photo", color:"bleu", off:50, rule:"off"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
+const saveDev = () => { try { localStorage.setItem("tf-dev", JSON.stringify(dev)); } catch(e){} };
 function loader(){
   if (reducedM){ document.documentElement.classList.remove("al"); return; }
+  document.getElementById("loader")?.remove();
   const host = document.createElement("div"); host.id = "loader"; document.body.appendChild(host);
-  const c = asciiCover(host, "#ECEDF3", "#0B1446");
+  const c = asciiCover(host, ...PAL[dev.color]);
   document.documentElement.classList.remove("al");
   c.play(120, 1700); setTimeout(() => host.remove(), 2000);
 }
-showTg();
-tg.addEventListener("click", () => {
-  asciiOn = !asciiOn; showTg();
-  try { localStorage.setItem("tf-ascii", asciiOn ? "1" : "0"); } catch(e){}
-  if (asciiOn) loader();            // aperçu immédiat quand on l'active
-});
-// boucle logo : son propre reveal seulement si le chargement plein écran est coupé
-if (asciiOn) loader();
-else if (!reducedM) asciiCover(document.querySelector(".logo .box"), "#ECEDF3", "#0B1446").play(150);
-const titleAt = asciiOn ? 900 : 450;
+let logoCover = null;
+function logoReveal(){
+  if (reducedM) return; logoCover?.kill();
+  logoCover = asciiCover(document.querySelector(".logo .box"), ...PAL[dev.color]); logoCover.play(150);
+}
+function playAscii(){ if (dev.scope === "page") loader(); else if (dev.scope === "photo") logoReveal(); }
+playAscii();
+const titleAt = dev.scope === "page" ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
@@ -282,7 +311,7 @@ document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
   es[0].isIntersecting ? v.play().catch(() => {}) : v.pause();
 }, {threshold:.15}).observe(v));
 
-/* galerie : six images de même taille ; la bande défile à l'horizontale pendant qu'on scrolle vers le bas */
+/* galerie : six images sur deux lignes, sur la bande bleue */
 const SRC = "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-";
 const G = [1, 2, 3, 4, 6, 10];
 const row = document.getElementById("row"), gal = row.closest(".gal");
@@ -294,34 +323,15 @@ G.forEach((n, i) => {
   row.appendChild(fig);
   fl.push({img: fig.querySelector(".fl"), cap: fig.querySelector("figcaption"), k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
 });
-let travel = 0, cur = 0, target = 0, raf = 0;
-const pin = gal.querySelector(".pin");
-// tailles légèrement différentes (± 10 %)
-[1, .92, 1.08, .95, 1.06, .9].forEach((z, i) => row.children[i].style.setProperty("--z", z));
-function sizeGal(){
-  const ph = pin.offsetHeight;
-  gal.style.setProperty("--pt", Math.max(0, innerHeight - ph) + "px");     // bande calée en bas de l'écran pendant le défilement
-  travel = Math.max(0, row.scrollWidth - innerWidth);
-  gal.style.height = (ph + travel) + "px";   // bande bleue de hauteur raisonnable, collée aux crédits
-  update();
+// décalages de taille et de position, dosés par le slider du dev control (50 = ± 10 % de taille)
+const Z = [1, .92, 1.08, .95, 1.06, .9], OX = [0, -16, 12, 14, -10, 8], OY = [-22, 30, -10, 26, -32, 14];
+function offGal(v){
+  const k = v / 50;
+  [...row.children].forEach((f, i) => {
+    f.style.setProperty("--z", (1 + (Z[i] - 1) * k).toFixed(3));
+    f.style.setProperty("--ox", (OX[i] * k).toFixed(1) + "px"); f.style.setProperty("--oy", (OY[i] * k).toFixed(1) + "px");
+  });
 }
-// entrée et sortie en douceur : courbe sur la progression + un peu d'inertie
-const ease = p => p + ((p * p * (3 - 2 * p)) - p) * .65;
-function update(){
-  const r = gal.getBoundingClientRect(), start = parseFloat(getComputedStyle(pin).top) - parseFloat(getComputedStyle(gal).paddingTop);
-  const p = travel ? Math.min(1, Math.max(0, (start - r.top) / travel)) : 0;
-  target = ease(p) * travel;
-  if (!raf) raf = requestAnimationFrame(tick);
-}
-function tick(){
-  cur += (target - cur) * (reducedM ? 1 : .14);
-  if (Math.abs(target - cur) < .3) cur = target;
-  row.style.transform = `translateX(${(-cur).toFixed(1)}px)`;
-  raf = cur !== target ? requestAnimationFrame(tick) : 0;
-}
-addEventListener("scroll", update, {passive:true});
-addEventListener("resize", sizeGal);
-addEventListener("load", sizeGal); sizeGal();
 // images et légendes flottent légèrement avec la souris, chacune à son rythme
 if (!reducedM) gal.addEventListener("pointermove", e => {
   if (e.pointerType !== "mouse") return;
@@ -331,6 +341,39 @@ if (!reducedM) gal.addEventListener("pointermove", e => {
     f.cap.style.transform = `translate(${(mx * 22 * f.k).toFixed(1)}px, ${(my * 14 * f.k).toFixed(1)}px)`;
   });
 });
+
+/* règle en haut, calée sur la colonne de texte */
+const ruler = document.getElementById("ruler"), CM = 37.8;
+function buildRuler(){
+  if (ruler.hidden) return;
+  const r = intro.getBoundingClientRect(), zero = r.left, end = r.right;
+  const rt = document.getElementById("rtext"); rt.style.left = zero + "px"; rt.style.width = (end - zero) + "px";
+  ruler.style.setProperty("--zero", (zero % CM) + "px");
+  document.getElementById("mkf").style.left = zero + "px"; document.getElementById("mkl").style.left = zero + "px"; document.getElementById("mkr").style.left = end + "px";
+  const nums = document.getElementById("nums"); nums.innerHTML = "";
+  for (let c = -Math.floor(zero / CM); zero + c*CM < ruler.clientWidth; c++){
+    if (c === 0) continue;
+    const sp = document.createElement("span"); sp.className = "num"; sp.textContent = Math.abs(c); sp.style.left = (zero + c*CM) + "px"; nums.appendChild(sp);
+  }
+}
+addEventListener("resize", buildRuler);
+
+/* dev control */
+const pan = document.getElementById("devPan"), devBtn = document.getElementById("devBtn"), rng = document.getElementById("devOff");
+function syncDev(){
+  pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", dev[sg.dataset.k] === b.dataset.v)));
+  rng.value = dev.off; document.getElementById("offV").textContent = dev.off;
+  ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);
+}
+devBtn.addEventListener("click", () => { pan.hidden = !pan.hidden; devBtn.setAttribute("aria-expanded", !pan.hidden); });
+pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  dev[sg.dataset.k] = b.dataset.v; saveDev(); syncDev();
+  if (sg.dataset.k !== "rule") playAscii();
+}));
+document.getElementById("devPlay").addEventListener("click", playAscii);
+rng.addEventListener("input", () => { dev.off = +rng.value; saveDev(); syncDev(); });
+syncDev();
 })();
 
 /* ---------- fond : grille de points ; la souris laisse un sillage bleu ---------- */
