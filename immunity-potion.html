@@ -49,6 +49,7 @@ main{padding:4vh 0 16vh}
 .m canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
 .logo{--w:880px}
+.logo .box{box-shadow:none;background:transparent}
 .case{--w:1040px;--dx:-1.6vw;margin-top:12vh}
 .bottle{--w:760px;--dx:2vw;margin-top:14vh}
 /* légendes en nom de fichier, posées à côté du média */
@@ -69,15 +70,14 @@ main{padding:4vh 0 16vh}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
 /* galerie sur le bleu : les six images côte à côte, tailles différentes ; SHOT_XX discret qui flotte avec la souris */
-.gal{background:var(--blue);color:#fff;padding:16vh 16px}
-.gal{padding-inline:0}
-.row{display:flex;align-items:center;gap:clamp(16px,2vw,32px);overflow-x:auto;overscroll-behavior-x:contain;padding:4vh 16px;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
-.row::-webkit-scrollbar{display:none}
-.row.drag{cursor:grabbing;user-select:none}
+.gal{background:var(--blue);color:#fff}
+.gal{padding:0;position:relative}
+.gal .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.row{display:flex;align-items:center;gap:clamp(16px,2.2vw,36px);padding:0 16px;will-change:transform}
 .row figure{flex:none;width:min(560px, 72vw);display:flex;flex-direction:column;gap:8px}
 .row figure.up{flex-direction:column-reverse}
-.row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1);pointer-events:none}
-.ghint{display:flex;justify-content:space-between;padding:0 16px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
 .row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.55;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 
 /* crédits et award côte à côte */
@@ -98,8 +98,8 @@ main{padding:4vh 0 16vh}
 .pn a:hover{text-decoration:underline;text-underline-offset:3px}
 .pn .prev,.pn .next{opacity:.65}
 .pn .prev:hover,.pn .next:hover{opacity:1}
-.pn .all{letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
-.ico2{width:12px;height:11px;flex:none}
+.pn .all{letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px}
+.ico2{width:9px;height:8px;flex:none;margin-bottom:2px}
 .pn .next{text-align:right}
 .sig{display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;padding-top:12vh}
 .sig h2{margin:0;font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:.06em;font-variation-settings:"wdth" 112.5}
@@ -114,7 +114,7 @@ main{padding:4vh 0 16vh}
 
 <header class="top">
   <a class="back" href="index.html#projets">← Retour</a>
-  <div class="file"><svg class="ico" viewBox="0 0 14 16" width="14" height="16" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="15" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="15" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="5" y="12" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="7" y="0" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="15" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="10" y="1" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="13" y="6" width="1" height="1"/><rect x="13" y="7" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/></svg><span class="fn" id="fname"></span></div>
+  <div class="file"><svg class="ico" viewBox="0 0 14 16" width="14" height="16" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="15" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="15" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="15" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="5" y="12" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="7" y="0" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="15" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="10" y="1" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="13" y="6" width="1" height="1"/><rect x="13" y="7" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/></svg><span class="fn" id="fname">IMMUNITY_POTION_Actimel.mp4</span></div>
   <span></span>
 </header>
 
@@ -141,8 +141,7 @@ main{padding:4vh 0 16vh}
 </main>
 
 <section class="gal" aria-label="Images du projet">
-  <div class="ghint"><span>Shots</span><span>← Glisser →</span></div>
-  <div class="row" id="row"></div>
+  <div class="pin"><div class="row" id="row"></div></div>
 </section>
 
 <section class="credits" aria-label="Crédits et award">
@@ -166,7 +165,7 @@ main{padding:4vh 0 16vh}
 <footer class="foot">
   <nav class="pn" aria-label="Navigation entre projets">
     <a class="prev" href="https://thomasetflorian.com/portfolios/building-tomorrow/">← BUILDING_TOMORROW.mp4</a>
-    <a class="all" href="index.html#projets">Tous les projets <svg class="ico2" viewBox="0 0 12 11" width="12" height="11" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="9" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="7" y="9" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/></svg></a>
+    <a class="all" href="index.html#projets"><svg class="ico2" viewBox="0 0 9 8" width="9" height="8" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="3" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/></svg> Tous les projets</a>
     <a class="next" href="https://thomasetflorian.com/portfolios/safety-squad/">NUK_SAFETY_SQUAD.mp4 →</a>
   </nav>
   <div class="sig">
@@ -184,7 +183,7 @@ async function type(el, txt, speed = 22){
   for (const c of txt){ el.textContent += c; el.appendChild(k); if (!reducedM) await sleep(speed); }
   setTimeout(() => k.remove(), 900);
 }
-document.fonts.ready.then(async () => { await sleep(450); type(document.getElementById("fname"), "IMMUNITY_POTION_Actimel.mp4", 55); });
+
 
 /* boucle logo : cache ASCII qui se dissout tout seul à l'ouverture de la page */
 (() => {
@@ -251,28 +250,39 @@ document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
   es[0].isIntersecting ? v.play().catch(() => {}) : v.pause();
 }, {threshold:.15}).observe(v));
 
-/* galerie : six images de même taille, bande qui défile à l'horizontale (glisser ou trackpad) */
+/* galerie : six images de même taille ; la bande défile à l'horizontale pendant qu'on scrolle vers le bas */
 const SRC = "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-";
 const G = [1, 2, 3, 4, 6, 10];
-const row = document.getElementById("row");
-const caps = [];
+const row = document.getElementById("row"), gal = row.closest(".gal");
+const fl = [];
 G.forEach((n, i) => {
   const fig = document.createElement("figure");
   if (i % 2) fig.className = "up";
-  fig.innerHTML = `<img loading="lazy" decoding="async" draggable="false" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"><figcaption>SHOT_${String(i + 1).padStart(2, "0")}</figcaption>`;
+  fig.innerHTML = `<div class="fl"><img loading="lazy" decoding="async" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"></div><figcaption>SHOT_${String(i + 1).padStart(2, "0")}</figcaption>`;
   row.appendChild(fig);
-  caps.push({el: fig.querySelector("figcaption"), k: .6 + (i % 3) * .35});
+  fl.push({img: fig.querySelector(".fl"), cap: fig.querySelector("figcaption"), k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
 });
-let dragX = null, startL = 0;
-row.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; dragX = e.clientX; startL = row.scrollLeft; row.classList.add("drag"); row.setPointerCapture(e.pointerId); });
-row.addEventListener("pointermove", e => { if (dragX !== null) row.scrollLeft = startL - (e.clientX - dragX); });
-const endDrag = () => { dragX = null; row.classList.remove("drag"); };
-row.addEventListener("pointerup", endDrag); row.addEventListener("pointercancel", endDrag);
-// les légendes flottent légèrement selon la position de la souris
-if (!reducedM) row.closest(".gal").addEventListener("pointermove", e => {
+let travel = 0;
+function sizeGal(){
+  travel = Math.max(0, row.scrollWidth - innerWidth);
+  gal.style.height = (innerHeight + travel) + "px";
+  moveGal();
+}
+function moveGal(){
+  const r = gal.getBoundingClientRect(), p = travel ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
+  row.style.transform = `translateX(${(-p * travel).toFixed(1)}px)`;
+}
+addEventListener("scroll", moveGal, {passive:true});
+addEventListener("resize", sizeGal);
+addEventListener("load", sizeGal); sizeGal();
+// images et légendes flottent légèrement avec la souris, chacune à son rythme
+if (!reducedM) gal.addEventListener("pointermove", e => {
   if (e.pointerType !== "mouse") return;
-  const r = row.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width - .5, my = (e.clientY - r.top) / r.height - .5;
-  caps.forEach(c => { c.el.style.transform = `translate(${(mx * 18 * c.k).toFixed(1)}px, ${(my * 12 * c.k).toFixed(1)}px)`; });
+  const mx = e.clientX / innerWidth - .5, my = e.clientY / innerHeight - .5;
+  fl.forEach(f => {
+    f.img.style.transform = `translate(${(mx * 10 * f.k * f.s).toFixed(1)}px, ${(my * 8 * f.k).toFixed(1)}px)`;
+    f.cap.style.transform = `translate(${(mx * 22 * f.k).toFixed(1)}px, ${(my * 14 * f.k).toFixed(1)}px)`;
+  });
 });
 })();
 
