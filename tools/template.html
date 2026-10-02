@@ -16,8 +16,8 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Immunity Potion · Thomas &amp; Florian</title>
-<meta name="description" content="Immunity Potion pour Actimel : Protéger les joueurs aussi bien en jeu que dans la vraie vie.">
+<title>Immunity Potion · Thomas & Florian</title>
+<meta name="description" content="Immunity Potion pour Actimel : protéger les joueurs aussi bien en jeu que dans la vraie vie.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wdth,wght@75..112.5,300..800&display=swap">
@@ -72,22 +72,9 @@ main{padding:4vh 0 16vh}
 .m canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
 .logo{--w:880px}
-.clean .box{box-shadow:none;background:transparent}
-.v1{--w:1040px;--dx:-1.6vw;margin-top:12vh}
-.v2{--w:760px;--dx:2vw;margin-top:14vh}
-.v3{--w:900px;--dx:-1vw;margin-top:14vh}
-.v4{--w:820px;--dx:1.4vw;margin-top:14vh}
-.intro + .m{margin-top:12vh}
-/* proportions d'origine : le média garde son format, l'ombre passe sur le média */
-.nat .box{aspect-ratio:auto;background:none;box-shadow:none;display:flex;justify-content:center}
-.nat .box video,.nat .box img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain;box-shadow:0 18px 50px rgba(1,8,36,.12)}
-.nat.clean .box video,.nat.clean .box img{box-shadow:none}
-.nat.tall{--w:440px}
-.pair{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,80px);margin:12vh auto 0;padding:0 16px;max-width:1040px}
-.pair .m{width:min(400px,48%);margin:0;transform:none}
-.pair .m:last-child{margin-top:8vh}
-.intro + .pair{margin-top:12vh}
-.m img{display:block;width:100%}
+.logo .box{box-shadow:none;background:transparent}
+.case{--w:1040px;--dx:-1.6vw;margin-top:12vh}
+.bottle{--w:760px;--dx:2vw;margin-top:14vh}
 /* légendes en nom de fichier, posées à côté du média */
 .cap{margin-top:10px;font-size:10.5px;letter-spacing:.06em;color:#8E93AB;white-space:pre;min-height:1.4em}
 .cap.right{text-align:right}
@@ -114,7 +101,7 @@ main{padding:4vh 0 16vh}
 .row figure figcaption{position:absolute;left:0;top:calc(100% + 8px)}
 .row .fl{will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 @media (max-width:760px){.row{grid-template-columns:repeat(2,1fr);gap:6vh 16px}}
-.row img{display:block;width:100%;aspect-ratio:var(--gr,16/9);object-fit:cover;background:rgba(255,255,255,.1)}
+.row img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.1)}
 .row figcaption{font-size:9.5px;letter-spacing:.14em;opacity:.32;white-space:nowrap;will-change:transform;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 
 /* crédits et award côte à côte */
@@ -126,8 +113,6 @@ main{padding:4vh 0 16vh}
 .cols dt{color:var(--accent);font-size:10.5px;letter-spacing:.12em}
 .cols dd{margin:2px 0 0}
 .cols .aw{margin:0;font-size:12px;letter-spacing:.06em}
-.cols .aw + .aw{margin-top:12px}
-.cols .aw .c{display:block;margin-top:3px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
 .cols .aw .y{color:var(--accent);margin-right:.6em}
 
 /* footer : navigation en une ligne, puis la signature */
@@ -157,13 +142,12 @@ main{padding:4vh 0 16vh}
 @media (max-width:760px){
   main{padding:5vh 0 7vh}
   /* les boucles passent en carré sur mobile */
-  .loop .box{aspect-ratio:1/1}
-  .nat.loop .box video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}
+  .logo .box,.bottle .box{aspect-ratio:1/1}
   .intro{margin:6vh auto}
   .intro h1{margin-top:14px}
   .intro p{margin-top:3vh}
-  .v1,.v2,.v3,.v4,.intro + .m,.pair{margin-top:6vh}
-  .pair .m:last-child{margin-top:4vh}
+  .case{margin-top:5vh}
+  .bottle{margin-top:6vh}
   .gal{padding:6vh 16px}
   .row{gap:3.5vh 14px}
 }
@@ -212,32 +196,32 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 </header>
 
 <main>
-  <figure class="m logo clean loop">
-    <div class="box"><video muted loop playsinline autoplay preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov" aria-label="Immunity Potion, Actimel"></video></div>
+  <figure class="m logo">
+    <div class="box"><video muted loop playsinline autoplay preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Logo.mov" aria-label="Le logo Immunity Potion"></video></div>
   </figure>
 
   <section class="intro" id="intro">
     <div class="kick">Actimel</div>
     <h1 id="ideaT" aria-label="Protéger les joueurs aussi bien en jeu que dans la vraie vie."></h1>
-    <p><span>Comme tout le monde, nous avons joué à Fortnite. Et comme tout le monde, nous avons perdu dès la première game. Si seulement il existait une petite boisson super forte qui booste l’immunité des joueurs et les empêche de tomber dès la première confrontation ! Et comme on bossait en même temps pour la marque Actimel, on s’est dit qu’on allait faire exactement ça. Et pour pimenter le tout, on a rajouté des zombies.</span></p>
+    <p><span>Comme tout le monde, nous avons joué à Fortnite. Et comme tout le monde, nous avons perdu dès la première game. Si seulement il existait une petite boisson super forte qui booste l’immunité des joueurs et les empêche de tomber dès la première confrontation&#8239;! Et comme on bossait en même temps pour la marque Actimel, on s’est dit qu’on allait faire exactement ça. Et pour pimenter le tout, on a rajouté des zombies.</span></p>
   </section>
 
-  <figure class="m v1">
-    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/bgGZbjq2eYg?rel=0&modestbranding=1&playsinline=1" title="Immunity Potion, média 1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+  <figure class="m case">
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/bgGZbjq2eYg?rel=0&modestbranding=1&playsinline=1" title="Immunity Potion, la vidéo de case" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
     <figcaption class="cap right" data-t="VIDEO_CASE_V8Def.mp4"></figcaption>
   </figure>
 
-  <figure class="m v2 loop">
-    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Switch.mov" aria-label="Immunity Potion, média 2"></video></div>
+  <figure class="m bottle">
+    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/IP-Switch.mov" aria-label="La bouteille Actimel devient une potion"></video></div>
     <figcaption class="cap left" data-t="Bottle_Switch.gif"></figcaption>
   </figure>
 </main>
 
-<section class="gal" aria-label="Images du projet" style="--gr:16/9">
+<section class="gal" aria-label="Images du projet">
   <div class="row" id="row"></div>
 </section>
 
-<section class="credits" aria-label="Crédits et awards">
+<section class="credits" aria-label="Crédits et award">
   <div class="cols">
     <div>
       <h2>Crédits</h2>
@@ -268,9 +252,9 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 
 <footer class="foot">
   <nav class="pn" aria-label="Navigation entre projets">
-    <a class="prev" href="building-tomorrow.html"><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM1 2h1v1H1zM1 4h1v1H1zM2 1h1v1H2zM2 5h1v1H2zM3 0h1v1H3zM3 6h1v1H3z'/></svg><span class="t">BUILDING_TOMORROW.mp4</span></a>
+    <a class="prev" href="https://thomasetflorian.com/portfolios/building-tomorrow/"><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM1 2h1v1H1zM1 4h1v1H1zM2 1h1v1H2zM2 5h1v1H2zM3 0h1v1H3zM3 6h1v1H3z'/></svg><span class="t">BUILDING_TOMORROW.mp4</span></a>
     <a class="all" href="index.html#projets"><svg class="ico2" viewBox="0 0 9 8" width="9" height="8" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="3" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/></svg> Tous les projets</a>
-    <a class="next" href="safety-squad.html"><span class="t">NUK_SAFETY_SQUAD.mp4</span><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
+    <a class="next" href="https://thomasetflorian.com/portfolios/safety-squad/"><span class="t">NUK_SAFETY_SQUAD.mp4</span><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
   </nav>
   <div class="dash" aria-hidden="true"></div>
   <div class="sig">
@@ -341,8 +325,7 @@ function loader(){
 let logoCover = null;
 function logoReveal(){
   if (reducedM) return; logoCover?.kill();
-  const lb = document.querySelector("main .m .box"); if (!lb) return;
-  logoCover = asciiCover(lb, ...PAL[dev.color]); logoCover.play(150);
+  logoCover = asciiCover(document.querySelector(".logo .box"), ...PAL[dev.color]); logoCover.play(150);
 }
 function playAscii(){ if (dev.scope === "page") loader(); else if (dev.scope === "photo") logoReveal(); }
 if (window.TF_INTRO) playAscii();
@@ -381,13 +364,14 @@ document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
   es[0].isIntersecting ? v.play().catch(() => {}) : v.pause();
 }, {threshold:.15}).observe(v));
 
-/* galerie : les images par lignes de trois, sur la bande bleue */
-const G = ["https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-1.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-2.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-3.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-4.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-6.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-10.jpg"];
+/* galerie : six images sur deux lignes, sur la bande bleue */
+const SRC = "https://thomasetflorian.com/wp-content/uploads/2024/11/Immunity-Potion-Execution-Image-";
+const G = [1, 2, 3, 4, 6, 10];
 const row = document.getElementById("row"), gal = row.closest(".gal");
 const fl = [];
 G.forEach((n, i) => {
   const fig = document.createElement("figure");
-  fig.innerHTML = `<div class="fl"><img loading="lazy" decoding="async" src="${n}" alt="Immunity Potion, image ${i + 1}"></div><figcaption>Screenshot_${String(i + 1).padStart(2, "0")}.jpg</figcaption>`;
+  fig.innerHTML = `<div class="fl"><img loading="lazy" decoding="async" src="${SRC + n}.jpg" alt="Immunity Potion, image ${i + 1}"></div><figcaption>Screenshot_${String(i + 1).padStart(2, "0")}.jpg</figcaption>`;
   row.appendChild(fig);
   fl.push({img: fig.querySelector(".fl"), cap: fig.querySelector("figcaption"), k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
 });
@@ -396,9 +380,8 @@ const Z = [1, .92, 1.08, .95, 1.06, .9], OX = [0, -16, 12, 14, -10, 8], OY = [-2
 function offGal(v){
   const k = v / 50;
   [...row.children].forEach((f, i) => {
-    const j = i % Z.length;
-    f.style.setProperty("--z", (1 + (Z[j] - 1) * k).toFixed(3));
-    f.style.setProperty("--ox", (OX[j] * k).toFixed(1) + "px"); f.style.setProperty("--oy", (OY[j] * k).toFixed(1) + "px");
+    f.style.setProperty("--z", (1 + (Z[i] - 1) * k).toFixed(3));
+    f.style.setProperty("--ox", (OX[i] * k).toFixed(1) + "px"); f.style.setProperty("--oy", (OY[i] * k).toFixed(1) + "px");
   });
 }
 // images et légendes flottent légèrement avec la souris, chacune à son rythme

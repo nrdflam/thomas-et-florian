@@ -492,7 +492,7 @@ document.fonts.ready.then(() => {
     const a = document.createElement("a");
     a.className = "proj";
     // pages projet refaites : lien interne ; les autres pointent encore vers l'ancien site
-    if (p.page){ a.href = p.page; } else { a.href = "https://thomasetflorian.com/portfolios/" + p.href + "/"; a.target = "_blank"; a.rel = "noopener"; }
+    a.href = p.href + ".html";   // chaque projet a sa page
     a.setAttribute("aria-label", p.fn.replace(/\.mp4$/, "").replace(/_/g, " "));
     a.style.cssText = `--l:${p.l}%;--w:${p.w}%;--mt:${p.mt}vh;--ratio:${p.r};--ar:${p.r.split('/')[0]/p.r.split('/')[1]};--lm:${p.lm}%;--wm:${p.wm}%`;
     a.innerHTML = `<div class="frame"><canvas></canvas><span class="ph">Visuel ${p.r.replace("/",":")}</span></div><div class="cap ${p.cap}"><span class="fn"></span>${(p.aw||[]).length ? `<ul class="aw">${p.aw.map(t => `<li><span class="ast" aria-hidden="true">***</span> ${t} <span class="ast" aria-hidden="true">***</span></li>`).join("")}</ul>` : ""}<span class="go">Voir le projet →</span></div>`;
