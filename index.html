@@ -207,6 +207,10 @@ a{color:var(--blue)}
 .kc{position:fixed;right:16px;bottom:14px;z-index:150;font-family:"Martian Mono", ui-monospace, monospace;font-size:11px;letter-spacing:.3em;color:#0000EE;pointer-events:none;opacity:0;transition:opacity .4s}
 .kc.on{opacity:1;transition:opacity .1s}
 .egg button:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* flèches pixel, centrées sur la hauteur du texte */
+a.ax{display:inline-flex;align-items:center;gap:.6em}
+.arr{flex:none;width:9px;height:7px}
 </style>
 </head>
 <body>
@@ -258,7 +262,7 @@ a{color:var(--blue)}
 </section>
 <footer class="foot" aria-label="Contact">
   <h2>*** THOMAS &amp; FLORIAN ***</h2>
-  <a href="mailto:florian.amoneau@gmail.com">Contacter →</a>
+  <a href="mailto:florian.amoneau@gmail.com" class="ax">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
 </footer>
 
 
@@ -700,10 +704,10 @@ document.fonts.ready.then(() => {
     {s:"R", y:"06/10/1987", t:"Naissance de CRÉATIF #2", p:"Sa psy lui a un jour fait remarquer que son « système cognitif fonctionne constamment à plein régime ». Ça explique peut-être son appétit pour l’écriture, des fanfictions Resident Evil de son enfance à ses conversations avec ChatGPT."},
     {s:"L", y:"24/09/1989", t:"Naissance de CRÉATIF #1", p:"Laissé trop jeune sans surveillance, il découvre les arts graphiques sur d’obscurs forums phpBB, en faisant des bannières pour les membres les plus en vue des clans Counter-Strike les moins en vue."},
     {s:"R", y:"2009", t:"Rencontre à Sup de Pub", p:"Ils se rencontrent sur les bancs de l’école. Depuis, en bons dilettantes, ils multiplient les projets extra-publicitaires."},
-    {s:"L", y:"2012", t:"Comic Sans Project", p:"À l’époque, avoir un Tumblr et se moquer de la Comic Sans était tellement à la mode que ce projet assez mineur a pris une dimension mondiale : 1,5 million de visiteurs uniques. <a href=\"https://comicsansproject.tumblr.com/\" target=\"_blank\" rel=\"noopener\">Voir →</a>"},
-    {s:"R", y:"2017 → 2024", t:"Aliens et les Garçons", p:"Un podcast d’écriture de science-fiction qui ne se prend pas au sérieux. Un partenariat avec Usbek\u00A0&\u00A0Rica, un livre auto-édité et 100 000 écoutes plus tard, on se demande encore comment ça a pu marcher. <a href=\"https://aliensetlesgarcons.space/\" target=\"_blank\" rel=\"noopener\">Écouter →</a>"},
-    {s:"L", y:"2026", t:"Comment voir dans le noir", p:"CRÉATIF #2 publie son livre aux éditions des Corps Conducteurs. <a href=\"https://www.lescorpsconducteurs.fr/nos-livres\" target=\"_blank\" rel=\"noopener\">Lire →</a>"},
-    {s:"R", y:today, t:"VML Paris", p:"Ils travaillent en agence et continuent leurs projets, en solo comme à deux, toujours à l’affût d’une nouvelle opportunité créative. <a href=\"mailto:florian.amoneau@gmail.com\">Contacter →</a>", now:true}
+    {s:"L", y:"2012", t:"Comic Sans Project", p:"À l’époque, avoir un Tumblr et se moquer de la Comic Sans était tellement à la mode que ce projet assez mineur a pris une dimension mondiale : 1,5 million de visiteurs uniques. <a href=\"https://comicsansproject.tumblr.com/\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Voir<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
+    {s:"R", y:"2017 → 2024", t:"Aliens et les Garçons", p:"Un podcast d’écriture de science-fiction qui ne se prend pas au sérieux. Un partenariat avec Usbek\u00A0&\u00A0Rica, un livre auto-édité et 100 000 écoutes plus tard, on se demande encore comment ça a pu marcher. <a href=\"https://aliensetlesgarcons.space/\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Écouter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
+    {s:"L", y:"2026", t:"Comment voir dans le noir", p:"CRÉATIF #2 publie son livre aux éditions des Corps Conducteurs. <a href=\"https://www.lescorpsconducteurs.fr/nos-livres\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Lire<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
+    {s:"R", y:today, t:"VML Paris", p:"Ils travaillent en agence et continuent leurs projets, en solo comme à deux, toujours à l’affût d’une nouvelle opportunité créative. <a href=\"mailto:florian.amoneau@gmail.com\" class=\"ax\">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>", now:true}
   ];
   const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const tl = document.getElementById("tl"), ol = document.getElementById("ents"), photo = document.getElementById("photo");
