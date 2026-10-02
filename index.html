@@ -455,7 +455,7 @@ document.fonts.ready.then(() => {
 (() => {
   const P = [
     {fn:"BUILDING_TOMORROW.mp4", aw:["GRAND PRIX DU BRAND CONTENT_GOLD","THE DRUM AWARDS_WINNER X2"],                  href:"building-tomorrow",   c:"#FF5A36", l:8,  w:44, r:"4/5",  cap:"right-bottom", mt:0,  px:.05,  lm:0,  wm:86},
-    {fn:"IMMUNITY_POTION_Actimel.mp4", aw:["EFFIE_SILVER"],            href:"immunity-potion",     c:"#FFD84D", l:48, w:44, r:"16/9", cap:"above-left",   mt:20, px:-.04, lm:12, wm:88},
+    {fn:"IMMUNITY_POTION_Actimel.mp4", page:"immunity-potion.html", aw:["EFFIE_SILVER"],            href:"immunity-potion",     c:"#FFD84D", l:48, w:44, r:"16/9", cap:"above-left",   mt:20, px:-.04, lm:12, wm:88},
     {fn:"NUK_SAFETY_SQUAD.mp4", aw:["EPICA_GOLD","CANNES LIONS_SHORTLIST"],                   href:"safety-squad",        c:"#9BE8FF", l:20, w:30, r:"4/5",  cap:"right-top",    mt:16, px:.07,  lm:4,  wm:74},
     {fn:"CUISINEL-LÀ_Cuisinella.mp4",             href:"cuisinella",          c:"#FF9ED8", l:3,  w:58, r:"16/9", cap:"below-right",  mt:18, px:-.03, lm:0,  wm:100},
     {fn:"THE_PARISIAN_RENDEZ-VOUS.mp4", aw:["CANNES LIONS_BRONZE","EPICA_GRAND PRIX"],           href:"parisian-rendez-vous",c:"#7CF29A", l:58, w:30, r:"3/4",  cap:"left-bottom",  mt:16, px:.06,  lm:26, wm:74},
@@ -475,7 +475,9 @@ document.fonts.ready.then(() => {
 
   const items = P.map((p, idx) => {
     const a = document.createElement("a");
-    a.className = "proj"; a.href = "https://thomasetflorian.com/portfolios/" + p.href + "/"; a.target = "_blank"; a.rel = "noopener";
+    a.className = "proj";
+    // pages projet refaites : lien interne ; les autres pointent encore vers l'ancien site
+    if (p.page){ a.href = p.page; } else { a.href = "https://thomasetflorian.com/portfolios/" + p.href + "/"; a.target = "_blank"; a.rel = "noopener"; }
     a.setAttribute("aria-label", p.fn.replace(/\.mp4$/, "").replace(/_/g, " "));
     a.style.cssText = `--l:${p.l}%;--w:${p.w}%;--mt:${p.mt}vh;--ratio:${p.r};--ar:${p.r.split('/')[0]/p.r.split('/')[1]};--lm:${p.lm}%;--wm:${p.wm}%`;
     a.innerHTML = `<div class="frame"><canvas></canvas><span class="ph">Visuel ${p.r.replace("/",":")}</span></div><div class="cap ${p.cap}"><span class="fn"></span>${(p.aw||[]).length ? `<ul class="aw">${p.aw.map(t => `<li><span class="ast" aria-hidden="true">***</span> ${t} <span class="ast" aria-hidden="true">***</span></li>`).join("")}</ul>` : ""}<span class="go">Voir le projet →</span></div>`;

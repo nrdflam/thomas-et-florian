@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Immunity Potion · Thomas & Florian</title>
+<meta name="description" content="Immunity Potion pour Actimel : protéger les joueurs aussi bien en jeu que dans la vraie vie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wdth,wght@75..112.5,300..800&display=swap">
+<style>
+/* Page projet : le fichier ouvert. Fond bleu électrique (on reste dans la galerie), crédits sur le nuit.
+   Le film en grand sous un cache ASCII, l'idée tapée, les images en galerie déstructurée, les boucles en grand. */
+:root{
+  --blue:#0000EE;
+  --nuit:#010824;
+  --accent:#3D3DFF;
+  --fg:#FFFFFF;
+  --script:"Courier Prime", "Courier New", Courier, monospace;
+  --ui:"Martian Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;  /* à remplacer par t26-carbon */
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+figure{margin:0}
+html,body{background:var(--blue);color:var(--fg)}
+body{margin:0;font-family:var(--ui);font-size:12px;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+::selection{background:#fff;color:var(--blue)}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.k{display:inline-block;width:.55em;height:1.05em;background:currentColor;vertical-align:-.15em;margin-right:-.55em;animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* barre du haut */
+.top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 16px 12px;background:var(--blue);font-size:11px;letter-spacing:.02em}
+.top .fn{white-space:pre;overflow:hidden;text-overflow:ellipsis;min-width:0;font-weight:500}
+.top a{text-decoration:none;letter-spacing:.14em;text-transform:uppercase;font-size:10.5px;opacity:.8;white-space:nowrap}
+.top a:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+
+/* film */
+.film{position:relative;width:min(1320px, calc(100% - 32px));margin:4vh auto 0;aspect-ratio:16/9;background:#000}
+.film iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.film canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.meta{width:min(1320px, calc(100% - 32px));margin:12px auto 0;display:flex;justify-content:space-between;gap:16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+
+/* l'idée */
+.idea{width:min(1040px, calc(100% - 32px));margin:18vh auto 0}
+.idea h1{margin:0;font-weight:700;font-size:clamp(22px,3.4vw,44px);line-height:1.15;letter-spacing:.01em;font-variation-settings:"wdth" 100;text-transform:uppercase;min-height:2.3em;text-wrap:balance}
+.idea p{margin:5vh 0 0 auto;max-width:58ch;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty;opacity:0;transform:translateY(6px);transition:opacity .6s,transform .6s}
+.idea.on p{opacity:1;transform:none}
+
+/* galerie : images et boucles */
+.gal{position:relative;max-width:1320px;margin:16vh auto 0;padding-inline:16px}
+.shot{position:relative;margin-left:var(--l);width:min(var(--w), calc(70vh * 16 / 9));margin-top:var(--mt);will-change:transform}
+.shot .frame{position:relative;aspect-ratio:16/9;background:rgba(255,255,255,.06)}
+.shot canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cap{display:flex;gap:10px;align-items:baseline;margin-top:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:pre;min-height:1.4em}
+.cap.r{justify-content:flex-end}
+.cap .n{color:#fff}
+.cap .d{opacity:.6}
+.loop{position:relative;width:calc(100vw - 32px);max-width:none;margin:16vh calc(50% - 50vw + 16px) 0}
+.loop video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:rgba(255,255,255,.06)}
+
+/* crédits sur le nuit */
+.credits{background:var(--nuit);margin-top:22vh;padding:0 16px 16vh}
+.chead{padding:20px 0 16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;background:var(--nuit)}
+.clist{list-style:none;margin:12vh auto 0;padding:0;width:min(100%, 80vw);display:flex;flex-direction:column;gap:20px;font-size:12px;line-height:1.5;letter-spacing:.03em}
+.clist li{display:flex;align-items:flex-end;gap:6px;min-height:1.5em}
+.clist .l,.clist .r{position:relative}
+.clist .l{white-space:pre-wrap;min-width:0}
+.clist .r{white-space:pre;flex:none;text-align:right}
+.clist .y,.clist .sep{color:var(--accent)}
+.clist .lead{flex:1 1 24px;min-width:24px;height:1px;margin-bottom:.48em;background:repeating-linear-gradient(90deg,var(--accent) 0 3px,transparent 3px 5px);clip-path:inset(0 100% 0 0)}
+.clist li.on .lead{clip-path:inset(0 0 0 0);transition:clip-path .32s steps(14)}
+.clist .gap{height:18px}
+@media (max-width:600px){
+  .clist{width:100%;font-size:11px}
+  .clist li{flex-wrap:wrap}
+  .clist .l{flex-basis:100%}
+}
+
+/* projet suivant */
+.next{display:block;text-decoration:none;padding:16vh 16px;text-align:center;background:var(--blue)}
+.next small{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:18px}
+.next b{font-weight:600;font-size:clamp(16px,2.6vw,30px);letter-spacing:.01em;white-space:pre}
+.next:hover b{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+
+.foot{border-top:1px solid rgba(255,255,255,.25);background:var(--blue);min-height:46vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:12vh 16px;text-align:center}
+.foot h2{margin:0;font-weight:700;font-size:clamp(18px,2.4vw,30px);letter-spacing:.06em;font-variation-settings:"wdth" 112.5}
+.foot a{text-decoration:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,.7);padding:12px 20px}
+.foot a:hover{background:#fff;color:var(--blue)}
+
+@media (max-width:760px){
+  .shot{margin-left:var(--lm,0%);width:var(--wm,90%);margin-top:12vh}
+  .loop{margin-top:12vh}
+  .idea{margin-top:12vh}
+}
+@media (prefers-reduced-motion:reduce){.idea p{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <span class="fn" id="fname"></span>
+  <a href="index.html#projets">← Projets</a>
+</header>
+
+<section class="film" id="film" aria-label="Film Immunity Potion">
+  <iframe src="https://www.youtube-nocookie.com/embed/bgGZbjq2eYg?rel=0&modestbranding=1&playsinline=1" title="Immunity Potion, le film" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="eager"></iframe>
+  <canvas id="filmcv" aria-hidden="true"></canvas>
+</section>
+<div class="meta"><span>Actimel</span><span>2024</span></div>
+
+<section class="idea" id="idea">
+  <h1 id="ideaT" aria-label="Protéger les joueurs aussi bien en jeu que dans la vraie vie."></h1>
+  <p>Comme tout le monde, nous avons joué à Fortnite. Et comme tout le monde, nous avons perdu dès la première game. Si seulement il existait une petite boisson super forte qui booste l’immunité des joueurs et les empêche de tomber dès la première confrontation&#8239;! Et comme on bossait en même temps pour la marque Actimel, on s’est dit qu’on allait faire exactement ça. Et pour pimenter le tout, on a rajouté des zombies.</p>
+</section>
+
+<section class="gal" id="gal" aria-label="Images du projet"></section>
+
+<section class="credits" aria-label="Crédits">
+  <div class="chead">Crédits</div>
+  <ol class="clist" id="clist"></ol>
+</section>
+
+<a class="next" href="https://thomasetflorian.com/portfolios/safety-squad/">
+  <small>Projet suivant</small>
+  <b id="nextT">NUK_SAFETY_SQUAD.mp4</b>
+</a>
+
+<footer class="foot">
+  <h2>*** THOMAS &amp; FLORIAN ***</h2>
+  <a href="mailto:florian.amoneau@gmail.com">Contacter →</a>
+</footer>
+
+<script>
+(() => {
+const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const caret = () => { const k = document.createElement("span"); k.className = "k"; return k; };
+async function type(el, txt, speed = 22, keep = false){
+  const k = caret(); el.textContent = "";
+  for (const c of txt){ el.textContent += c; el.appendChild(k); if (!reducedM) await sleep(speed); }
+  if (!keep) setTimeout(() => k.remove(), 900);
+}
+const SRC = "https://thomasetflorian.com/wp-content/uploads/2024/";
+const hash = (i, j, s) => { let h = (i * 374761393 + j * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
+const GLYPHS = "/\\|_-+=*:.#";
+
+/* cache ASCII posé sur un visuel ; r = 0 tout couvert, 1 tout révélé */
+function Cover(cv, seed, drawUnder){
+  const ctx = cv.getContext("2d"); let W, H, cols, rows, cw, ch, th;
+  function setup(){
+    const dpr = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; if (!W) return;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+    cw = W < 400 ? 7 : 9; ch = cw * 1.6; cols = Math.ceil(W / cw); rows = Math.ceil(H / ch); th = new Float32Array(cols*rows);
+    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++){ const u=x/cols, v=y/rows; th[y*cols+x] = Math.min(.999, Math.hypot(u-.5, v-.5)/.71*.7 + hash(x,y,seed)*.3); }
+  }
+  function paint(r){
+    if (!th) return; ctx.clearRect(0,0,W,H);
+    if (drawUnder) drawUnder(ctx, W, H);
+    if (r >= .999) return;
+    ctx.font = `500 ${(ch*.8).toFixed(1)}px "Martian Mono", ui-monospace, monospace`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++){
+      const t = th[y*cols+x]; if (r > t) continue;
+      ctx.fillStyle = "#0000EE"; ctx.globalAlpha = 1; ctx.fillRect(x*cw, y*ch, cw+.6, ch+.6);
+      const front = r > 0 && t - r < .06;
+      ctx.fillStyle = "#fff"; ctx.globalAlpha = front ? 1 : .55;
+      ctx.fillText(front ? "#" : GLYPHS[Math.floor(hash(x,y,seed+3)*GLYPHS.length)], x*cw+cw/2, y*ch+ch/2+.5);
+    }
+    ctx.globalAlpha = 1;
+  }
+  return {setup, paint};
+}
+
+/* ---------- haut de page ---------- */
+type(document.getElementById("fname"), "IMMUNITY_POTION_Actimel.mp4", 26, false);
+
+/* le film : le cache se dissout à l'ouverture, comme si la vignette s'agrandissait */
+(() => {
+  const cv = document.getElementById("filmcv"), cover = Cover(cv, 11, null);
+  document.fonts.ready.then(() => {
+    cover.setup();
+    if (reducedM){ cv.remove(); return; }
+    const t0 = performance.now() + 500, D = 1400;
+    const step = t => { const r = Math.max(0, Math.min(1, (t - t0) / D)); cover.paint(r*r*(3-2*r)); if (r < 1) requestAnimationFrame(step); else cv.remove(); };
+    requestAnimationFrame(step);
+  });
+})();
+
+/* l'idée, tapée quand elle arrive à l'écran */
+(() => {
+  const sec = document.getElementById("idea"), h = document.getElementById("ideaT");
+  const io = new IntersectionObserver(async es => {
+    if (!es[0].isIntersecting) return; io.disconnect();
+    await type(h, "Protéger les joueurs aussi bien en jeu que dans la vraie vie.", 28, false);
+    sec.classList.add("on");
+  }, {rootMargin:"0px 0px -25% 0px"});
+  io.observe(sec);
+})();
+
+/* ---------- galerie : images (cache ASCII qui s'efface au centre) et boucles en grand ---------- */
+const G = [
+  {t:"shot", src:"11/Immunity-Potion-Execution-Image-1.jpg",  l:6,  w:56, mt:0,  px:.05,  cap:"",  lm:0,  wm:92},
+  {t:"shot", src:"11/Immunity-Potion-Execution-Image-2.jpg",  l:44, w:50, mt:14, px:-.04, cap:"r", lm:8,  wm:92},
+  {t:"loop", src:"11/IP-Logo.mov",   name:"LOOP 01", d:"Logo"},
+  {t:"shot", src:"11/Immunity-Potion-Execution-Image-3.jpg",  l:12, w:44, mt:0,  px:.06,  cap:"",  lm:0,  wm:86},
+  {t:"shot", src:"11/Immunity-Potion-Execution-Image-4.jpg",  l:50, w:44, mt:12, px:-.05, cap:"r", lm:14, wm:86},
+  {t:"loop", src:"11/IP-Switch.mov", name:"LOOP 02", d:"Switch"},
+  {t:"shot", src:"11/Immunity-Potion-Execution-Image-6.jpg",  l:24, w:58, mt:0,  px:.04,  cap:"r", lm:0,  wm:96},
+  {t:"shot", src:"11/Immunity-Potion-Execution-Image-10.jpg", l:4,  w:42, mt:14, px:-.06, cap:"",  lm:10, wm:84}
+];
+const gal = document.getElementById("gal"); let n = 0;
+const shots = G.map((g, i) => {
+  const el = document.createElement("figure");
+  if (g.t === "loop"){
+    el.className = "loop";
+    el.innerHTML = `<video muted loop playsinline preload="metadata" src="${SRC + g.src}" aria-label="${g.name}"></video><figcaption class="cap"><span class="n"></span><span class="d"></span></figcaption>`;
+    gal.appendChild(el);
+    return {g, el, video: el.querySelector("video"), n: el.querySelector(".n"), d: el.querySelector(".d"), loop: true};
+  }
+  n++;
+  el.className = "shot";
+  el.style.cssText = `--l:${g.l}%;--w:${g.w}%;--mt:${g.mt}vh;--lm:${g.lm}%;--wm:${g.wm}%`;
+  el.innerHTML = `<div class="frame"><canvas role="img" aria-label="Shot ${String(n).padStart(2,"0")}"></canvas></div><figcaption class="cap ${g.cap}"><span class="n"></span></figcaption>`;
+  gal.appendChild(el);
+  const img = new Image(); img.decoding = "async"; img.src = SRC + g.src;
+  const it = {g, el, img, idx: i, label: "SHOT " + String(n).padStart(2,"0"), n: el.querySelector(".n"), cv: el.querySelector("canvas"), rev: -1};
+  it.cover = Cover(it.cv, i + 20, (ctx, W, H) => { if (img.complete && img.naturalWidth) ctx.drawImage(img, 0, 0, W, H); else { ctx.fillStyle = "rgba(255,255,255,.08)"; ctx.fillRect(0,0,W,H); } });
+  img.onload = () => { it.rev = -1; };
+  return it;
+});
+
+const smooth = x => x <= 0 ? 0 : x >= 1 ? 1 : x*x*(3 - 2*x);
+let running = false;
+function frame(){
+  const vh = innerHeight, mid = vh / 2, narrow = innerWidth <= 760;
+  for (const it of shots){
+    const r = it.el.getBoundingClientRect();
+    if (r.bottom < -vh*.5 || r.top > vh*1.5) { if (it.loop && !it.video.paused) it.video.pause(); continue; }
+    const gap = mid < r.top ? r.top - mid : mid > r.bottom ? mid - r.bottom : 0;
+    const near = gap / (vh * .5);
+    if (it.loop){
+      if (r.top < vh && r.bottom > 0){ if (it.video.paused) it.video.play().catch(() => {}); }
+      if (near < .2 && !it.named){ it.named = true; type(it.n, it.g.name, 30).then(() => { it.d.textContent = "// " + it.g.d; }); }
+      continue;
+    }
+    const d = r.top + r.height/2 - mid;
+    it.el.style.transform = reducedM || narrow ? "" : `translateY(${(-d * it.g.px).toFixed(1)}px)`;
+    const rv = reducedM ? 1 : smooth(1 - near / .7);
+    if (Math.abs(rv - it.rev) > .004){ it.rev = rv; it.cover.paint(rv); }
+    if (near < .12 && !it.named){ it.named = true; type(it.n, it.label, 30); }
+  }
+  if (running) requestAnimationFrame(frame);
+}
+new IntersectionObserver(es => { running = es[0].isIntersecting; if (running) requestAnimationFrame(frame); }, {threshold:0}).observe(gal);
+document.fonts.ready.then(() => { shots.forEach(it => it.cover && it.cover.setup()); frame(); });
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { shots.forEach(it => { if (it.cover){ it.cover.setup(); it.rev = -1; } }); frame(); }, 120); });
+
+/* ---------- crédits, tapés ligne par ligne ---------- */
+const C = [
+  ["Executive Creative Director", "Adrien Mancel & Paul-Émile Raymond"],
+  ["Art Director", "Florian Amoneau"],
+  ["Copywriter", "Thomas Blanc"],
+  ["Developer", "Apfel"],
+  null,
+  ["2024 // Effie", "Silver"]
+];
+const cl = document.getElementById("clist");
+const rows = C.map(c => {
+  const li = document.createElement("li");
+  if (!c){ li.className = "gap"; cl.appendChild(li); return null; }
+  li.innerHTML = `<span class="l"></span><span class="lead" aria-hidden="true"></span><span class="r"></span>`;
+  li.setAttribute("aria-label", `${c[0]} : ${c[1]}`);
+  cl.appendChild(li);
+  return {li, l: c[0].toUpperCase(), r: c[1].toUpperCase(), el: li.querySelector(".l"), er: li.querySelector(".r")};
+}).filter(Boolean);
+async function typeRow(row){
+  const k = caret(); row.el.textContent = "";
+  const m = row.l.match(/^(\d{4})( \/\/ )(.*)$/);
+  const segs = m ? [["y", m[1]], ["sep", m[2]], ["", m[3]]] : [["", row.l]];
+  for (const [cls, txt] of segs){
+    const sp = document.createElement("span"); if (cls) sp.className = cls; row.el.appendChild(sp);
+    for (const c of txt){ sp.textContent += c; row.el.appendChild(k); if (!reducedM) await sleep(14); }
+  }
+  row.li.classList.add("on"); if (!reducedM) await sleep(330);
+  row.er.textContent = "";
+  for (const c of row.r){ row.er.textContent += c; row.er.appendChild(k); if (!reducedM) await sleep(16); }
+  k.remove();
+}
+new IntersectionObserver(async (es, io) => {
+  if (!es[0].isIntersecting) return; io.disconnect();
+  for (const r of rows){ await typeRow(r); await sleep(reducedM ? 0 : 90); }
+}, {rootMargin:"0px 0px -20% 0px"}).observe(cl);
+
+/* projet suivant : le nom se retape au survol */
+const nx = document.getElementById("nextT"), nxt = nx.textContent;
+nx.closest("a").addEventListener("mouseenter", () => { if (!reducedM) type(nx, nxt, 18); });
+})();
+</script>
+</body>
+</html>
