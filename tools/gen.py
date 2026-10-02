@@ -22,7 +22,7 @@ CW = ("Copywriter", "Thomas Blanc")
 # options : loop (carré sur mobile), clean (sans ombre ni fond), nat (proportions d'origine)
 P = [
   dict(slug="building-tomorrow", fn="BUILDING_TOMORROW.mp4", name="Building Tomorrow", client="Dassault Systèmes",
-       h1="Le B2B sexy",
+       h1="Le B2B aussi peut être sexy.",
        p="On est parti de ça.",
        hero=("video", u("2024/11/PL01_Seine_v3.mp4"), None, {"nat"}),   # TODO : logo par-dessus la boucle
        media=[("img", u("2024/11/buildingtomorrow-data.png"), "Boring_And_Confusing_Screenshot_01.png", {"nat", "small"}),

@@ -17,7 +17,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Building Tomorrow · Thomas &amp; Florian</title>
-<meta name="description" content="Building Tomorrow pour Dassault Systèmes : Le B2B sexy">
+<meta name="description" content="Building Tomorrow pour Dassault Systèmes : Le B2B aussi peut être sexy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wdth,wght@75..112.5,300..800&display=swap">
@@ -227,7 +227,7 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 
   <section class="intro" id="intro">
     <div class="kick">Dassault Systèmes</div>
-    <h1 id="ideaT" aria-label="Le B2B sexy"></h1>
+    <h1 id="ideaT" aria-label="Le B2B aussi peut être sexy."></h1>
     <p><span>On est parti de ça.</span></p>
   </section>
 
@@ -379,7 +379,7 @@ const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
-const TITLE = "Le B2B sexy";
+const TITLE = "Le B2B aussi peut être sexy.";
 const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });
 const bar = document.createElement("span"); bar.className = "bar"; h1.appendChild(bar);
 function placeBar(i){
