@@ -17,7 +17,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Building Tomorrow · Thomas &amp; Florian</title>
-<meta name="description" content="Building Tomorrow pour Dassault Systèmes : Le B2B aussi peut être sexy.">
+<meta name="description" content="Building Tomorrow pour Dassault Systèmes : Le B2B sexy">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wdth,wght@75..112.5,300..800&display=swap">
@@ -83,6 +83,13 @@ main{padding:4vh 0 16vh}
 .nat .box video,.nat .box img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain;box-shadow:0 18px 50px rgba(1,8,36,.12)}
 .nat.clean .box video,.nat.clean .box img{box-shadow:none}
 .nat.tall{--w:440px}
+.m.small{--w:560px}
+.m.big{--w:1240px}
+.say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
+.say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.say + .m{margin-top:8vh}
+/* dev control : décalages gauche / droite activables */
+body.nodx .m{--dx:0px !important}
 .pair{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,80px);margin:12vh auto 0;padding:0 16px;max-width:1040px}
 .pair .m{width:min(400px,48%);margin:0;transform:none}
 .pair .m:last-child{margin-top:8vh}
@@ -162,7 +169,9 @@ main{padding:4vh 0 16vh}
   .intro{margin:6vh auto}
   .intro h1{margin-top:14px}
   .intro p{margin-top:3vh}
-  .v1,.v2,.v3,.v4,.intro + .m,.pair{margin-top:6vh}
+  .v1,.v2,.v3,.v4,.intro + .m,.pair,.say{margin-top:6vh}
+  .say + .m{margin-top:5vh}
+  .m.small{--w:76vw}
   .pair .m:last-child{margin-top:4vh}
   .gal{padding:6vh 16px}
   .row{gap:3.5vh 14px}
@@ -218,22 +227,26 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 
   <section class="intro" id="intro">
     <div class="kick">Dassault Systèmes</div>
-    <h1 id="ideaT" aria-label="Le B2B aussi peut être sexy."></h1>
-    <p><span>Pour démontrer les fonctionnalités de sa plateforme de construction, nous avons proposé à Dassault Systèmes de créer le case study d’un extraordinaire projet de construction fictif : une tour Eiffel élaborée avec les techniques et les enjeux du XXIe siècle grâce à la plateforme de Dassault Systèmes.</span></p>
+    <h1 id="ideaT" aria-label="Le B2B sexy"></h1>
+    <p><span>On est parti de ça.</span></p>
   </section>
 
-  <figure class="m v1 nat">
+  <figure class="m v1 nat small">
     <div class="box"><img loading="lazy" decoding="async" src="https://thomasetflorian.com/wp-content/uploads/2024/11/buildingtomorrow-data.png" alt="Building Tomorrow, média 1"></div>
-    <figcaption class="cap right" data-t="On_est_partis_de_ça.png"></figcaption>
+    <figcaption class="cap right" data-t="Boring_And_Confusing_Screenshot_01.png"></figcaption>
   </figure>
 
-  <figure class="m v2 loop nat">
-    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/PL02_Proche_v2-Cut.mov" aria-label="Building Tomorrow, média 2"></video></div>
-    <figcaption class="cap left" data-t="Pour_arriver_à_ça.mov"></figcaption>
+  <p class="say"><span>Pour arriver à ça.</span></p>
+
+  <figure class="m v2 big nat">
+    <div class="box"><video muted loop playsinline preload="metadata" src="https://thomasetflorian.com/wp-content/uploads/2024/11/PL02_Proche_v2-Cut.mov" aria-label="Building Tomorrow, média 3"></video></div>
+    <figcaption class="cap left" data-t="Building_Tomorrow_Reveal.mov"></figcaption>
   </figure>
+
+  <p class="say"><span>Pour démontrer les fonctionnalités de sa plateforme de construction, nous avons proposé à Dassault Systèmes de créer le case study d’un extraordinaire projet de construction fictif : une tour Eiffel élaborée avec les techniques et les enjeux du XXIe siècle grâce à la plateforme de Dassault Systèmes.</span></p>
 
   <figure class="m v3 nat">
-    <div class="box"><img loading="lazy" decoding="async" src="https://thomasetflorian.com/wp-content/uploads/2024/11/DS_BuildingTomorrow_Board_Final2-scaled.jpg" alt="Building Tomorrow, média 3"></div>
+    <div class="box"><img loading="lazy" decoding="async" src="https://thomasetflorian.com/wp-content/uploads/2024/11/DS_BuildingTomorrow_Board_Final2-scaled.jpg" alt="Building Tomorrow, média 5"></div>
     <figcaption class="cap right" data-t="DS_BuildingTomorrow_Board_Final2.jpg"></figcaption>
   </figure>
 </main>
@@ -271,6 +284,7 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
     <div><div class="lb">Couleur</div><div class="seg" data-k="color"><button data-v="bleu">Bleu</button><button data-v="nuit">Nuit</button><button data-v="clair">Clair</button></div></div>
     <div class="seg"><button id="devPlay" type="button">↻ Rejouer</button></div>
     <div><div class="lb">Galerie décalage <span id="offV"></span></div><input type="range" id="devOff" min="0" max="100" step="1"></div>
+    <div><div class="lb">Décalages</div><div class="seg" data-k="dx"><button data-v="on">On</button><button data-v="off">Off</button></div></div>
     <div><div class="lb">Règle</div><div class="seg" data-k="rule"><button data-v="on">On</button><button data-v="off">Off</button></div></div>
   </div>
   <button type="button" id="devBtn" aria-expanded="false">DEV</button>
@@ -338,7 +352,7 @@ function asciiCover(box, bg, fg){
 }
 /* dev control : réglages gardés dans le navigateur */
 const PAL = {bleu:["#0000EE","#FFFFFF"], nuit:["#010824","#5A5AFF"], clair:["#ECEDF3","#0B1446"]};
-const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
+const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on", dx:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
 const saveDev = () => { try { localStorage.setItem("tf-dev", JSON.stringify(dev)); } catch(e){} };
 function loader(){
   if (reducedM){ document.documentElement.classList.remove("al"); return; }
@@ -360,7 +374,7 @@ const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
-const TITLE = "Le B2B aussi peut être sexy.";
+const TITLE = "Le B2B sexy";
 const chars = [...TITLE].map(c => { const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); return sp; });
 const bar = document.createElement("span"); bar.className = "bar"; h1.appendChild(bar);
 function placeBar(i){
@@ -378,7 +392,7 @@ new IntersectionObserver(async (es, io) => {
 }, {rootMargin:"0px 0px -20% 0px"}).observe(intro);
 
 /* paragraphes : jamais moins de trois mots sur la dernière ligne */
-document.querySelectorAll(".intro p span").forEach(el => {
+document.querySelectorAll(".intro p span, .say span").forEach(el => {
   const w = el.textContent.split(" ");
   if (w.length > 4) el.textContent = w.slice(0, -3).join(" ") + " " + w.slice(-3).join("\u00A0");
 });
@@ -443,12 +457,13 @@ function syncDev(){
   pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", dev[sg.dataset.k] === b.dataset.v)));
   rng.value = dev.off; document.getElementById("offV").textContent = dev.off;
   ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);
+  document.body.classList.toggle("nodx", dev.dx === "off");
 }
 devBtn.addEventListener("click", () => { pan.hidden = !pan.hidden; devBtn.setAttribute("aria-expanded", !pan.hidden); });
 pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   dev[sg.dataset.k] = b.dataset.v; saveDev(); syncDev();
-  if (sg.dataset.k !== "rule") playAscii();
+  if (sg.dataset.k === "scope" || sg.dataset.k === "color") playAscii();
 }));
 document.getElementById("devPlay").addEventListener("click", playAscii);
 rng.addEventListener("input", () => { dev.off = +rng.value; saveDev(); syncDev(); });

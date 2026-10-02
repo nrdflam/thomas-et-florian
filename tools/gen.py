@@ -22,11 +22,14 @@ CW = ("Copywriter", "Thomas Blanc")
 # options : loop (carré sur mobile), clean (sans ombre ni fond), nat (proportions d'origine)
 P = [
   dict(slug="building-tomorrow", fn="BUILDING_TOMORROW.mp4", name="Building Tomorrow", client="Dassault Systèmes",
-       h1="Le B2B aussi peut être sexy.",
-       p="Pour démontrer les fonctionnalités de sa plateforme de construction, nous avons proposé à Dassault Systèmes de créer le case study d’un extraordinaire projet de construction fictif : une tour Eiffel élaborée avec les techniques et les enjeux du XXIe siècle grâce à la plateforme de Dassault Systèmes.",
-       hero=("video", u("2024/11/PL01_Seine_v3.mp4"), None, {"nat"}),
-       media=[("img", u("2024/11/buildingtomorrow-data.png"), "On_est_partis_de_ça.png", {"nat"}),
-              ("video", u("2024/11/PL02_Proche_v2-Cut.mov"), "Pour_arriver_à_ça.mov", {"nat", "loop"}),
+       h1="Le B2B sexy",
+       p="On est parti de ça.",
+       hero=("video", u("2024/11/PL01_Seine_v3.mp4"), None, {"nat"}),   # TODO : logo par-dessus la boucle
+       media=[("img", u("2024/11/buildingtomorrow-data.png"), "Boring_And_Confusing_Screenshot_01.png", {"nat", "small"}),
+              ("txt", "Pour arriver à ça."),
+              ("video", u("2024/11/PL02_Proche_v2-Cut.mov"), "Building_Tomorrow_Reveal.mov", {"nat", "big"}),
+              ("txt", "Pour démontrer les fonctionnalités de sa plateforme de construction, nous avons proposé à Dassault Systèmes de créer le case study d’un extraordinaire projet de construction fictif : une tour Eiffel élaborée avec les techniques et les enjeux du XXIe siècle grâce à la plateforme de Dassault Systèmes."),
+              # TODO : vidéo de case YouTube (lien à fournir) → ("yt", "<ID>", "VIDEO_CASE.mp4", set())
               ("img", u("2024/11/DS_BuildingTomorrow_Board_Final2-scaled.jpg"), "DS_BuildingTomorrow_Board_Final2.jpg", {"nat"})],
        gal=[], credits=[ECD_AP, CW, ("Production", "Gang Life")],
        awards=[("2023", "THE DRUM AWARDS_WINNER", "B2B Content"), ("2023", "THE DRUM AWARDS_WINNER", "B2B Response to change"),
@@ -145,6 +148,13 @@ def build(i, d):
 .nat .box video,.nat .box img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain;box-shadow:0 18px 50px rgba(1,8,36,.12)}
 .nat.clean .box video,.nat.clean .box img{box-shadow:none}
 .nat.tall{--w:440px}
+.m.small{--w:560px}
+.m.big{--w:1240px}
+.say{width:min(960px, calc(100% - 32px));max-width:60ch;margin:12vh auto 0;text-align:center;font-family:var(--script);font-size:16px;line-height:1.6;text-wrap:pretty}
+.say span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.say + .m{margin-top:8vh}
+/* dev control : décalages gauche / droite activables */
+body.nodx .m{--dx:0px !important}
 .pair{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,80px);margin:12vh auto 0;padding:0 16px;max-width:1040px}
 .pair .m{width:min(400px,48%);margin:0;transform:none}
 .pair .m:last-child{margin-top:8vh}
@@ -152,7 +162,7 @@ def build(i, d):
 .m img{display:block;width:100%}""")
     rep("  .logo .box,.bottle .box{aspect-ratio:1/1}",
         "  .loop .box{aspect-ratio:1/1}\n  .nat.loop .box video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover}")
-    rep("  .case{margin-top:5vh}\n  .bottle{margin-top:6vh}", "  .v1,.v2,.v3,.v4,.intro + .m,.pair{margin-top:6vh}\n  .pair .m:last-child{margin-top:4vh}")
+    rep("  .case{margin-top:5vh}\n  .bottle{margin-top:6vh}", "  .v1,.v2,.v3,.v4,.intro + .m,.pair,.say{margin-top:6vh}\n  .say + .m{margin-top:5vh}\n  .m.small{--w:76vw}\n  .pair .m:last-child{margin-top:4vh}")
     rep(".row img{display:block;width:100%;aspect-ratio:16/9;", ".row img{display:block;width:100%;aspect-ratio:var(--gr,16/9);")
 
     # ---- contenu principal
@@ -167,13 +177,15 @@ def build(i, d):
     <h1 id="ideaT" aria-label="{esc(fr(d["h1"]))}"></h1>{para}
   </section>
 '''
-    k = 0; ms = d["media"]
+    k = 0; ms = d["media"]; vi = 0
     while k < len(ms):
         m = ms[k]
+        if m[0] == "txt":                                  # paragraphe entre deux médias
+            main += f'\n  <p class="say"><span>{esc(fr(m[1]))}</span></p>\n'; k += 1; continue
         if "tall" in m[3] and k + 1 < len(ms) and "tall" in ms[k + 1][3]:   # deux formats verticaux côte à côte
             main += '\n  <div class="pair">\n' + media_html(m, "v2", f'{d["name"]}, média {k + 1}') + media_html(ms[k + 1], "v1", f'{d["name"]}, média {k + 2}') + "  </div>\n"
             k += 2; continue
-        main += "\n" + media_html(m, VARIANTS[k % 4], f'{d["name"]}, média {k + 1}'); k += 1
+        main += "\n" + media_html(m, VARIANTS[vi % 4], f'{d["name"]}, média {k + 1}'); k += 1; vi += 1
     s = s[:a] + main + s[b:]
     rep('const TITLE = "Protéger les joueurs aussi bien en jeu que dans la vraie vie.";', f"const TITLE = {json.dumps(fr(d['h1']), ensure_ascii=False)};")
 
@@ -191,6 +203,12 @@ const G = [1, 2, 3, 4, 6, 10];''', f"const G = {json.dumps(g)};")
     f.style.setProperty("--z", (1 + (Z[j] - 1) * k).toFixed(3));
     f.style.setProperty("--ox", (OX[j] * k).toFixed(1) + "px"); f.style.setProperty("--oy", (OY[j] * k).toFixed(1) + "px");""")
     rep("/* galerie : six images sur deux lignes, sur la bande bleue */", "/* galerie : les images par lignes de trois, sur la bande bleue */")
+
+    rep('<div><div class="lb">Règle</div><div class="seg" data-k="rule">', '<div><div class="lb">Décalages</div><div class="seg" data-k="dx"><button data-v="on">On</button><button data-v="off">Off</button></div></div>\n    <div><div class="lb">Règle</div><div class="seg" data-k="rule">')
+    rep('{scope:"page", color:"bleu", off:0, rule:"on"}', '{scope:"page", color:"bleu", off:0, rule:"on", dx:"on"}')
+    rep('  ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);', '  ruler.hidden = dev.rule !== "on"; buildRuler(); offGal(dev.off);\n  document.body.classList.toggle("nodx", dev.dx === "off");')
+    rep('  if (sg.dataset.k !== "rule") playAscii();', '  if (sg.dataset.k === "scope" || sg.dataset.k === "color") playAscii();')
+    rep('document.querySelectorAll(".intro p span").forEach(el => {', 'document.querySelectorAll(".intro p span, .say span").forEach(el => {')
 
     # ---- reveal « photo » : le premier média de la page
     rep('logoCover = asciiCover(document.querySelector(".logo .box"), ...PAL[dev.color]); logoCover.play(150);',
