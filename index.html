@@ -279,7 +279,7 @@ a{color:var(--blue)}
 </section>
 <footer class="foot" aria-label="Contact">
   <h2><span aria-hidden="true">*** </span>THOMAS &amp; FLORIAN<span aria-hidden="true"> ***</span></h2>
-  <a href="mailto:florian.amoneau@gmail.com" class="ax">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
+  <a href="#contact" data-m="moc.liamg@uaenoma.nairolf" class="ax">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
 </footer>
 
 
@@ -743,7 +743,7 @@ document.fonts.ready.then(() => {
     {s:"L", y:"2012", t:"Comic Sans Project", p:"À l’époque, avoir un Tumblr et se moquer de la Comic Sans était tellement à la mode que ce projet assez mineur a pris une dimension mondiale : 1,5 million de visiteurs uniques. <a href=\"https://comicsansproject.tumblr.com/\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Voir<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
     {s:"R", y:"2017 → 2024", t:"Aliens et les Garçons", p:"Un podcast d’écriture de science-fiction qui ne se prend pas au sérieux. Un partenariat avec Usbek\u00A0&\u00A0Rica, un livre auto-édité et 100 000 écoutes plus tard, on se demande encore comment ça a pu marcher. <a href=\"https://aliensetlesgarcons.space/\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Écouter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
     {s:"L", y:"2026", t:"Comment voir dans le noir", p:"CRÉATIF #2 publie son livre aux éditions des Corps Conducteurs. <a href=\"https://www.lescorpsconducteurs.fr/nos-livres\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Lire<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
-    {s:"R", y:today, t:"VML Paris", p:"Ils travaillent en agence et continuent leurs projets, en solo comme à deux, toujours à l’affût d’une nouvelle opportunité créative. <a href=\"mailto:florian.amoneau@gmail.com\" class=\"ax\">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>", now:true}
+    {s:"R", y:today, t:"VML Paris", p:"Ils travaillent en agence et continuent leurs projets, en solo comme à deux, toujours à l’affût d’une nouvelle opportunité créative. <a href=\"#contact\" data-m=\"moc.liamg@uaenoma.nairolf\" class=\"ax\">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>", now:true}
   ];
   const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const tl = document.getElementById("tl"), ol = document.getElementById("ents"), photo = document.getElementById("photo");
@@ -872,5 +872,12 @@ document.fonts.ready.then(() => {
 })();
 </script>
 
+<script>
+/* adresse mail : absente du code en clair (contre les robots), reconstituée au survol, au focus ou au clic */
+(() => {
+  const arm = e => { const a = e.target.closest && e.target.closest("a[data-m]"); if (a) a.href = "mailto:" + [...a.dataset.m].reverse().join(""); };
+  ["pointerover", "focusin", "touchstart", "click"].forEach(ev => document.addEventListener(ev, arm, {capture:true, passive:true}));
+})();
+</script>
 </body>
 </html>
