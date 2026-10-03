@@ -1,30 +1,50 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<script>
-/* chargement ASCII : seulement en arrivant de la home (ou de l'extérieur), jamais d'une page projet à une autre */
-(function(){try{
-  var r = document.referrer, same = false, home = false;
-  try { var u = new URL(r); same = u.origin === location.origin; home = /\/(index\.html)?$/.test(u.pathname); } catch(e){}
-  window.TF_INTRO = !(same && !home);
-  var d = {scope:"page", color:"bleu"}; try { Object.assign(d, JSON.parse(localStorage.getItem("tf-dev") || "{}")); } catch(e){}
-  if (window.TF_INTRO && d.scope === "page" && !matchMedia("(prefers-reduced-motion: reduce)").matches){
-    document.documentElement.classList.add("al");
-    document.documentElement.style.setProperty("--alc", {bleu:"#0000EE", nuit:"#010824", clair:"#ECEDF3"}[d.color] || "#0000EE");
-  }
-}catch(e){}})();
-</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Avant tout affichage :
+   - chargement ASCII plein écran seulement en arrivant de la home (ou de l'extérieur), jamais d'une page projet à une autre ;
+   - le bouton DEV n'apparaît que si on est passé une fois par ?dev (?dev=0 pour le masquer). */
+(function(){
+  var root = document.documentElement;
+  try {
+    var q = location.search;
+    if (/[?&]dev=0\b/.test(q)) localStorage.removeItem("tf-dev-show");
+    else if (/[?&]dev\b/.test(q)) localStorage.setItem("tf-dev-show", "1");
+    if (localStorage.getItem("tf-dev-show") === "1") root.classList.add("dev-on");
+  } catch(e){}
+  var same = false, home = false;
+  try { var u = new URL(document.referrer); same = u.origin === location.origin; home = /\/(index\.html)?$/.test(u.pathname); } catch(e){}
+  window.TF_INTRO = !(same && !home);
+  var COLORS = {bleu:"#0000EE", nuit:"#010824", clair:"#ECEDF3"}, d = {};
+  try { d = JSON.parse(localStorage.getItem("tf-dev") || "{}") || {}; } catch(e){}
+  var scope = d.scope || "page", color = COLORS[d.color] ? d.color : "bleu";
+  if (window.TF_INTRO && scope === "page" && !matchMedia("(prefers-reduced-motion: reduce)").matches){
+    root.classList.add("al"); root.style.setProperty("--alc", COLORS[color]);
+    // filet de sécurité : quoi qu'il arrive au script de la page, le cache se lève
+    setTimeout(function(){ root.classList.remove("al"); }, 3000);
+  }
+})();
+</script>
 <title>The Safety Squad · Thomas &amp; Florian</title>
-<meta name="description" content="The Safety Squad pour Nuk : Nuk veut prendre soin de tous les bébés.">
+<meta name="description" content="Alors on leur a proposé d’offrir leur technologie de biberon anti-brûlures directement dans leurs publicités. Ils ont adoré l’idée. Nous avons mis la…">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="The Safety Squad · Thomas &amp; Florian">
+<meta property="og:description" content="Alors on leur a proposé d’offrir leur technologie de biberon anti-brûlures directement dans leurs publicités. Ils ont adoré l’idée. Nous avons mis la…">
+<meta property="og:image" content="https://thomasetflorian.com/wp-content/uploads/2024/10/all-scaled.jpg">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#0000EE">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wdth,wght@75..112.5,300..800&display=swap">
 <style>
-/* Page projet. Fond de base : le bureau gris pointillé. Une seule colonne centrée :
-   boucle logo (ou KV), sous-titre, texte, vidéo de case, boucle bouteille.
-   Puis la galerie sur le bleu, crédits et award côte à côte sur le nuit. Pas d'effet ASCII : le travail d'abord. */
+/* Page projet (générée par tools/gen.py à partir de tools/template.html : ne pas modifier les pages à la main).
+   Bureau gris pointillé, une colonne centrée : en-tête, titre tapé, texte, médias ;
+   puis la galerie sur le bleu, crédits et awards sur le nuit, navigation et signature sur le bleu. */
 :root{
   --desk:#ECEDF3;
   --ink:#0B1446;
@@ -65,20 +85,19 @@ main,section,nav,footer{position:relative;z-index:1}
 .mk.left,.mk.right{bottom:0;clip-path:polygon(50% 0,100% 100%,0 100%)}
 .top .fn{white-space:pre;overflow:hidden;text-overflow:ellipsis;min-width:0;font-weight:500}
 
-/* colonne : légers décalages, comme sur la home */
+/* colonne de médias centrés ; --w = largeur maximale du média */
 main{padding:4vh 0 16vh}
-.m{position:relative;width:min(var(--w), calc(100% - 32px));margin-left:auto;margin-right:auto;transform:translateX(var(--dx,0))}
+.m{position:relative;width:min(var(--w), calc(100% - 32px));margin-left:auto;margin-right:auto}
 .m .box{position:relative;aspect-ratio:16/9;background:#000;box-shadow:0 18px 50px rgba(1,8,36,.12)}
 .m canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .m video,.m iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
-.logo{--w:880px}
+.hero{--w:880px}
 .clean .box{box-shadow:none;background:transparent}
 .v1{--w:1040px;margin-top:12vh}
 .v2{--w:760px;margin-top:14vh}
 .v3{--w:900px;margin-top:14vh}
 .v4{--w:820px;margin-top:14vh}
 .intro + .m{margin-top:12vh}
-/* tous les médias centrés */
 /* proportions d'origine : le média garde son format, l'ombre passe sur le média */
 .nat .box{aspect-ratio:auto;background:none;box-shadow:none;display:flex;justify-content:center}
 .nat .box video,.nat .box img{position:static;display:block;width:auto;max-width:100%;height:auto;max-height:82vh;object-fit:contain;box-shadow:0 18px 50px rgba(1,8,36,.12)}
@@ -86,7 +105,7 @@ main{padding:4vh 0 16vh}
 .nat.tall{--w:440px}
 .m.small{--w:560px}
 /* pleine largeur : le média occupe tout l'écran */
-.m.full{width:100%;transform:none}
+.m.full{width:100%}
 .nat.full .box video,.nat.full .box img{width:100%;max-width:none;max-height:none;box-shadow:none}
 .m.full .cap{padding:0 16px}
 .m.full + .m.full{margin-top:0 !important}
@@ -98,7 +117,7 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
 .say + .m{margin-top:8vh}
 
 .pair{display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,5vw,80px);margin:12vh auto 0;padding:0 16px;max-width:1040px}
-.pair .m{width:min(400px,48%);margin:0;transform:none}
+.pair .m{width:min(400px,48%);margin:0}
 .pair .m:last-child{margin-top:8vh}
 .intro + .pair{margin-top:12vh}
 .m img{display:block;width:100%}
@@ -106,7 +125,6 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
 .cap{margin-top:10px;font-size:10.5px;letter-spacing:.06em;color:#8E93AB;white-space:pre;min-height:1.4em}
 .cap.right{text-align:right}
 .cap.left{text-align:left}
-@media (max-width:760px){.m{--dx:0!important}}
 
 .intro{width:min(960px, calc(100% - 32px));margin:12vh auto;text-align:center}
 .intro .kick{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
@@ -119,7 +137,7 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
 .intro.on p{opacity:1;transform:none}
 .intro p span{background:rgba(236,237,243,.6);box-shadow:0 0 0 4px rgba(236,237,243,.6);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 
-/* galerie sur le bleu : les six images côte à côte, tailles différentes ; SHOT_XX discret qui flotte avec la souris */
+/* galerie sur le bleu : grille de trois colonnes (rangée à faire glisser sur téléphone) ; les images flottent un peu avec la souris */
 .gal{position:relative;color:#fff;background:var(--blue);padding:12vh 16px}
 .row{display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:9vh clamp(16px,2.6vw,40px);max-width:1320px;margin:0 auto}
 .row figure{width:calc(88% * var(--z,1));justify-self:center;display:flex;flex-direction:column;gap:8px;transform:translate(var(--ox,0px),var(--oy,0px));transition:transform .5s cubic-bezier(.2,.7,.2,1),width .5s cubic-bezier(.2,.7,.2,1)}
@@ -198,8 +216,11 @@ main:has(> .m.full:last-child){padding-bottom:0 !important}
   .sig{padding-top:7vh;gap:22px}
   .foot{padding-bottom:8vh}
 }
-@media (prefers-reduced-motion:reduce){.intro p,.row figcaption{transition:none}}
-/* dev control */
+/* mouvement réduit : pas d'animation ni de transition */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/* dev control : visible seulement après un passage par ?dev */
+.dev{display:none}
+html.dev-on .dev{display:block}
 .dev{position:fixed;left:12px;bottom:12px;z-index:50;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff}
 .dev > button{font:inherit;color:#fff;background:var(--nuit);border:1px solid rgba(255,255,255,.25);padding:7px 10px;cursor:pointer}
 .dev .pan{margin-bottom:8px;background:var(--nuit);border:1px solid rgba(255,255,255,.25);padding:12px;display:grid;gap:12px;width:250px}
@@ -215,7 +236,7 @@ html.al body::after{content:"";position:fixed;inset:0;background:var(--alc,#0000
 #loader canvas{position:absolute;inset:0;width:100%;height:100%}
 
 /* flèches pixel, centrées sur la hauteur du texte */
-a.ax{display:inline-flex;align-items:center;gap:.6em}
+.ax{display:inline-flex;align-items:center;gap:.6em}
 .arr{flex:none;width:9px;height:7px}
 </style>
 </head>
@@ -230,8 +251,8 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 </header>
 
 <main>
-  <figure class="m logo clean loop nat">
-    <div class="box"><video muted loop playsinline autoplay preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/10/Nuk_IntroMonsters.mp4" aria-label="The Safety Squad, Nuk"></video></div>
+  <figure class="m hero clean loop nat">
+    <div class="box"><video muted loop playsinline preload="auto" src="https://thomasetflorian.com/wp-content/uploads/2024/10/Nuk_IntroMonsters.mp4" aria-label="The Safety Squad, Nuk"></video></div>
   </figure>
 
   <section class="intro" id="intro">
@@ -246,13 +267,13 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
   </figure>
 
   <figure class="m v2 clean">
-    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/H4puCuvlLUU?rel=0&modestbranding=1&playsinline=1" title="The Safety Squad, média 2" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
+    <div class="box"><iframe src="https://www.youtube-nocookie.com/embed/H4puCuvlLUU?rel=0&amp;playsinline=1" title="The Safety Squad, média 2" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <figcaption class="cap left" data-t="VIDEO_CASE_Safety_Squad.mp4"></figcaption>
   </figure>
 </main>
 
 <section class="gal" aria-label="Images du projet" style="--gr:auto">
-  <div class="row" id="row"></div>
+  <div class="row" id="row" tabindex="0" aria-label="Images, faire défiler"></div>
 </section>
 
 <section class="credits" aria-label="Crédits et awards">
@@ -292,19 +313,21 @@ a.ax{display:inline-flex;align-items:center;gap:.6em}
 
 <footer class="foot">
   <nav class="pn" aria-label="Navigation entre projets">
-    <a class="prev" href="immunity-potion.html"><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM1 2h1v1H1zM1 4h1v1H1zM2 1h1v1H2zM2 5h1v1H2zM3 0h1v1H3zM3 6h1v1H3z'/></svg><span class="t">IMMUNITY_POTION_Actimel.mp4</span></a>
+    <a class="prev" href="immunity-potion.html" aria-label="Projet précédent : Immunity Potion"><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM1 2h1v1H1zM1 4h1v1H1zM2 1h1v1H2zM2 5h1v1H2zM3 0h1v1H3zM3 6h1v1H3z'/></svg><span class="t">IMMUNITY_POTION_Actimel.mp4</span></a>
     <a class="all" href="index.html#projets"><svg class="ico2" viewBox="0 0 9 8" width="9" height="8" aria-hidden="true" shape-rendering="crispEdges" fill="currentColor"><rect x="0" y="3" width="1" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="2" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="2" y="7" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/></svg> Tous les projets</a>
-    <a class="next" href="cuisinella.html"><span class="t">CUISINEL-LÀ_Cuisinella.mp4</span><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
+    <a class="next" href="cuisinella.html" aria-label="Projet suivant : Cuisinel-là"><span class="t">CUISINEL-LÀ_Cuisinella.mp4</span><svg class='ar' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
   </nav>
   <div class="dash" aria-hidden="true"></div>
   <div class="sig">
-    <h2>*** THOMAS &amp; FLORIAN ***</h2>
+    <h2><span aria-hidden="true">*** </span>THOMAS &amp; FLORIAN<span aria-hidden="true"> ***</span></h2>
     <a class="ax" href="mailto:florian.amoneau@gmail.com">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>
   </div>
 </footer>
 
+<script type="application/json" id="tf-data">{"title": "Nuk veut prendre soin de tous les bébés.", "name": "The Safety Squad", "gallery": ["https://thomasetflorian.com/wp-content/uploads/2024/10/all-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/bug_seul-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/chaise_haute-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/flyer2-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/presse-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/sous-bock-scaled.jpg"]}</script>
 <script>
 (() => {
+const DATA = JSON.parse(document.getElementById("tf-data").textContent);
 const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function type(el, txt, speed = 22){
@@ -314,7 +337,7 @@ async function type(el, txt, speed = 22){
 }
 
 
-/* cache ASCII qui se dissout : toujours sur la boucle logo ; sur tous les médias si le toggle est activé */
+/* cache ASCII qui se dissout : plein écran au chargement, ou sur le premier média (réglage du dev control) */
 const G_ASCII = "/\\|_-+=*:.#";
 const hash = (i, j, s) => { let h = (i * 374761393 + j * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
 function asciiCover(box, bg, fg){
@@ -339,20 +362,28 @@ function asciiCover(box, bg, fg){
     ctx.globalAlpha = 1;
   }
   setup(); paint(0);
+  let last = 0;
+  const ro = new ResizeObserver(() => { if (cv.clientWidth !== W || cv.clientHeight !== H){ setup(); paint(last); } });
+  ro.observe(cv);
   return {
     cv,
     play(delay = 0, D = 1500){
       if (done) return; done = true;
       const t0 = performance.now() + delay;
-      const step = t => { if (!cv.isConnected) return; const k = Math.max(0, Math.min(1, (t - t0) / D)), e = k*k*(3-2*k); paint(e); if (k < 1) requestAnimationFrame(step); else cv.remove(); };
+      const step = t => { if (!cv.isConnected) return; const k = Math.max(0, Math.min(1, (t - t0) / D)), e = k*k*(3-2*k); last = e; paint(e); if (k < 1) requestAnimationFrame(step); else { ro.disconnect(); cv.remove(); } };
       requestAnimationFrame(step);
     },
-    kill(){ done = true; cv.remove(); }
+    kill(){ done = true; ro.disconnect(); cv.remove(); }
   };
 }
 /* dev control : réglages gardés dans le navigateur */
 const PAL = {bleu:["#0000EE","#FFFFFF"], nuit:["#010824","#5A5AFF"], clair:["#ECEDF3","#0B1446"]};
-const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}"); } catch(e){ return {}; } })());
+const dev = Object.assign({scope:"page", color:"bleu", off:0, rule:"on"}, (() => { try { return JSON.parse(localStorage.getItem("tf-dev") || "{}") || {}; } catch(e){ return {}; } })());
+// valeurs inattendues (ancienne version, saisie à la main) : on revient aux réglages par défaut
+if (!PAL[dev.color]) dev.color = "bleu";
+if (!["page", "photo", "off"].includes(dev.scope)) dev.scope = "page";
+if (!["on", "off"].includes(dev.rule)) dev.rule = "on";
+dev.off = Math.min(100, Math.max(0, +dev.off || 0));
 const saveDev = () => { try { localStorage.setItem("tf-dev", JSON.stringify(dev)); } catch(e){} };
 function loader(){
   if (reducedM){ document.documentElement.classList.remove("al"); return; }
@@ -362,28 +393,29 @@ function loader(){
   document.documentElement.classList.remove("al");
   c.play(120, 1700); setTimeout(() => host.remove(), 2000);
 }
-let logoCover = null;
-function logoReveal(){
-  if (reducedM) return; logoCover?.kill();
-  const lb = document.querySelector("main .m .box"); if (!lb) return;
-  logoCover = asciiCover(lb, ...PAL[dev.color]); logoCover.play(150);
+let firstCover = null;
+function firstMediaReveal(){
+  if (reducedM) return; firstCover?.kill();
+  const box = document.querySelector("main .m .box"); if (!box) return;
+  firstCover = asciiCover(box, ...PAL[dev.color]); firstCover.play(150);
 }
-function playAscii(){ if (dev.scope === "page") loader(); else if (dev.scope === "photo") logoReveal(); }
-if (window.TF_INTRO) playAscii();
+function playAscii(){ if (dev.scope === "page") loader(); else if (dev.scope === "photo") firstMediaReveal(); }
+try { if (window.TF_INTRO) playAscii(); } finally { document.documentElement.classList.remove("al"); }
 const titleAt = window.TF_INTRO && dev.scope === "page" ? 900 : 450;
 
 /* sous-titre : le texte est déjà mis en page (invisible), seules les lettres apparaissent et le curseur avance */
 const intro = document.getElementById("intro"), h1 = document.getElementById("ideaT");
-const TITLE = "Nuk veut prendre soin de tous les bébés.";
+const TITLE = DATA.title;
 const chars = []; [...TITLE].forEach(c => { if (c === "\n"){ h1.appendChild(document.createElement("br")); return; } const sp = document.createElement("span"); sp.className = "c"; sp.textContent = c; h1.appendChild(sp); chars.push(sp); });
 const bar = document.createElement("span"); bar.className = "bar"; h1.appendChild(bar);
 function placeBar(i){
+  if (!chars.length) return;
   const ref = chars[Math.max(0, i - 1)].getBoundingClientRect(), hr = h1.getBoundingClientRect();
   const x = i === 0 ? ref.left - hr.left : ref.right - hr.left;
   bar.style.transform = `translate(${x + 3}px, ${ref.top - hr.top + ref.height * .08}px)`; bar.style.height = (ref.height * .82) + "px";
 }
 document.fonts.ready.then(() => placeBar(0));
-addEventListener("resize", () => placeBar(chars.filter(c => c.classList.contains("on")).length));
+let rzb; addEventListener("resize", () => { clearTimeout(rzb); rzb = setTimeout(() => placeBar(chars.filter(c => c.classList.contains("on")).length), 100); });
 new IntersectionObserver(async (es, io) => {
   if (!es[0].isIntersecting) return; io.disconnect();
   if (!reducedM) await sleep(Math.max(0, titleAt - performance.now()));
@@ -397,28 +429,37 @@ document.querySelectorAll(".intro p span, .say span").forEach(el => {
   if (w.length > 4) el.textContent = w.slice(0, -3).join(" ") + " " + w.slice(-3).join("\u00A0");
 });
 
-/* légendes tapées à l'arrivée ; boucles jouées seulement quand elles sont à l'écran */
+/* légendes tapées à l'arrivée ; boucles jouées seulement quand elles sont à l'écran (jamais en mouvement réduit) */
 document.querySelectorAll(".cap[data-t]").forEach(c => new IntersectionObserver((es, io) => {
   if (es[0].isIntersecting){ io.disconnect(); type(c, c.dataset.t, 24); }
 }, {rootMargin:"0px 0px -15% 0px"}).observe(c));
-document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
+if (!reducedM) document.querySelectorAll("video").forEach(v => new IntersectionObserver(es => {
   es[0].isIntersecting ? v.play().catch(() => {}) : v.pause();
 }, {threshold:.15}).observe(v));
+// média introuvable : on retire la figure plutôt que de laisser un cadre noir
+document.querySelectorAll("main video, main img").forEach(m => {
+  const drop = () => { const f = m.closest("figure"); if (f) f.hidden = true; };
+  m.addEventListener("error", drop);
+  if (m.tagName === "IMG" && m.complete && !m.naturalWidth) drop();
+});
 
 /* galerie : les images par lignes de trois, sur la bande bleue */
-const G = ["https://thomasetflorian.com/wp-content/uploads/2024/10/all-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/bug_seul-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/chaise_haute-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/flyer2-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/presse-scaled.jpg", "https://thomasetflorian.com/wp-content/uploads/2024/10/sous-bock-scaled.jpg"];
-const row = document.getElementById("row"), gal = row.closest(".gal");
+const row = document.getElementById("row"), gal = row ? row.closest(".gal") : null;
 const fl = [];
-G.forEach((n, i) => {
-  const fig = document.createElement("figure");
-  fig.innerHTML = `<div class="fl"><img loading="lazy" decoding="async" src="${n}" alt="The Safety Squad, image ${i + 1}"></div><figcaption>Screenshot_${String(i + 1).padStart(2, "0")}.jpg</figcaption>`;
-  row.appendChild(fig);
-  fl.push({img: fig.querySelector(".fl"), cap: fig.querySelector("figcaption"), k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
+if (row) DATA.gallery.forEach((src, i) => {
+  const fig = document.createElement("figure"), wrapImg = document.createElement("div"), img = document.createElement("img"), cap = document.createElement("figcaption");
+  wrapImg.className = "fl";
+  img.loading = "lazy"; img.decoding = "async"; img.src = src; img.alt = `${DATA.name}, image ${i + 1}`;
+  img.addEventListener("error", () => fig.remove());
+  cap.textContent = `Screenshot_${String(i + 1).padStart(2, "0")}.jpg`;
+  wrapImg.appendChild(img); fig.append(wrapImg, cap); row.appendChild(fig);
+  fl.push({img: wrapImg, cap, k: .5 + (i % 3) * .3, s: i % 2 ? -1 : 1});
 });
 // décalages de taille et de position, dosés par le slider du dev control (50 = ± 10 % de taille)
 const Z = [1, .92, 1.08, .95, 1.06, .9], OX = [0, -16, 12, 14, -10, 8], OY = [-22, 30, -10, 26, -32, 14];
 function offGal(v){
   const k = v / 50;
+  if (!row) return;
   [...row.children].forEach((f, i) => {
     const j = i % Z.length;
     f.style.setProperty("--z", (1 + (Z[j] - 1) * k).toFixed(3));
@@ -426,12 +467,17 @@ function offGal(v){
   });
 }
 // images et légendes flottent légèrement avec la souris, chacune à son rythme
-if (!reducedM) gal.addEventListener("pointermove", e => {
+let pm = null, pmq = 0;
+if (gal && !reducedM) gal.addEventListener("pointermove", e => {
   if (e.pointerType !== "mouse") return;
-  const mx = e.clientX / innerWidth - .5, my = e.clientY / innerHeight - .5;
-  fl.forEach(f => {
-    f.img.style.transform = `translate(${(mx * 10 * f.k * f.s).toFixed(1)}px, ${(my * 8 * f.k).toFixed(1)}px)`;
-    f.cap.style.transform = `translate(${(mx * 22 * f.k).toFixed(1)}px, ${(my * 14 * f.k).toFixed(1)}px)`;
+  pm = e; if (pmq) return;
+  pmq = requestAnimationFrame(() => {
+    pmq = 0;
+    const mx = pm.clientX / innerWidth - .5, my = pm.clientY / innerHeight - .5;
+    fl.forEach(f => {
+      f.img.style.transform = `translate(${(mx * 10 * f.k * f.s).toFixed(1)}px, ${(my * 8 * f.k).toFixed(1)}px)`;
+      f.cap.style.transform = `translate(${(mx * 22 * f.k).toFixed(1)}px, ${(my * 14 * f.k).toFixed(1)}px)`;
+    });
   });
 });
 
@@ -449,7 +495,7 @@ function buildRuler(){
     const sp = document.createElement("span"); sp.className = "num"; sp.textContent = Math.abs(c); sp.style.left = (zero + c*CM) + "px"; nums.appendChild(sp);
   }
 }
-addEventListener("resize", buildRuler);
+let rzr; addEventListener("resize", () => { clearTimeout(rzr); rzr = setTimeout(buildRuler, 100); });
 
 /* dev control */
 const pan = document.getElementById("devPan"), devBtn = document.getElementById("devBtn"), rng = document.getElementById("devOff");
@@ -474,11 +520,11 @@ syncDev();
   const cv = document.getElementById("dots"), ctx = cv.getContext("2d");
   const GAP = 22, R = 1.05, BASE = .16, LIFE = 700, NEAR = 26;
   const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let W = 0, H = 0, dpr = 1, raf = 0;
+  let W = 0, H = 0, raf = 0;
   const trail = [];
   function size(){
-    dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight;
-    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+    // points d'un pixel : dpr 1 suffit (et on reste sous la limite de taille des canvas iOS)
+    W = innerWidth; H = innerHeight; cv.width = W; cv.height = H;
     draw(performance.now());
   }
   function draw(now){
@@ -514,8 +560,8 @@ syncDev();
     document.addEventListener("mousemove", e => track(e.clientX, e.clientY), {passive:true, capture:true});
   }
   document.addEventListener("visibilitychange", () => { if (!document.hidden){ cancelAnimationFrame(raf); raf = 0; draw(performance.now()); } });
-  addEventListener("scroll", () => { if (!raf) draw(performance.now()); }, {passive:true});
-  addEventListener("resize", size);
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(loop); }, {passive:true});
+  let rzd; addEventListener("resize", () => { clearTimeout(rzd); rzd = setTimeout(size, 100); });
   size();
 })();
 

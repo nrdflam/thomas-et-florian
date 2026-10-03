@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Le Canapé · Thomas & Florian</title>
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta name="description" content="Thomas & Florian, dans un canapé, en ASCII.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +79,13 @@ const IMG = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUE
 const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const SETS = {classic:"$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,\"^`'. ", simple:"@#%&*+=-:. ", blocs:"█▓▒░· ", binaire:"10", nom:"THOMAS&FLORIAN"};
 const dev = Object.assign({pal:"clair", set:"classic", cell:5, lo:40, hi:175, mouse:"push", rad:90, force:6}, (() => { try { return JSON.parse(localStorage.getItem("tf-canape2") || "{}"); } catch(e){ return {}; } })());
+// réglages enregistrés invalides : retour aux valeurs par défaut
+{ const D = {pal:"clair", set:"classic", cell:5, lo:40, hi:175, mouse:"push", rad:90, force:6};
+  if (!["clair", "bleu", "nuit"].includes(dev.pal)) dev.pal = D.pal;
+  if (!SETS[dev.set]) dev.set = D.set;
+  if (!["push", "on", "off"].includes(dev.mouse)) dev.mouse = D.mouse;
+  for (const [k, lo, hi] of [["cell", 5, 18], ["lo", 0, 120], ["hi", 120, 255], ["rad", 30, 220], ["force", 1, 20]]){ const v = +dev[k]; dev[k] = Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : D[k]; }
+}
 const save = () => { try { localStorage.setItem("tf-canape2", JSON.stringify(dev)); } catch(e){} };
 
 const cv = document.getElementById("ascii"), ctx = cv.getContext("2d"); window.__ctx = ctx;
@@ -240,7 +250,9 @@ pan.querySelectorAll(".seg[data-k]").forEach(sg => sg.addEventListener("click", 
 }));
 pan.querySelectorAll("[data-r]").forEach(r => r.addEventListener("input", () => { dev[r.dataset.r] = +r.value; save(); sync(); layout(); }));
 document.getElementById("devPlay").addEventListener("click", reveal);
-addEventListener("message", e => { if (e.data === "replay") reveal(); });
+// intégré dans la home (easter egg) : on n'écoute que la page parente, et Échap la prévient pour fermer
+addEventListener("message", e => { if (e.origin === location.origin && e.source === parent && e.data === "replay") reveal(); });
+if (parent !== window) addEventListener("keydown", e => { if (e.key === "Escape") parent.postMessage("close", location.origin); });
 
 let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(layout, 80); });
 sync();
