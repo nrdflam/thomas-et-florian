@@ -841,7 +841,7 @@ document.fonts.ready.then(() => {
   const behind = () => [...document.body.children].filter(el => el !== egg && el.tagName !== "SCRIPT");
   function open(){
     if (egg.classList.contains("on")) return;
-    if (!frame){ frame = document.createElement("iframe"); frame.src = "canape.html?embed=1"; frame.title = "Thomas et Florian dans le canapé"; egg.appendChild(frame); }
+    if (!frame){ frame = document.createElement("iframe"); frame.src = "canape.html?embed=1&v=20261005";   // v= : à changer à chaque mise à jour du canapé, pour ne pas servir une vieille version en cache frame.title = "Thomas et Florian dans le canapé"; egg.appendChild(frame); }
     else frame.contentWindow.postMessage("replay", location.origin);
     back = document.activeElement;
     behind().forEach(el => el.inert = true);
