@@ -184,6 +184,7 @@ a{color:var(--blue)}
 .ent .yr .k{display:inline-block;width:.55em;height:1.05em;background:var(--blue);vertical-align:-.15em;margin-right:-.55em;animation:blink 1.05s steps(1) infinite}
 .ent p{margin:.55em 0 0;font-family:var(--script);font-size:14px;line-height:1.5;opacity:0;transform:translateY(4px);transition:opacity .5s,transform .5s;text-wrap:pretty}
 .ent.on p{opacity:1;transform:none}
+.ent p s{text-decoration-thickness:1px;opacity:.7}
 .ent p a{color:var(--blue);font-family:var(--ui);font-size:11px;letter-spacing:.08em;text-decoration:none;white-space:nowrap}
 .ent p a:hover{text-decoration:underline}
 .ent.now .yr{color:var(--blue)}
@@ -503,8 +504,8 @@ document.fonts.ready.then(() => {
     {fn:"NUK_SAFETY_SQUAD.mp4",          href:"safety-squad",         vid:U + "2024/10/SafetySquad-Reveal.mov",                c:"#9BE8FF", l:20, w:30, r:"4/5",  cap:"right-top",    mt:16, px:.07,  lm:4,  wm:74,  aw:["EPICA_GOLD","CANNES LIONS_SHORTLIST"]},
     {fn:"CUISINEL-LÀ_Cuisinella.mp4",    href:"cuisinella",           vid:U + "2024/11/Cuisinella-Gif-Poulet.mp4",             c:"#FF9ED8", l:3,  w:58, r:"16/9", cap:"below-right",  mt:18, px:-.03, lm:0,  wm:100},
     {fn:"THE_PARISIAN_RENDEZ-VOUS.mp4",  href:"parisian-rendez-vous", vid:"assets/drugstore-loop.mp4",                         c:"#7CF29A", l:58, w:30, r:"3/4",  cap:"left-bottom",  mt:16, px:.06,  lm:26, wm:74,  aw:["CANNES LIONS_BRONZE","EPICA_GRAND PRIX"]},
-    {fn:"EUPHYTOSE_ÉTUDIANTS.mp4",       href:"euphytose-etudiants",  img:"assets/euphytose-etudiants-header.jpg",             c:"#FFFFFF", l:28, w:42, r:"1/1",  cap:"above-right",  mt:22, px:-.05, lm:6,  wm:82},
-    {fn:"EUPHYTOSE_STRESS.mp4",          href:"euphytose-stress",     img:"assets/euphytose-stress-header.jpg", pos:"77% center", c:"#FFB000", l:6, w:38, r:"4/5", cap:"right-mid",  mt:16, px:.04,  lm:0,  wm:80},
+    {fn:"EUPHYTOSE_ÉTUDIANTS.mp4",       href:"euphytose-etudiants",  vid:"assets/euphytose-etudiants-loop.mp4", pos:"48% center", c:"#FFFFFF", l:28, w:42, r:"1/1",  cap:"above-right",  mt:22, px:-.05, lm:6,  wm:82},
+    {fn:"EUPHYTOSE_STRESS.mp4",          href:"euphytose-stress",     vid:"assets/euphytose-stress-loop.mp4", pos:"80% center", c:"#FFB000", l:6, w:38, r:"4/5", cap:"right-mid",  mt:16, px:.04,  lm:0,  wm:80},
     {fn:"SYNAESTHESIA_Moët&Chandon.mp4", href:"synaesthesia",         img:"assets/synaesthesia-header.jpg",                    c:"#C7B8FF", l:38, w:54, r:"16/9", cap:"below-left",   mt:20, px:-.04, lm:10, wm:90}
   ];
   const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -742,8 +743,8 @@ document.fonts.ready.then(() => {
     {s:"R", y:"2009", t:"Rencontre à Sup de Pub", p:"Ils se rencontrent sur les bancs de l’école. Depuis, en bons dilettantes, ils multiplient les projets extra-publicitaires."},
     {s:"L", y:"2012", t:"Comic Sans Project", p:"À l’époque, avoir un Tumblr et se moquer de la Comic Sans était tellement à la mode que ce projet assez mineur a pris une dimension mondiale : 1,5 million de visiteurs uniques. <a href=\"https://comicsansproject.tumblr.com/\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Voir<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
     {s:"R", y:"2017 → 2024", t:"Aliens et les Garçons", p:"Un podcast d’écriture de science-fiction qui ne se prend pas au sérieux. Un partenariat avec Usbek\u00A0&\u00A0Rica, un livre auto-édité et 100 000 écoutes plus tard, on se demande encore comment ça a pu marcher. <a href=\"https://aliensetlesgarcons.space/\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Écouter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
-    {s:"L", y:"2026", t:"Comment voir dans le noir", p:"CRÉATIF #2 publie son livre aux éditions des Corps Conducteurs. <a href=\"https://www.lescorpsconducteurs.fr/nos-livres\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Lire<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
-    {s:"R", y:today, t:"VML Paris", p:"Ils travaillent en agence et continuent leurs projets, en solo comme à deux, toujours à l’affût d’une nouvelle opportunité créative. <a href=\"#contact\" data-m=\"moc.liamg@uaenoma.nairolf\" class=\"ax\">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>", now:true}
+    {s:"L", y:"2026", t:"Comment voir dans le noir", p:"CRÉATIF #2 publie <s>sa plus longue accroche</s> son premier roman aux éditions Les Corps Conducteurs. <a href=\"https://www.lescorpsconducteurs.fr/nos-livres\" target=\"_blank\" rel=\"noopener\" class=\"ax\">Lire<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>"},
+    {s:"R", y:today, t:"VML Paris", p:"CRÉATIF #1 et CRÉATIF #2 travaillent en agence et continuent à imaginer des tas de choses. Ils pourraient se reposer, mais ils préfèrent que vous les contactiez. <a href=\"#contact\" data-m=\"moc.liamg@uaenoma.nairolf\" class=\"ax\">Contacter<svg class='arr' viewBox='0 0 9 7' width='9' height='7' aria-hidden='true' shape-rendering='crispEdges' fill='currentColor'><path d='M0 3h9v1H0zM7 2h1v1H7zM7 4h1v1H7zM6 1h1v1H6zM6 5h1v1H6zM5 0h1v1H5zM5 6h1v1H5z'/></svg></a>", now:true}
   ];
   const reducedM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const tl = document.getElementById("tl"), ol = document.getElementById("ents"), photo = document.getElementById("photo");
@@ -752,7 +753,7 @@ document.fonts.ready.then(() => {
     const li = document.createElement("li");
     li.className = "ent " + e.s + (e.now ? " now" : "");
     const tail3 = str => { const m = str.match(/^(.*?)((?:\S+ ){2}\S+)(\s*(?:<a .*)?)$/s); return m && m[1].trim().split(" ").length > 1 ? m[1] + m[2].replace(/ /g, "\u00A0") + m[3] : str; };
-    const p = tail3(e.p).replace(/(\d) (\d{3})/g, "$1\u00A0$2").replace(/ %/g, "\u00A0%").replace(/ ([:;?!»])/g, "\u202F$1").replace(/« /g, "«\u202F");
+    const p = tail3(e.p).replace(/(\d) (\d{3})/g, "$1\u00A0$2").replace(/ %/g, "\u00A0%").replace(/ ([:;?!»])/g, "\u202F$1").replace(/« /g, "«\u202F").replace(/CRÉATIF #/g, "CRÉATIF\u00A0#");
     li.innerHTML = `<span class="nd" aria-hidden="true">*</span><div class="tx"><span class="yr"></span>${p ? `<p>${p}</p>` : ""}</div>`;
     ol.appendChild(li);
     return {e, li, nd: li.querySelector(".nd"), yr: li.querySelector(".yr"), state: 0};
