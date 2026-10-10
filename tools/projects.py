@@ -21,18 +21,21 @@ Médias : yt(id, légende), video(url, légende), img(url, légende), txt(texte)
   tall   format vertical (deux « tall » qui se suivent passent côte à côte)
   v1…v4  impose une taille de colonne (sinon elles alternent)
 """
-from urllib.parse import quote
+import re
 import unicodedata
 
-UPLOADS = "https://thomasetflorian.com/wp-content/uploads/"
+# Médias de l'ancien WordPress, rapatriés et compressés dans assets/wp/ (oct. 2026) :
+# images en .webp, vidéos en .mp4 H.264 sans son. u() garde le chemin d'origine
+# (année/mois/nom) pour retrouver le fichier source dans l'archive du WordPress.
+WP_MEDIA = "assets/wp/"
 
 
-def u(path, nfd=False):
-    """URL d'un fichier de l'ancien WordPress. nfd=True pour les noms dont les accents
-    ont été enregistrés décomposés (ex. « Moët » = e + tréma combinant)."""
-    if nfd:
-        path = unicodedata.normalize("NFD", path)
-    return UPLOADS + quote(path, safe="/-_.")
+def u(path):
+    """Chemin local d'un média rapatrié de l'ancien WordPress (wp-content/uploads/<path>)."""
+    stem, ext = path.rsplit("/", 1)[-1].rsplit(".", 1)
+    stem = unicodedata.normalize("NFKD", stem).encode("ascii", "ignore").decode().lower()
+    stem = re.sub(r"[^a-z0-9]+", "-", stem).strip("-")
+    return WP_MEDIA + stem + (".webp" if ext.lower() in ("jpg", "jpeg", "png") else ".mp4")
 
 
 def yt(vid, cap=None, *opts): return ("yt", vid, cap, set(opts))
@@ -142,7 +145,7 @@ PROJECTS = [
          p="Une nouvelle gamme de cocktails destinée à éveiller vos sens en fusionnant champagne et recettes de cocktails emblématiques. À travers cette campagne, nous nous sommes fixé comme objectif de faire ressentir au spectateur les sensations procurées par les cocktails, tout en déguisant une campagne d’image de marque en tutoriels de mixologie.",
          hero=img("assets/synaesthesia-header.jpg", None, "loop"),
          media=[yt("cQ46NoSYuZk", "FILM_Synaesthesia.mp4"),
-                video(u("2021/07/Slide1-MoëtSynesthesia-InstaStory-V5.mp4", nfd=True), None, "nat", "full", "loop"),
-                video(u("2021/07/Slide2-MoëtSynesthesia-Recipes-V2.mp4", nfd=True), None, "nat", "full", "loop")],
+                video(u("2021/07/Slide1-MoëtSynesthesia-InstaStory-V5.mp4"), None, "nat", "full", "loop"),
+                video(u("2021/07/Slide2-MoëtSynesthesia-Recipes-V2.mp4"), None, "nat", "full", "loop")],
          gal=[], credits=[("Creative Directors", "Paul-Émile Raymond & Adrien Mancel"), AD, CW, ("Directors", "Julien & Quentin")], awards=[]),
 ]

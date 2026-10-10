@@ -1,0 +1,56 @@
+# thomasetflorian.com : site statique hébergé chez OVH (Apache).
+# Ignoré par GitHub Pages ; n'agit qu'une fois le site envoyé sur l'hébergement OVH.
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# HTTPS obligatoire : à décommenter UNIQUEMENT une fois le certificat SSL actif
+# chez OVH, sinon le site devient inaccessible.
+# RewriteCond %{HTTPS} !=on
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule ^ https://thomasetflorian.com%{REQUEST_URI} [R=301,L]
+
+# www.thomasetflorian.com → thomasetflorian.com
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ %{REQUEST_SCHEME}://%1%{REQUEST_URI} [R=301,L]
+
+# Anciennes pages projet du WordPress : /portfolios/<slug>/ → /<slug>.html
+RewriteRule ^portfolios/(building-tomorrow|cuisinella|euphytose-etudiants|euphytose-stress|immunity-potion|parisian-rendez-vous|safety-squad|synaesthesia|the-infrastructors)/?$ /$1.html [R=301,L]
+RewriteRule ^portfolios/?(.*)$ / [R=301,L]
+
+# Anciennes pages et flux du WordPress → accueil
+RewriteRule ^(homepage|freelance-copywriter|coucou-disko|feed|comments/feed)/?$ / [R=301,L]
+RewriteRule ^(wp-admin|wp-content|wp-includes|wp-json)(/.*)?$ / [R=301,L]
+RewriteRule ^(wp-login|xmlrpc|wp-cron)\.php$ - [R=410,L]
+</IfModule>
+
+# Sécurité
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Ne jamais servir de fichiers cachés (.git, .DS_Store…) ni de sources
+<FilesMatch "^\.|\.(py|md|sh)$">
+Require all denied
+</FilesMatch>
+
+# Compression et cache
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType image/webp "access plus 1 month"
+ExpiresByType image/svg+xml "access plus 1 month"
+ExpiresByType video/mp4 "access plus 1 month"
+</IfModule>
+AddType image/webp .webp
+AddType video/mp4 .mp4

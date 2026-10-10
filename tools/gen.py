@@ -71,6 +71,9 @@ def validate(projects):
                 errors.append(f"{where} : identifiant YouTube invalide « {src} »")
             if kind in ("video", "img") and not src.startswith("https://") and not (ROOT / src).is_file():
                 errors.append(f"{where} : fichier local introuvable « {src} »")
+        for src in d.get("gal", []):
+            if not src.startswith("https://") and not (ROOT / src).is_file():
+                errors.append(f"{where} : image de galerie introuvable « {src} »")
         if d.get("gal") and not RATIO.fullmatch(d.get("gr", "16/9")):
             errors.append(f"{where} : format de galerie invalide « {d.get('gr')} »")
         for year, _, _ in d.get("awards", []):

@@ -496,13 +496,12 @@ document.fonts.ready.then(() => {
    un cache ASCII se dissout quand la case approche du centre de l'écran,
    et le nom de fichier se tape la première fois qu'elle y arrive */
 (() => {
-  const U = "https://thomasetflorian.com/wp-content/uploads/";
   const P = [
     {fn:"THE_INFRASTRUCTORS.mp4",        href:"the-infrastructors",   vid:"assets/infrastructors-arya-limonade.mp4",           c:"#B8FF5C", l:30, w:48, r:"16/9", cap:"below-right",  mt:0,  px:.04,  lm:4,  wm:94},
-    {fn:"BUILDING_TOMORROW.mp4",         href:"building-tomorrow",    vid:U + "2024/11/PL01_Seine_v3.mp4",                     c:"#FF5A36", l:8,  w:44, r:"4/5",  cap:"right-bottom", mt:16, px:.05,  lm:0,  wm:86,  aw:["GRAND PRIX DU BRAND CONTENT_GOLD","THE DRUM AWARDS_WINNER X2"]},
-    {fn:"IMMUNITY_POTION_Actimel.mp4",   href:"immunity-potion",      vid:U + "2024/11/IP-Logo.mov",                           c:"#FFD84D", l:48, w:44, r:"16/9", cap:"above-left",   mt:20, px:-.04, lm:12, wm:88,  aw:["EFFIE_SILVER"]},
-    {fn:"NUK_SAFETY_SQUAD.mp4",          href:"safety-squad",         vid:U + "2024/10/SafetySquad-Reveal.mov",                c:"#9BE8FF", l:20, w:30, r:"4/5",  cap:"right-top",    mt:16, px:.07,  lm:4,  wm:74,  aw:["EPICA_GOLD","CANNES LIONS_SHORTLIST"]},
-    {fn:"CUISINEL-LÀ_Cuisinella.mp4",    href:"cuisinella",           vid:U + "2024/11/Cuisinella-Gif-Poulet.mp4",             c:"#FF9ED8", l:3,  w:58, r:"16/9", cap:"below-right",  mt:18, px:-.03, lm:0,  wm:100},
+    {fn:"BUILDING_TOMORROW.mp4",         href:"building-tomorrow",    vid:"assets/wp/pl01-seine-v3.mp4",                     c:"#FF5A36", l:8,  w:44, r:"4/5",  cap:"right-bottom", mt:16, px:.05,  lm:0,  wm:86,  aw:["GRAND PRIX DU BRAND CONTENT_GOLD","THE DRUM AWARDS_WINNER X2"]},
+    {fn:"IMMUNITY_POTION_Actimel.mp4",   href:"immunity-potion",      vid:"assets/wp/ip-logo.mp4",                           c:"#FFD84D", l:48, w:44, r:"16/9", cap:"above-left",   mt:20, px:-.04, lm:12, wm:88,  aw:["EFFIE_SILVER"]},
+    {fn:"NUK_SAFETY_SQUAD.mp4",          href:"safety-squad",         vid:"assets/wp/safetysquad-reveal.mp4",                c:"#9BE8FF", l:20, w:30, r:"4/5",  cap:"right-top",    mt:16, px:.07,  lm:4,  wm:74,  aw:["EPICA_GOLD","CANNES LIONS_SHORTLIST"]},
+    {fn:"CUISINEL-LÀ_Cuisinella.mp4",    href:"cuisinella",           vid:"assets/wp/cuisinella-gif-poulet.mp4",             c:"#FF9ED8", l:3,  w:58, r:"16/9", cap:"below-right",  mt:18, px:-.03, lm:0,  wm:100},
     {fn:"THE_PARISIAN_RENDEZ-VOUS.mp4",  href:"parisian-rendez-vous", vid:"assets/drugstore-loop.mp4",                         c:"#7CF29A", l:58, w:30, r:"3/4",  cap:"left-bottom",  mt:16, px:.06,  lm:26, wm:74,  aw:["CANNES LIONS_BRONZE","EPICA_GRAND PRIX"]},
     {fn:"EUPHYTOSE_ÉTUDIANTS.mp4",       href:"euphytose-etudiants",  vid:"assets/euphytose-etudiants-loop.mp4", pos:"48% center", c:"#FFFFFF", l:28, w:42, r:"1/1",  cap:"above-right",  mt:22, px:-.05, lm:6,  wm:82},
     {fn:"EUPHYTOSE_STRESS.mp4",          href:"euphytose-stress",     vid:"assets/euphytose-stress-loop.mp4", pos:"80% center", c:"#FFB000", l:6, w:38, r:"4/5", cap:"right-mid",  mt:16, px:.04,  lm:0,  wm:80},
