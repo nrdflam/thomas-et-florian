@@ -8,11 +8,10 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# HTTPS obligatoire : à décommenter UNIQUEMENT une fois le certificat SSL actif
-# chez OVH, sinon le site devient inaccessible.
-# RewriteCond %{HTTPS} !=on
-# RewriteCond %{HTTP:X-Forwarded-Proto} !https
-# RewriteRule ^ https://thomasetflorian.com%{REQUEST_URI} [R=301,L]
+# HTTPS obligatoire (certificat Let's Encrypt actif depuis oct. 2026)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://thomasetflorian.com%{REQUEST_URI} [R=301,L]
 
 # www.thomasetflorian.com → thomasetflorian.com
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
